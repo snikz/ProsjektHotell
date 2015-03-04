@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AD63617B-47D9-456B-9913-4096EE7946F5}</ProjectGuid>
+    <ProjectGuid>{A81A5BB1-960D-4CEA-B44D-84EAB5CEDB37}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HotellDatabase</RootNamespace>
-    <AssemblyName>HotellDatabase</AssemblyName>
+    <RootNamespace>HotellDLL</RootNamespace>
+    <AssemblyName>HotellDLL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

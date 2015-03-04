@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 // The Pivot Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 
 namespace HotellApp
@@ -35,6 +36,8 @@ namespace HotellApp
         public PivotPage()
         {
             this.InitializeComponent();
+
+            
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
