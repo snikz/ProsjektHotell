@@ -8,7 +8,7 @@ namespace HotellDLL
 {
     /// <summary>
     /// Class
-    /// on mytestbranch
+    /// on mytestbranch test
     /// </summary>
     public class Class1
     {
