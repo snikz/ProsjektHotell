@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace HotellDLL
 {
+    /// <summary>
+    /// Class1
+    /// </summary>
     public class Class1
     {
     }
