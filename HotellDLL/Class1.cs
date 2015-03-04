@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace HotellDLL
 {
     /// <summary>
-    /// Class1
+    /// Class
+    /// on mytestbranch
     /// </summary>
     public class Class1
     {
