@@ -15,7 +15,6 @@ namespace HotellDesktop
     public class TestCommit
     {
         public string a = "a";
-        
     }
     // tewsting asihti
 }
