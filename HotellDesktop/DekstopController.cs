@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotellDesktop
 {
-    class Controller
+    class DekstopController
     {
     }
 }

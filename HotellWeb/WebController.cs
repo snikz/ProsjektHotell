@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HotellWeb
 {
-    public class Controller
+    public class WebController
     {
     }
 }

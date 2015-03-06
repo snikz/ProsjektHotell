@@ -9,7 +9,7 @@ namespace HotellApp
     /// <summary>
     /// Controller
     /// </summary>
-    class Controller
+    class AppController
     {
     }
 }
