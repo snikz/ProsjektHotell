@@ -1,22 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HotelManagement" Class="DatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=focusapp.duckdns.org;Initial Catalog=HotelManagement;Persist Security Info=True;User ID=hoteldbmanager" SettingsObjectName="HotellDLL.Properties.Settings" SettingsPropertyName="HotelManagementConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Room" Member="Rooms">
-    <Type Name="Room">
-      <Column Name="roomId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="bed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Service" Member="Services">
-    <Type Name="Service">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="roomId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="note" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-      <Column Name="status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
   <Table Name="dbo.Booking" Member="Bookings">
     <Type Name="Booking">
       <Column Name="bookingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -27,6 +10,7 @@
       <Column Name="checkedIn" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="checkedOut" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Guest_Booking" Member="Guest" ThisKey="guestId" OtherKey="guestId" Type="Guest" IsForeignKey="true" />
+      <Association Name="Room_Booking" Member="Room" ThisKey="roomId" OtherKey="roomId" Type="Room" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Guest" Member="Guests">
@@ -37,6 +21,26 @@
       <Column Name="email" Type="System.String" DbType="VarChar(40) NOT NULL" CanBeNull="false" />
       <Column Name="password" Type="System.String" DbType="VarChar(15)" CanBeNull="true" />
       <Association Name="Guest_Booking" Member="Bookings" ThisKey="guestId" OtherKey="guestId" Type="Booking" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Room" Member="Rooms">
+    <Type Name="Room">
+      <Column Name="roomId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="bed" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="size" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Room_Booking" Member="Bookings" ThisKey="roomId" OtherKey="roomId" Type="Booking" />
+      <Association Name="Room_Service" Member="Services" ThisKey="roomId" OtherKey="roomId" Type="Service" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Service" Member="Services">
+    <Type Name="Service">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="roomId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="note" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Room_Service" Member="Room" ThisKey="roomId" OtherKey="roomId" Type="Room" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
