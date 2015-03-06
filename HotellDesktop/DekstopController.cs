@@ -14,7 +14,8 @@ namespace HotellDesktop
 
     public class TestCommit
     {
-        public void minMetode();
+        public string a = "a";
+        
     }
     // tewsting asihti
 }
