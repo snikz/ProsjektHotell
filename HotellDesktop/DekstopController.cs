@@ -8,5 +8,6 @@ namespace HotellDesktop
 {
     class DekstopController
     {
+        //conformed
     }
 }
