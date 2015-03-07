@@ -1,0 +1,34 @@
+﻿<Window x:Class="HotellDesktop.NyReservasjon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Window1" Height="300" Width="505.333">
+    <Grid>
+        <ListView HorizontalAlignment="Left" ItemsSource="{Binding}" Height="100" Margin="182,26,0,0" VerticalAlignment="Top" Width="100">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=firstname}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBox x:Name="firstName" HorizontalAlignment="Left" Height="23" Margin="10,12,0,0" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="lastName"  HorizontalAlignment="Left" Height="23" Margin="10,40,0,0" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ePost" HorizontalAlignment="Left" Height="23" Margin="10,68,0,0" TextWrapping="Wrap" Text="Epost" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="password" HorizontalAlignment="Left" Height="23" Margin="10,96,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
+        <ListView x:Name="RoomView" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="91" Margin="10,172,0,0" VerticalAlignment="Top" Width="375">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Room" DisplayMemberBinding="{Binding Path=roomId}" />
+                    <GridViewColumn Header="Beds" DisplayMemberBinding="{Binding Path=bed}" />
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=price}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <DatePicker x:Name="checkInDate" Text="Checkin" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+        <DatePicker x:Name="checkOutDate" HorizontalAlignment="Left" Margin="117,143,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.837,-0.556" SelectedDateChanged="DatePicker_SelectedDateChanged_1"/>
+        <TextBox x:Name="BedsText" HorizontalAlignment="Left" Height="23" Margin="222,144,0,0" TextWrapping="Wrap" Text="Beds" VerticalAlignment="Top" Width="120"/>
+        <Button Content="New reservation" HorizontalAlignment="Left" Margin="351,92,0,0" VerticalAlignment="Top" Width="104" Click="Button_Click_2"/>
+        <Button Content="Find room" HorizontalAlignment="Left" Margin="385,144,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+
+
+    </Grid>
+</Window>

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Reservasjoner" Height="413.235" Width="588.235">
     <Grid>
-        <ListView x:Name="GridReservasjoner" ItemsSource="{Binding}"  Margin="5,5,140,5">
+        <ListView x:Name="GridReservasjoner" ItemsSource="{Binding}"  Margin="10,10,140,140">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=roomId}" Header="Room"/>
@@ -15,8 +15,17 @@
             </ListView.View>
         </ListView>
         <TextBox HorizontalAlignment="right" Height="23" Margin="0,15,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button Content="Search" HorizontalAlignment="Right" Margin="0,47,10,0" VerticalAlignment="Top" Width="120"/>
-       
+        <Button Content="Search" HorizontalAlignment="Right" Height="23" Margin="0,47,10,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="New order" HorizontalAlignment="Right" Height="23" Margin="0,80,10,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
+        <Button Content="Change room" HorizontalAlignment="Right" Height="23" Margin="0,113,10,0" VerticalAlignment="Top" Width="120"/>
+        <ListView x:Name="GridChangeRoom" VerticalAlignment="Bottom" Height="120" ItemsSource="{Binding}"  Margin="10,230,140,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=roomId}" Header="Room"/>
+                    
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>
