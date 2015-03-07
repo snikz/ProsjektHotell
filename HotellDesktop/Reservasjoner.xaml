@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Reservasjoner" Height="413.235" Width="588.235">
     <Grid>
-        <ListView x:Name="GridReservasjoner" ItemsSource="{Binding}"  Margin="5,5,200,5">
+        <ListView x:Name="GridReservasjoner" ItemsSource="{Binding}"  Margin="5,5,140,5">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=roomId}" Header="Room"/>
@@ -14,5 +14,9 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBox HorizontalAlignment="right" Height="23" Margin="0,15,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Search" HorizontalAlignment="Right" Margin="0,47,10,0" VerticalAlignment="Top" Width="120"/>
+       
+
     </Grid>
 </Window>

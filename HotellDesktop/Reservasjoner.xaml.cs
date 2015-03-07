@@ -51,7 +51,11 @@ namespace HotellDesktop
             }
             catch (System.NullReferenceException)
             {
-                Debug.Print("No data in tables. NullReferenceException ")
+                Debug.Print("No data in tables. NullReferenceException.");
+            }
+            catch (System.ArgumentNullException)
+            {
+                Debug.Print("No data in tables. ArgumentNullException.");
             }
             //var test = dx.students.Select(stud => new { stud.studentname, stud.id })
             //    .Join(dx.grades, stud => stud.id, gr => gr.studentid, (stud, gr) => new { stud.studentname, gr.grade1, gr.coursecode })
