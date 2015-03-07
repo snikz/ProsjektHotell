@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Diagnostics;
 using HotellDesktop;
 
 namespace HotellDesktop
@@ -21,13 +22,14 @@ namespace HotellDesktop
     /// </summary>
     public partial class Reservasjoner : Window
     {
-        HotellDesktop.DekstopController controller;
+        DesktopController controller;
+        
         /// <summary>
         /// StartMethod
         /// </summary>
         public Reservasjoner()
         {
-            controller = new HotellDesktop.DekstopController();
+            controller = new DesktopController();
             InitializeComponent();
             init();
 
@@ -37,13 +39,20 @@ namespace HotellDesktop
         /// </summary>
         public void init()
         {
-            Table<HotellDLL.Booking> bookingList = controller.getBooking();
-            Table<HotellDLL.Guest> guestList = controller.getGuest();
-            var viewData = bookingList.Select(bookings
-                => new { bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
-                .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests) 
-                    => new { bookings.roomId, bookings.checkInDate, bookings.checkOutDate, guests.firstName, guests.lastName });
-            GridReservasjoner.DataContext = viewData;
+            try
+            {
+                Table<HotellDLL.Booking> bookingList = controller.getBooking();
+                Table<HotellDLL.Guest> guestList = controller.getGuest();
+                var viewData = bookingList.Select(bookings
+                    => new { bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
+                    .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
+                        => new { bookings.roomId, bookings.checkInDate, bookings.checkOutDate, guests.firstName, guests.lastName });
+                GridReservasjoner.DataContext = viewData;
+            }
+            catch (System.NullReferenceException)
+            {
+                Debug.Print("No data in tables. NullReferenceException ")
+            }
             //var test = dx.students.Select(stud => new { stud.studentname, stud.id })
             //    .Join(dx.grades, stud => stud.id, gr => gr.studentid, (stud, gr) => new { stud.studentname, gr.grade1, gr.coursecode })
             //    .Where(gr => gr.grade1.CompareTo(temp.grade1) <= 0)

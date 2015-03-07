@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HotellDesktop
 {
-    class DekstopController
+    class DesktopController
     {
         HotellDLL.DatabaseDataContext database;
         public void init()
@@ -22,8 +22,7 @@ namespace HotellDesktop
             }
             catch (System.NullReferenceException)
             {
-                Table<HotellDLL.Booking> empty = new Table<HotellDLL.Booking>();
-                return empty;
+                return null;
             }
         }
         public Table<HotellDLL.Guest> getGuest()
@@ -34,8 +33,7 @@ namespace HotellDesktop
             }
             catch (System.NullReferenceException)
             {
-                Table<HotellDLL.Guest> empty = new Table<HotellDLL.Guest>();
-                return empty;
+                return null;
             }
         }
         public Table<HotellDLL.Room> getRoom()
@@ -46,8 +44,7 @@ namespace HotellDesktop
             }
             catch (System.NullReferenceException)
             {
-                Table<HotellDLL.Room> empty = new Table<HotellDLL.Room>();
-                return empty;
+                return null;
             }
         }
         public Table<HotellDLL.Service> getService()
@@ -58,8 +55,7 @@ namespace HotellDesktop
             }
             catch (System.NullReferenceException)
             {
-                Table<HotellDLL.Service> empty = new Table<HotellDLL.Service>();
-                return empty;
+                return null;
             }
         }
     }
