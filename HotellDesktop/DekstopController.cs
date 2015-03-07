@@ -16,19 +16,51 @@ namespace HotellDesktop
         }
         public Table<HotellDLL.Booking> getBooking()
         {
-            return database.Bookings;
+            try
+            {
+                return database.Bookings;
+            }
+            catch (System.NullReferenceException)
+            {
+                Table<HotellDLL.Booking> empty = new Table<HotellDLL.Booking>();
+                return empty;
+            }
         }
         public Table<HotellDLL.Guest> getGuest()
         {
-            return database.Guests;
+            try
+            {
+                return database.Guests;
+            }
+            catch (System.NullReferenceException)
+            {
+                Table<HotellDLL.Guest> empty = new Table<HotellDLL.Guest>();
+                return empty;
+            }
         }
         public Table<HotellDLL.Room> getRoom()
         {
-            return database.Rooms;
+            try
+            {
+                return database.Rooms;
+            }
+            catch (System.NullReferenceException)
+            {
+                Table<HotellDLL.Room> empty = new Table<HotellDLL.Room>();
+                return empty;
+            }
         }
         public Table<HotellDLL.Service> getService()
         {
-            return database.Services;
+            try
+            {
+                return database.Services;
+            }
+            catch (System.NullReferenceException)
+            {
+                Table<HotellDLL.Service> empty = new Table<HotellDLL.Service>();
+                return empty;
+            }
         }
     }
 }
