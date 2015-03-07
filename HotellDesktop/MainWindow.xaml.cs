@@ -23,9 +23,6 @@ namespace HotellDesktop
         public MainWindow()
         {
             InitializeComponent();
-            HotellDLL.DatabaseDataContext dx = new HotellDLL.DatabaseDataContext();
-
-            dx.
         }
     }
 }
