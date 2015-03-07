@@ -6,14 +6,19 @@
         <TextBox x:Name="searchBox" HorizontalAlignment="Left" Height="23" Margin="26,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="searchButton" Content="Search in reservations" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" Width="120"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Right" Margin="250,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="-0.052,0.448"/>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="257" Margin="26,63,0,0" VerticalAlignment="Top" Width="400">
+        <ListView x:Name="listView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="257" Margin="26,63,0,0" VerticalAlignment="Top" Width="400">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Room number" DisplayMemberBinding="{Binding Path=roomId}"/>
+                    <GridViewColumn Header="First name" DisplayMemberBinding="{Binding Path=firstName}"/>
+                    <GridViewColumn Header="Last name" DisplayMemberBinding="{Binding Path=lastName}"/>
+                    <GridViewColumn Header="Checked in" DisplayMemberBinding="{Binding Path=checkedIn}"/>
+                    <GridViewColumn Header="Has notes" DisplayMemberBinding="{Binding Path=notes}"/>
+                    
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Add new reservation" HorizontalAlignment="Right" Margin="436,63,10,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
+        <Button x:Name="newReservationButton" Content="Add new reservation" HorizontalAlignment="Right" Margin="436,63,10,0" VerticalAlignment="Top" Width="120" Click="newReservation_Click"/>
 
     </Grid>
 </Window>
