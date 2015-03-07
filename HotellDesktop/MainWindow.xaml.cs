@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Linq;
+using System.Diagnostics;
 
 namespace HotellDesktop
 {
@@ -36,7 +37,7 @@ namespace HotellDesktop
         /// </summary>
         private void updateListView()
         {
-           string checkedIn;
+           
 
                 Table<HotellDLL.Booking> bookings = desktopController.getBooking();
                 if (bookings != null)
@@ -44,13 +45,11 @@ namespace HotellDesktop
                     var bookingslist = bookings.Select(booking => new { booking.roomId, booking.guestId, booking.checkedIn })
                         .Join(desktopController.getGuest(), booking => booking.guestId, guest => guest.guestId, (booking, guest)
                             => new { booking.roomId, guest.firstName, guest.lastName,checkedIn = bitToString(booking.checkedIn) })
-                            //.Join(desktopController.getService(), service => service.roomId, booking => booking.roomId, (service, booking, guest) =>
-                            //new { guest.})
                             ;
 
                     var list = bookingslist.Select(booking => new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId })
                         .Join(desktopController.getService(), service => service.roomId, booking => booking.roomId,(booking,service) => 
-                            new {booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, note = checkNotes(service.note)});
+                            new {booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, notes = checkNotes(service.note)});
 
                     listView.DataContext = list;
                 }
@@ -88,10 +87,21 @@ namespace HotellDesktop
             return answer;
         }
 
+        /// <summary>
+        /// Opens the window for reservations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newReservation_Click(object sender, RoutedEventArgs e)
         {
             Reservasjoner reservasjoner = new Reservasjoner();
             reservasjoner.Show();
+        }
+
+        private void searchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            searchBox.Text = "";
+ 
         }
     }
 }
