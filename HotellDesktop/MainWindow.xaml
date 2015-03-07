@@ -4,7 +4,7 @@
         Title="MainWindow" Height="394.776" Width="665.299">
     <Grid>
         <TextBox x:Name="searchBox" HorizontalAlignment="Right" Height="23" Margin="0,65,10,0" TextWrapping="Wrap" Text="Type in search" VerticalAlignment="Top" Width="120" GotFocus="searchBox_GotFocus"/>
-        <Button x:Name="searchButton" Content="Search in reservations" HorizontalAlignment="Right" Margin="0,93,10,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="searchButton" Content="Search in reservations" HorizontalAlignment="Right" Margin="0,93,10,0" VerticalAlignment="Top" Width="120" Click="searchButton_Click"/>
         <Button x:Name="newReservationButton" Content="Add new reservation" HorizontalAlignment="Right" Margin="0,300,10,0" VerticalAlignment="Top" Width="120" Click="newReservation_Click"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Right" Margin="250,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="-0.052,0.448" FirstDayOfWeek="Monday" Text="date"/>
         <ListView x:Name="listView"  HorizontalAlignment="Left" Height="310" Margin="26,10,0,0" VerticalAlignment="Top" Width="400">

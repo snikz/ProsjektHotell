@@ -42,14 +42,15 @@ namespace HotellDesktop
                 Table<HotellDLL.Booking> bookings = desktopController.getBooking();
                 if (bookings != null)
                 {
-                    var bookingslist = bookings.Select(booking => new { booking.roomId, booking.guestId, booking.checkedIn })
+                    var bookingslist = bookings.Select(booking => new { booking.roomId, booking.guestId, booking.checkedIn, booking.checkInDate })
                         .Join(desktopController.getGuest(), booking => booking.guestId, guest => guest.guestId, (booking, guest)
-                            => new { booking.roomId, guest.firstName, guest.lastName,checkedIn = bitToString(booking.checkedIn) })
+                            => new { booking.roomId, guest.firstName, guest.lastName,checkedIn = bitToString(booking.checkedIn),booking.checkInDate })
                             ;
 
-                    var list = bookingslist.Select(booking => new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId })
+                    var list = bookingslist.Select(booking => new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, booking.checkInDate  })
                         .Join(desktopController.getService(), service => service.roomId, booking => booking.roomId,(booking,service) => 
-                            new {booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, notes = checkNotes(service.note)});
+                            new {booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, notes = checkNotes(service.note),booking.checkInDate}
+                            ).Where(booking => booking.checkInDate >= datePicker.DisplayDate).OrderBy(booking => booking.checkInDate);
 
                     listView.DataContext = list;
                 }
@@ -97,11 +98,37 @@ namespace HotellDesktop
             Reservasjoner reservasjoner = new Reservasjoner();
             reservasjoner.Show();
         }
-
+        /// <summary>
+        /// Method that leaves the textbox blank when it gets focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchBox_GotFocus(object sender, RoutedEventArgs e)
         {
             searchBox.Text = "";
  
+        }
+
+        /// <summary>
+        /// Method for updating the listview based on the search and date selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            Table<HotellDLL.Booking> bookings = desktopController.getBooking();
+
+            if (bookings != null)
+            {
+                var bookingslist = bookings.Select(booking => new { booking.Guest.lastName, booking.checkInDate, booking })
+                    .Where(booking => booking.lastName.Contains(searchBox.Text))
+                    .Where(booking => booking.checkInDate >= datePicker.DisplayDate)
+                    .Join(desktopController.getService(), booking => booking.booking.roomId, service => service.roomId, (booking, service)
+                        => new { booking.booking.roomId,booking.booking.Guest.firstName,booking.booking.Guest.lastName,booking.booking.checkedIn, notes = checkNotes(service.note) })
+                        ;
+            }
+            
+
         }
     }
 }
