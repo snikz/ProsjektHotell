@@ -24,5 +24,11 @@ namespace HotellDesktop
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Reservasjoner reservasjoner = new Reservasjoner();
+            reservasjoner.Show();
+        }
     }
 }
