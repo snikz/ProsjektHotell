@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Data.Linq;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
-using System.Data.Linq;
 
 namespace HotellDesktop
 {
