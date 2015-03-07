@@ -18,5 +18,17 @@ namespace HotellDesktop
         {
             return database.Bookings;
         }
+        public Table<HotellDLL.Guest> getGuest()
+        {
+            return database.Guests;
+        }
+        public Table<HotellDLL.Room> getRoom()
+        {
+            return database.Rooms;
+        }
+        public Table<HotellDLL.Service> getService()
+        {
+            return database.Services;
+        }
     }
 }
