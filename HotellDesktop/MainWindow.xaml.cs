@@ -119,5 +119,16 @@ namespace HotellDesktop
             
 
         }
+    
+        /// <summary>
+        /// Dummy method for viewing the roomView, and must be modified laiter when the list in mainwindow is populated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            RoomView roomView = new RoomView();
+            roomView.Show();
+        }
     }
 }
