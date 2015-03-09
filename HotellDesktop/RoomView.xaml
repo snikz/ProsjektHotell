@@ -14,7 +14,7 @@
         </ListView>
         <TextBox x:Name="NoteTextbox" HorizontalAlignment="Left" Height="55" Margin="45,208,0,0" TextWrapping="Wrap" Text="Click to add new notes" VerticalAlignment="Top" Width="169"/>
         <StackPanel HorizontalAlignment="Left" Height="55" Margin="233,208,0,0" VerticalAlignment="Top" Width="94">
-            <RadioButton Content="Cleaning"/>
+            <RadioButton Content="Cleaning" IsChecked="True"/>
             <RadioButton Content="RadioButton"/>
             <RadioButton Content="RadioButton"/>
         </StackPanel>
