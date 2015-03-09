@@ -9,11 +9,18 @@ using HotellDesktop;
 
 namespace HotellDesktop
 {
+    public class selectedRoom
+    {
+        public int roomId { get; set; }
+        public int bed { get; set; }
+        public int price { get; set; }
+    }
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
     public partial class NyReservasjon : Window
     {
+        
         DateTime checkIn;
         DateTime checkOut;
         DesktopController controller;
@@ -45,7 +52,7 @@ namespace HotellDesktop
             Table<HotellDLL.Room> roomTable = controller.getRoom();
             Debug.Print("HEI");
             Table<HotellDLL.Booking> bookingTable = controller.getBooking();
-            var viewData = roomTable.Select(room => new { room.roomId, room.bed, room.price });
+            var viewData = roomTable.Select(room => new selectedRoom() { roomId=(int)room.roomId, bed=(int)room.bed, price=(int)room.price });
                 //.Join(bookingTable, room => room.roomId, booking => booking.roomId, (room, booking)
                 //=> new { room.roomId, room.bed, room.price, booking.checkInDate, booking.checkOutDate })
                 //.Where(room => room.checkInDate > checkOut)
@@ -60,7 +67,20 @@ namespace HotellDesktop
             newGuest.lastName = lastName.Text;
             newGuest.email = ePost.Text;
             newGuest.password = password.Text;
+            controller.addUser(newGuest);
 
+            selectedRoom item = (selectedRoom)RoomView.SelectedItems[0];
+
+            HotellDLL.Booking newBooking = new HotellDLL.Booking();
+            newBooking.checkedIn = false;
+            newBooking.checkedOut = false;
+            newBooking.checkInDate = checkInDate.DisplayDate;
+            newBooking.checkOutDate = checkOutDate.DisplayDate;
+            newBooking.guestId = newGuest.guestId;
+            newBooking.roomId = item.roomId;
+            controller.addReservation(newBooking);
+
+            this.Close();
         }
     }
 }

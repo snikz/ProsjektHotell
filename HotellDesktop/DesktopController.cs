@@ -63,6 +63,7 @@ namespace HotellDesktop
         public void addUser(HotellDLL.Guest newGuest)
         {
             database.Guests.InsertOnSubmit(newGuest);
+            database.SubmitChanges();
         }
         public void addReservation(HotellDLL.Booking newBooking)
         {
