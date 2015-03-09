@@ -1,23 +1,24 @@
 ﻿<Window x:Class="HotellDesktop.RoomView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Window1" Height="331.343" Width="398.507">
+        Title="Room View" Height="331.343" Width="398.507">
     <Grid>
         <ListView x:Name="listView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="143" Margin="45,36,0,45" VerticalAlignment="Top" Width="303">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Room number" DisplayMemberBinding="{Binding Path=roomId}" />
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=status}" />
-                    <GridViewColumn Header="Note" DisplayMemberBinding="{Binding Path=note}" />
+                    <GridViewColumn Header="Room number" Width="100" DisplayMemberBinding="{Binding Path=roomId}" />
+                    <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding Path=status}" />
+                    <GridViewColumn Header="Note" Width="50" DisplayMemberBinding="{Binding Path=note}" />
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="NoteTextbox" HorizontalAlignment="Left" Height="55" Margin="45,208,0,0" TextWrapping="Wrap" Text="Click to add new notes" VerticalAlignment="Top" Width="169"/>
+        <TextBox x:Name="NoteTextbox" HorizontalAlignment="Left" Height="55" Margin="45,208,0,0" TextWrapping="Wrap" Text="Click to add new notes" VerticalAlignment="Top" Width="169" GotFocus="NoteTextbox_GotFocus"/>
         <StackPanel HorizontalAlignment="Left" Height="55" Margin="233,208,0,0" VerticalAlignment="Top" Width="94">
             <RadioButton Content="Cleaning" IsChecked="True"/>
-            <RadioButton Content="RadioButton"/>
-            <RadioButton Content="RadioButton"/>
+            <RadioButton Content="Maintenance"/>
+            <RadioButton Content="Service"/>
         </StackPanel>
+        <Button x:Name="addNoteButton" Content="Add note" HorizontalAlignment="Left" Margin="233,263,0,0" VerticalAlignment="Top" Width="75" Click="addNoteButton_Click"/>
 
     </Grid>
 </Window>
