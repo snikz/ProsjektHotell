@@ -1,7 +1,9 @@
 ﻿<Window x:Class="HotellDesktop.RoomView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Room View" Height="331.343" Width="398.507">
+        Title="Room View" Height="331.343" Width="398.507"
+        MinHeight="330"
+        MinWidth="380">
     <Grid>
         <ListView x:Name="listView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="143" Margin="45,36,0,45" VerticalAlignment="Top" Width="303">
             <ListView.View>
