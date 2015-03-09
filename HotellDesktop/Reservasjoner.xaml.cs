@@ -54,5 +54,11 @@ namespace HotellDesktop
             //Room, firstname, lastname, checkin, checkout
             //GridReservasjoner
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NyReservasjon ny = new NyReservasjon();
+            ny.Show();
+        }
     }
 }

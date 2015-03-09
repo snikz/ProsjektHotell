@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Data.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace HotellDesktop
@@ -10,9 +11,10 @@ namespace HotellDesktop
     class DesktopController
     {
         HotellDLL.DatabaseDataContext database;
-        public void init()
+        public DesktopController()
         {
             database = new HotellDLL.DatabaseDataContext();
+            
         }
         public Table<HotellDLL.Booking> getBooking()
         {
@@ -57,6 +59,16 @@ namespace HotellDesktop
             {
                 return null;
             }
+        }
+        public void addUser(HotellDLL.Guest newGuest)
+        {
+            database.Guests.InsertOnSubmit(newGuest);
+            database.SubmitChanges();
+        }
+        public void addReservation(HotellDLL.Booking newBooking)
+        {
+            database.Bookings.InsertOnSubmit(newBooking);
+            database.SubmitChanges();
         }
     }
 }
