@@ -57,6 +57,9 @@
     <Compile Include="Reservasjoner.xaml.cs">
       <DependentUpon>Reservasjoner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RoomView.xaml.cs">
+      <DependentUpon>RoomView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ServiceOverview.xaml.cs">
       <DependentUpon>ServiceOverview.xaml</DependentUpon>
     </Compile>
@@ -79,6 +82,10 @@
     <Page Include="Reservasjoner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RoomView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ServiceOverview.xaml">
       <SubType>Designer</SubType>
