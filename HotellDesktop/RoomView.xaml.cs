@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace HotellDesktop
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for RoomView.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class RoomView : Window
     {
-        public Window1()
+        public RoomView()
         {
             InitializeComponent();
         }
