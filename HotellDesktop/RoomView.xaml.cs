@@ -1,15 +1,41 @@
-﻿using System.Windows;
+﻿using System.Data.Linq;
+using System.Linq;
+using System.Windows;
 
 namespace HotellDesktop
 {
+
     /// <summary>
     /// Interaction logic for RoomView.xaml
     /// </summary>
     public partial class RoomView : Window
     {
+
+        DesktopController desktopController;
+
         public RoomView()
         {
             InitializeComponent();
+            
+        }
+
+        public RoomView(int roomId)
+        {
+            desktopController = new DesktopController();
+            InitializeComponent();
+            updateView(roomId);
+        }
+
+        private void updateView(int selectedRoomId)
+        {
+            Table<HotellDLL.Service> serviceTable = desktopController.getService();
+            
+            if(serviceTable != null){
+                var services = from serv in serviceTable
+                               where serv.roomId == selectedRoomId
+                               select new { serv.roomId, serv.status, serv.note };
+            }
+            
         }
 
         /// <summary>

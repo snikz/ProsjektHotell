@@ -3,14 +3,37 @@ using System.Data.Linq;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
+using System.Diagnostics;
 
 namespace HotellDesktop
 {
+
+    public class listViewClass : IEquatable<listViewClass>
+    {
+        public int roomId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public bool checkedIn { get; set; }
+        public string notes { get; set; }
+
+        public bool Equals(listViewClass l){
+            return true;
+        }
+        //roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
+        //checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+        //notes =(rooms.Services.First().note != null ? "!" : "")
+
+    }
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
 
         DesktopController desktopController;
 
@@ -27,23 +50,6 @@ namespace HotellDesktop
         private void updateListView()
         {
 
-            Table<HotellDLL.Booking> bookings = desktopController.getBooking();
-
-            //if (bookings != null)
-            //{
-            //    var bookingslist = bookings.Select(booking => new { booking.roomId, booking.guestId, booking.checkedIn, booking.checkInDate })
-            //        .Join(desktopController.getGuest(), booking => booking.guestId, guest => guest.guestId, (booking, guest)
-            //            => new { booking.roomId, guest.firstName, guest.lastName, checkedIn = bitToString(booking.checkedIn), booking.checkInDate })
-            //            ;
-
-            //    var list = bookingslist.Select(booking => new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, booking.checkInDate })
-            //        .Join(desktopController.getService(), service => service.roomId, booking => booking.roomId, (booking, service) =>
-            //            new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, notes = checkNotes(service.note), booking.checkInDate }
-            //            ).Where(booking => booking.checkInDate >= datePicker.DisplayDate).OrderBy(booking => booking.checkInDate);
-
-            //    roomListView.DataContext = list;
-            //}
-
             Table<HotellDLL.Room> roomTable = desktopController.getRoom();
             Table<HotellDLL.Booking> bookinTable = desktopController.getBooking();
 
@@ -53,7 +59,8 @@ namespace HotellDesktop
                     from rooms in roomTable
                     join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
                     from book in roomsAndReservation.DefaultIfEmpty()
-                    select new { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName, checkedIn = (book.checkedIn == null ? false : book.checkedIn) };
+                    select new  { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
+                        checkedIn = (book.checkedIn == null ? false : book.checkedIn), notes =(rooms.Services.First().note != null ? "!" : "") };
                 roomListView.DataContext = roomsAndReservations;
             }
         }
@@ -117,19 +124,22 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            Table<HotellDLL.Booking> bookings = desktopController.getBooking();
+           Table<HotellDLL.Room> roomTable = desktopController.getRoom();
+           Table<HotellDLL.Booking> bookinTable = desktopController.getBooking();
 
-            if (bookings != null)
+            if (roomTable != null)
             {
-                var bookingslist = bookings.Select(booking => new { booking.Guest.lastName, booking.checkInDate, booking })
-                    .Where(booking => booking.lastName.Contains(searchBox.Text))
-                    .Where(booking => booking.checkInDate >= datePicker.DisplayDate)
-                    .Join(desktopController.getService(), booking => booking.booking.roomId, service => service.roomId, (booking, service)
-                        => new { booking.booking.roomId,booking.booking.Guest.firstName,booking.booking.Guest.lastName,booking.booking.checkedIn, notes = checkNotes(service.note) })
-                        ;
+                var roomsAndReservations =
+                    from rooms in roomTable
+                    join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
+                    from book in roomsAndReservation.DefaultIfEmpty()
+                    where book.Guest.lastName == searchBox.Text.ToLower()
+                    select new listViewClass() { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
+                        checkedIn = (book.checkedIn == null ? false : book.checkedIn), notes =(rooms.Services.First().note != null ? "!" : " ") };
+                
+                roomListView.DataContext = roomsAndReservations;
             }
-            
-
+        
         }
     
         /// <summary>
@@ -139,8 +149,26 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            RoomView roomView = new RoomView();
-            roomView.Show();
+            var selectedItem = roomListView.SelectedItems[0];
+            Debug.Print(selectedItem.ToString());
+
+            listViewClass l = (listViewClass)roomListView.SelectedItems[0];
+
+            //if (selectedItem != null)
+            //{
+            //    int id = selectedItem.roomId;
+            //    RoomView roomView = new RoomView(id);
+            //}
+            //else
+            //{
+
+            //    RoomView roomView = new RoomView();
+            //    roomView.Show();
+            //}
         }
     }
+
+
+    
+
 }
