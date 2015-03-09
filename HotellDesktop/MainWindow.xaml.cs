@@ -27,7 +27,8 @@ namespace HotellDesktop
         private void updateListView()
         {
 
-            //Table<HotellDLL.Booking> bookings = desktopController.getBooking();
+            Table<HotellDLL.Booking> bookings = desktopController.getBooking();
+
             //if (bookings != null)
             //{
             //    var bookingslist = bookings.Select(booking => new { booking.roomId, booking.guestId, booking.checkedIn, booking.checkInDate })
@@ -40,16 +41,21 @@ namespace HotellDesktop
             //            new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, notes = checkNotes(service.note), booking.checkInDate }
             //            ).Where(booking => booking.checkInDate >= datePicker.DisplayDate).OrderBy(booking => booking.checkInDate);
 
-            //    listView.DataContext = list;
+            //    roomListView.DataContext = list;
             //}
 
-            Table<HotellDLL.Room> rooms = desktopController.getRoom();
+            Table<HotellDLL.Room> roomTable = desktopController.getRoom();
+            Table<HotellDLL.Booking> bookinTable = desktopController.getBooking();
 
-            if (rooms != null)
+            if (roomTable != null)
             {
-
+                var roomsAndReservations =
+                    from rooms in roomTable
+                    join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
+                    from book in roomsAndReservation.DefaultIfEmpty()
+                    select new { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName, checkedIn = (book.checkedIn == null ? false : book.checkedIn) };
+                roomListView.DataContext = roomsAndReservations;
             }
-
         }
 
 

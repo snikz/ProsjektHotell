@@ -9,7 +9,7 @@
         <Button x:Name="searchButton" Content="Search in reservations" HorizontalAlignment="Right" Margin="0,93,10,0" VerticalAlignment="Top" Width="130" Click="searchButton_Click"/>
         <Button x:Name="newReservationButton" Content="Add new reservation" HorizontalAlignment="Right" Margin="0,298,10,0" VerticalAlignment="Top" Width="120" Click="newReservation_Click"/>
         <DatePicker x:Name="datePicker" HorizontalAlignment="Right" Margin="250,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="-0.052,0.448" FirstDayOfWeek="Monday" Text="date"/>
-        <ListView x:Name="listView"  HorizontalAlignment="Left" Height="310" Margin="26,10,0,0" VerticalAlignment="Top" Width="511" MouseDoubleClick="listView_MouseDoubleClick">
+        <ListView x:Name="roomListView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="310" Margin="26,10,0,0" VerticalAlignment="Top" Width="511" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room number" Width="100" DisplayMemberBinding="{Binding Path=roomId}"/>
