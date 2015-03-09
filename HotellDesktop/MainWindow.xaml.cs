@@ -26,24 +26,30 @@ namespace HotellDesktop
         /// </summary>
         private void updateListView()
         {
-           
 
-                Table<HotellDLL.Booking> bookings = desktopController.getBooking();
-                if (bookings != null)
-                {
-                    var bookingslist = bookings.Select(booking => new { booking.roomId, booking.guestId, booking.checkedIn, booking.checkInDate })
-                        .Join(desktopController.getGuest(), booking => booking.guestId, guest => guest.guestId, (booking, guest)
-                            => new { booking.roomId, guest.firstName, guest.lastName,checkedIn = bitToString(booking.checkedIn),booking.checkInDate })
-                            ;
+            //Table<HotellDLL.Booking> bookings = desktopController.getBooking();
+            //if (bookings != null)
+            //{
+            //    var bookingslist = bookings.Select(booking => new { booking.roomId, booking.guestId, booking.checkedIn, booking.checkInDate })
+            //        .Join(desktopController.getGuest(), booking => booking.guestId, guest => guest.guestId, (booking, guest)
+            //            => new { booking.roomId, guest.firstName, guest.lastName, checkedIn = bitToString(booking.checkedIn), booking.checkInDate })
+            //            ;
 
-                    var list = bookingslist.Select(booking => new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, booking.checkInDate  })
-                        .Join(desktopController.getService(), service => service.roomId, booking => booking.roomId,(booking,service) => 
-                            new {booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, notes = checkNotes(service.note),booking.checkInDate}
-                            ).Where(booking => booking.checkInDate >= datePicker.DisplayDate).OrderBy(booking => booking.checkInDate);
+            //    var list = bookingslist.Select(booking => new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, booking.checkInDate })
+            //        .Join(desktopController.getService(), service => service.roomId, booking => booking.roomId, (booking, service) =>
+            //            new { booking.checkedIn, booking.firstName, booking.lastName, booking.roomId, notes = checkNotes(service.note), booking.checkInDate }
+            //            ).Where(booking => booking.checkInDate >= datePicker.DisplayDate).OrderBy(booking => booking.checkInDate);
 
-                    listView.DataContext = list;
-                }
-          
+            //    listView.DataContext = list;
+            //}
+
+            Table<HotellDLL.Room> rooms = desktopController.getRoom();
+
+            if (rooms != null)
+            {
+
+            }
+
         }
 
 
