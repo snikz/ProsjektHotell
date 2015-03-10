@@ -70,5 +70,30 @@ namespace HotellDesktop
             database.Bookings.InsertOnSubmit(newBooking);
             database.SubmitChanges();
         }
+        public void deleteReservation(int id)
+        {
+            HotellDLL.Booking delete = getBooking().Where(bookings => bookings.bookingId == id).FirstOrDefault();
+            database.Bookings.DeleteOnSubmit(delete);
+            database.SubmitChanges();
+        }
+        public void changeRoom(int id, int bookingId)
+        {
+            HotellDLL.DatabaseDataContext dbTemp = new HotellDLL.DatabaseDataContext();
+            HotellDLL.Room newRoom = getRoom().Where(room => room.roomId == id).FirstOrDefault();
+            HotellDLL.Booking oldBooking = getBooking().Where(booking => booking.bookingId == bookingId).FirstOrDefault();
+            HotellDLL.Booking newBooking = new HotellDLL.Booking();
+            newBooking.checkedIn = oldBooking.checkedIn;
+            newBooking.checkedOut = oldBooking.checkedOut;
+            newBooking.checkInDate = oldBooking.checkInDate;
+            newBooking.checkOutDate = oldBooking.checkOutDate;
+            newBooking.Guest = oldBooking.Guest;
+            newBooking.guestId = oldBooking.guestId;
+            newBooking.Room = newRoom;
+            newBooking.roomId = newRoom.roomId;
+            
+            database.Bookings.DeleteOnSubmit(oldBooking);
+            database.Bookings.InsertOnSubmit(newBooking);
+            database.SubmitChanges();
+        }
     }
 }

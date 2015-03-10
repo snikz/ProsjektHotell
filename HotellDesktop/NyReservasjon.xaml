@@ -1,20 +1,24 @@
 ﻿<Window x:Class="HotellDesktop.NyReservasjon"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Window1" Height="300" Width="505.333">
+        Title="Window1" Height="359.701" Width="455" MinHeight="360" MinWidth="460">
     <Grid>
-        <ListView HorizontalAlignment="Left" ItemsSource="{Binding}" Height="100" Margin="182,26,0,0" VerticalAlignment="Top" Width="100">
+        <RadioButton x:Name="New" GroupName="NewUsed" Content="New User" Margin="10,5,0,0" Checked="New_Checked" IsChecked="True" />
+        <RadioButton x:Name="Old" GroupName="NewUsed" Content="Current user" Margin="180,5,0,0" Checked="Old_Checked" IsChecked="False" />
+        <ListView x:Name="userList" ItemsSource="{Binding}" Height="107" Margin="180,20,10,0" VerticalAlignment="Top" IsEnabled="False">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Test" DisplayMemberBinding="{Binding Path=firstname}"/>
+                    <GridViewColumn Width="60" Header="Lastname" DisplayMemberBinding="{Binding Path=lastName}"/>
+                    <GridViewColumn Width="60" Header="Firstname" DisplayMemberBinding="{Binding Path=firstName}"/>
+                    <GridViewColumn Width="140" Header="Email" DisplayMemberBinding="{Binding Path=email}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="firstName" HorizontalAlignment="Left" Height="23" Margin="10,12,0,0" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="lastName"  HorizontalAlignment="Left" Height="23" Margin="10,40,0,0" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="ePost" HorizontalAlignment="Left" Height="23" Margin="10,68,0,0" TextWrapping="Wrap" Text="Epost" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="password" HorizontalAlignment="Left" Height="23" Margin="10,96,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120"/>
-        <ListView x:Name="RoomView" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="91" Margin="10,172,0,0" VerticalAlignment="Top" Width="375">
+        <TextBox x:Name="firstName" HorizontalAlignment="Left" Height="23" Margin="10,20,0,0" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Width="120" GotFocus="firstName_Focus" LostFocus="firstName_LostFocus"/>
+        <TextBox x:Name="lastName"  HorizontalAlignment="Left" Height="23" Margin="10,48,0,0" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Width="120" GotFocus="lastName_Focus" LostFocus="lastName_LostFocus"/>
+        <TextBox x:Name="ePost" HorizontalAlignment="Left" Height="23" Margin="10,76,0,0" TextWrapping="Wrap" Text="Epost" VerticalAlignment="Top" Width="120" GotFocus="ePost_Focus" LostFocus="ePost_LostFocus"/>
+        <TextBox x:Name="password" HorizontalAlignment="Left" Height="23" Margin="10,104,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120" GotFocus="Password_Focus" LostFocus="password_LostFocus"/>
+        <ListView x:Name="RoomView" ItemsSource="{Binding}"  Margin="10, 172, 10, 35">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room" DisplayMemberBinding="{Binding Path=roomId}" />
@@ -23,12 +27,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <DatePicker x:Name="checkInDate" Text="Checkin" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
-        <DatePicker x:Name="checkOutDate" HorizontalAlignment="Left" Margin="117,143,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.837,-0.556" SelectedDateChanged="DatePicker_SelectedDateChanged_1"/>
-        <TextBox x:Name="BedsText" HorizontalAlignment="Left" Height="23" Margin="222,144,0,0" TextWrapping="Wrap" Text="Beds" VerticalAlignment="Top" Width="120"/>
-        <Button Content="New reservation" HorizontalAlignment="Left" Margin="351,92,0,0" VerticalAlignment="Top" Width="104" Click="Button_Click_2"/>
-        <Button Content="Find room" HorizontalAlignment="Left" Margin="385,144,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-
-
+        <DatePicker x:Name="checkInDate" Text="Checkin" HorizontalAlignment="Left" Margin="10,143,0,0" Width="105" VerticalAlignment="Top" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+        <DatePicker x:Name="checkOutDate" HorizontalAlignment="Left" Margin="125,143,0,0" Width="105" VerticalAlignment="Top"  SelectedDateChanged="DatePicker_SelectedDateChanged_1"/>
+        <Button Content="New reservation" HorizontalAlignment="Left" Margin="10,92,0,9" VerticalAlignment="Bottom" Width="100" Click="NewReservation_Clicked"/>
+        <Button Content="Find room" HorizontalAlignment="Left" Margin="360,143,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <TextBlock Text="Quality:" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="300, 128, 0, 0"/>
+        <TextBlock Text="Beds:" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="240, 128, 0, 0"/>
+        <ComboBox x:Name="Quality" HorizontalAlignment="Left" Text="Quality" Margin="300,143,0,0" VerticalAlignment="Top" Width="50"/>
+        <ComboBox x:Name="Bed" HorizontalAlignment="Left" Width="50" Text="Bed" Margin="240,143,0,0" VerticalAlignment="Top"/>
+        <Button Content="Cancel" HorizontalAlignment="Right" Margin="0,92,10,9" VerticalAlignment="Bottom" Width="75" Click="Cancel_Click"/>
     </Grid>
 </Window>
