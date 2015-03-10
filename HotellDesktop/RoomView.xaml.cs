@@ -97,6 +97,9 @@ namespace HotellDesktop
         }
     }
 
+    /// <summary>
+    /// klasse for listview i RoomView
+    /// </summary>
     public class roomListViewClass{
         public int roomId { get; set; }
         public bool status { get; set; }
