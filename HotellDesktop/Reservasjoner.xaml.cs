@@ -173,16 +173,6 @@ namespace HotellDesktop
             SearchField.Text = "";
         }
         /// <summary>
-        /// Add default text if lost focus and no writing.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SearchField_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (SearchField.Text == "")
-                SearchField.Text = "Search lastname";
-        }
-        /// <summary>
         /// Gets data with searchtext as clause.
         /// </summary>
         /// <param name="sender"></param>
