@@ -18,7 +18,10 @@ namespace HotellDesktop
             InitializeComponent();
             
         }
-
+        /// <summary>
+        /// Construktor that takes a roomId as a parameter and construkts a roomView based on the roomId
+        /// </summary>
+        /// <param name="roomId">The id of the room</param>
         public RoomView(int roomId)
         {
             desktopController = new DesktopController();
@@ -26,14 +29,24 @@ namespace HotellDesktop
             updateView(roomId);
         }
 
+        /// <summary>
+        /// Updates the roomView for a spesific room
+        /// </summary>
+        /// <param name="selectedRoomId">the room selected</param>
         private void updateView(int selectedRoomId)
         {
             Table<HotellDLL.Service> serviceTable = desktopController.getService();
-            
-            if(serviceTable != null){
-                var services = from serv in serviceTable
-                               where serv.roomId == selectedRoomId
-                               select new { serv.roomId, serv.status, serv.note };
+            Table<HotellDLL.Room> roomTable = desktopController.getRoom();
+
+            if (roomTable != null)
+            {
+                var roomsWithService = from room in roomTable
+                                       where room.roomId == selectedRoomId
+                                      
+                                       select new { room.roomId };
+
+                listView.DataContext = roomsWithService;
+
             }
             
         }
