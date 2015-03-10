@@ -49,7 +49,8 @@ namespace HotellDesktop
                     => new { bookings.checkedOut, bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
                     .Where(bookings => bookings.checkedOut == false)
                     .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
-                        => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName });
+                        => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName })
+                        .OrderBy(booking => booking.roomId);
 
                 GridReservasjoner.DataContext = viewData;
             }
@@ -77,7 +78,6 @@ namespace HotellDesktop
             NyReservasjon ny = new NyReservasjon();
             ny.evl += new DoWhenTick(updateRequired);
             ny.Show();
-            init();
         }
         /// <summary>
         /// Delete order from database.
@@ -117,10 +117,10 @@ namespace HotellDesktop
                 DateTime checkIn = newBooking.checkInDate;
                 DateTime checkOut = newBooking.checkOutDate;
                 var viewObject = controller.getRoom().Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, Bookings = room.Bookings, price = room.price, quality = room.quality })
-                    .Where(room => room.Bookings.First() == null  || room.Bookings.Any(booking => (checkIn > booking.checkInDate && checkOut > booking.checkInDate) || (checkIn < booking.checkOutDate && checkOut < booking.checkOutDate)))
+                    .Where(room => room.Bookings.First() == null  || room.Bookings.Any(booking => (checkIn > booking.checkOutDate) || (checkOut < booking.checkInDate)))
                     .Where(room => room.quality == newBooking.Room.quality)
                     .Where(room => room.bed == newBooking.Room.bed)
-                    .Where(room => room.roomId != newBooking.roomId);
+                    .Where(room => room.roomId != newBooking.roomId).OrderBy(room => room.roomId);
                 GridChangeRoom.DataContext = viewObject;
 
                 GridReservasjoner.Margin = new Thickness(10, 10, 140, 140);
@@ -173,6 +173,16 @@ namespace HotellDesktop
             SearchField.Text = "";
         }
         /// <summary>
+        /// Add default text if lost focus and no writing.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchField_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchField.Text == "")
+                SearchField.Text = "Search lastname";
+        }
+        /// <summary>
         /// Gets data with searchtext as clause.
         /// </summary>
         /// <param name="sender"></param>
@@ -186,17 +196,17 @@ namespace HotellDesktop
                 }
                 else
                 {
-                    int room = Convert.ToInt32(SearchField.Text);
                     Table<HotellDLL.Booking> bookingList = controller.getBooking();
                     Table<HotellDLL.Guest> guestList = controller.getGuest();
                     var viewData = bookingList.Select(bookings
-                        => new { bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
-                        .Where(bookings => bookings.roomId.ToString().Contains(room.ToString()))
+                        => new { bookings.Guest, bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
+                        .Where(bookings => bookings.Guest.lastName.Contains(SearchField.Text))
                         .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
-                            => new Reservations { bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName });
+                            => new Reservations { bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName })
+                            .OrderBy(booking => booking.roomId);
                     GridReservasjoner.DataContext = viewData;
                 }
-            }catch(FormatException e1){
+            }catch(Exception e1){
                 Debug.Print("Reservasjoner.Search_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("Error searching. Please enter room number!", "Error");
             }

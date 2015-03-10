@@ -126,9 +126,9 @@ namespace HotellDesktop
                     int quality = (int)Quality.SelectedItem;
                     Table<HotellDLL.Room> roomTable = controller.getRoom();
                     var viewObject = roomTable.Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, Bookings = room.Bookings, price = room.price, quality = room.quality })
-                        .Where(room => room.Bookings.First() == null || room.Bookings.Any(booking => (checkIn > booking.checkOutDate && checkOut > booking.checkOutDate) || (checkIn < booking.checkInDate && checkOut < booking.checkInDate)))
+                        .Where(room => room.Bookings.First() == null || room.Bookings.Any(booking => (checkIn > booking.checkOutDate) || (checkOut < booking.checkInDate)))
                         .Where(room => room.quality == quality)
-                        .Where(room => room.bed == beds).Single();
+                        .Where(room => room.bed == beds).First();
                     RoomView.Items.Clear();
                     RoomView.Items.Add(viewObject);
                 }
@@ -150,53 +150,76 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void NewReservation_Clicked(object sender, RoutedEventArgs e)
         {
+
             try
             {
                 selectedRoom item = (selectedRoom)RoomView.SelectedItems[0];
                 if ((bool)New.IsChecked)
                 {
-                    HotellDLL.Guest newGuest = new HotellDLL.Guest();
-                    newGuest.firstName = firstName.Text;
-                    newGuest.lastName = lastName.Text;
-                    newGuest.email = ePost.Text;
-                    newGuest.password = password.Text;
-                    controller.addUser(newGuest);
+                    try
+                    {
+                        HotellDLL.Guest newGuest = new HotellDLL.Guest();
+                        newGuest.firstName = firstName.Text;
+                        newGuest.lastName = lastName.Text;
+                        newGuest.email = ePost.Text;
+                        newGuest.password = password.Text;
+                        controller.addUser(newGuest);
 
+                        DateTime sendIn = (DateTime)checkIn;
+                        DateTime sendOut = (DateTime)checkOut;
+                        HotellDLL.Booking newBooking = new HotellDLL.Booking();
+                        newBooking.checkedIn = false;
+                        newBooking.checkedOut = false;
+                        newBooking.checkInDate = sendIn;
+                        newBooking.checkOutDate = sendOut;
+                        newBooking.guestId = newGuest.guestId;
+                        newBooking.roomId = item.roomId;
+                        controller.addReservation(newBooking);
 
-                    DateTime sendIn = (DateTime)checkIn;
-                    DateTime sendOut = (DateTime)checkOut;
-                    HotellDLL.Booking newBooking = new HotellDLL.Booking();
-                    newBooking.checkedIn = false;
-                    newBooking.checkedOut = false;
-                    newBooking.checkInDate = sendIn;
-                    newBooking.checkOutDate = sendOut;
-                    newBooking.guestId = newGuest.guestId;
-                    newBooking.roomId = item.roomId;
-                    controller.addReservation(newBooking);
+                        evl();
+                        this.Close();
+                    }
+                    catch (ArgumentOutOfRangeException e1)
+                    {
+                        Debug.Print("NyReservasjon.NewReservation_Clicked " + e1);
+                        MessageBoxResult error = MessageBox.Show("Please choose user or create a new one.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
                 }
+
                 else
                 {
-                    user tempUser = (user)userList.SelectedItems[0];
-                    HotellDLL.Guest oldGuest = controller.getGuest().Where(guest => guest.guestId == tempUser.guestId).FirstOrDefault();
-                    DateTime sendIn = (DateTime)checkIn;
-                    DateTime sendOut = (DateTime)checkOut;
-                    HotellDLL.Booking newBooking = new HotellDLL.Booking();
-                    newBooking.checkedIn = false;
-                    newBooking.checkedOut = false;
-                    newBooking.checkInDate = sendIn;
-                    newBooking.checkOutDate = sendOut;
-                    newBooking.guestId = oldGuest.guestId;
-                    newBooking.roomId = item.roomId;
-                    controller.addReservation(newBooking);
+                    try
+                    {
+                        user tempUser = (user)userList.SelectedItems[0];
+                        HotellDLL.Guest oldGuest = controller.getGuest().Where(guest => guest.guestId == tempUser.guestId).FirstOrDefault();
+                        DateTime sendIn = (DateTime)checkIn;
+                        DateTime sendOut = (DateTime)checkOut;
+                        HotellDLL.Booking newBooking = new HotellDLL.Booking();
+                        newBooking.checkedIn = false;
+                        newBooking.checkedOut = false;
+                        newBooking.checkInDate = sendIn;
+                        newBooking.checkOutDate = sendOut;
+                        newBooking.guestId = oldGuest.guestId;
+                        newBooking.roomId = item.roomId;
+                        controller.addReservation(newBooking);
+
+                        evl();
+                        this.Close();
+                    }
+                    catch (ArgumentOutOfRangeException e1)
+                    {
+                        Debug.Print("NyReservasjon.NewReservation_Clicked " + e1);
+                        MessageBoxResult error = MessageBox.Show("Please choose user or create a new one.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    }
                 }
-                evl();
-                this.Close();
             }
             catch (ArgumentOutOfRangeException e1)
             {
                 Debug.Print("NyReservasjon.NewReservation_Clicked " + e1);
-                MessageBoxResult error = MessageBox.Show("Please choose a room", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBoxResult error = MessageBox.Show("Please choose a room!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
+
+
         }
         /// <summary>
         /// Clears textbox when got focus.
