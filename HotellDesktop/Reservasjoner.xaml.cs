@@ -7,6 +7,9 @@ using System;
 
 namespace HotellDesktop
 {
+    /// <summary>
+    /// Class to use in linq query
+    /// </summary>
     public class Reservations
     {
         public int bookingId { get; set; }
@@ -34,7 +37,7 @@ namespace HotellDesktop
 
         }
         /// <summary>
-        /// Create objects to show.
+        /// Initializes the window. Creating data to put into listview.
         /// </summary>
         public void init()
         {
@@ -43,18 +46,20 @@ namespace HotellDesktop
                 Table<HotellDLL.Booking> bookingList = controller.getBooking();
                 Table<HotellDLL.Guest> guestList = controller.getGuest();
                 var viewData = bookingList.Select(bookings
-                    => new { bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
+                    => new { bookings.checkedOut, bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
+                    .Where(bookings => bookings.checkedOut == false)
                     .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
                         => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName });
+
                 GridReservasjoner.DataContext = viewData;
             }
-            catch (System.NullReferenceException)
+            catch (NullReferenceException e1)
             {
-                Debug.Print("No data in tables. NullReferenceException.");
+                Debug.Print("Reservasjoner.init " + e1);
             }
-            catch (System.ArgumentNullException)
+            catch (ArgumentNullException e1)
             {
-                Debug.Print("No data in tables. ArgumentNullException.");
+                Debug.Print("Reservasjoner.init " + e1);
             }
             GridChangeRoom.Visibility = Visibility.Hidden;
             GridReservasjoner.Margin = new Thickness(10,10,140,10);
@@ -62,15 +67,23 @@ namespace HotellDesktop
             cancelButton.Visibility = Visibility.Hidden;
             borderBottom.Visibility = Visibility.Hidden;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Open new WPF window for new reservation, and creates an event to updateRequired function.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewReservation_Clicked(object sender, RoutedEventArgs e)
         {
             NyReservasjon ny = new NyReservasjon();
             ny.evl += new DoWhenTick(updateRequired);
             ny.Show();
             init();
         }
-
+        /// <summary>
+        /// Delete order from database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void delete_Clicked(object sender, RoutedEventArgs e)
         {
             try
@@ -86,10 +99,14 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
-
+                Debug.Print("Reservasjoner.delete_Clicked " + e1);
             }
         }
-
+        /// <summary>
+        /// Creates view for changing room, and get's available rooms from database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chRoom_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -102,7 +119,8 @@ namespace HotellDesktop
                 var viewObject = controller.getRoom().Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, Bookings = room.Bookings, price = room.price, quality = room.quality })
                     .Where(room => room.Bookings.First() == null  || room.Bookings.Any(booking => (checkIn > booking.checkInDate && checkOut > booking.checkInDate) || (checkIn < booking.checkOutDate && checkOut < booking.checkOutDate)))
                     .Where(room => room.quality == newBooking.Room.quality)
-                    .Where(room => room.bed == newBooking.Room.bed);
+                    .Where(room => room.bed == newBooking.Room.bed)
+                    .Where(room => room.roomId != newBooking.roomId);
                 GridChangeRoom.DataContext = viewObject;
 
                 GridReservasjoner.Margin = new Thickness(10, 10, 140, 140);
@@ -113,15 +131,24 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
-                MessageBoxResult error = MessageBox.Show("No rooms available", "Error");
+                MessageBoxResult error = MessageBox.Show("Please select a booking first!", "Error");
+                Debug.Print("Reservasjoner.chRoom " + e1);
             }
         }
-
+        /// <summary>
+        /// Close changeroom view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cancel_Clicked(object sender, RoutedEventArgs e)
         {
             init();
         }
-
+        /// <summary>
+        /// Changing room of order to selected room.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangeRoom_Clicked(object sender, RoutedEventArgs e)
         {
             try
@@ -132,15 +159,24 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
+                Debug.Print("Reservasjoner.ChangeRoom_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("No room selected.\nPress cancel or select a room!", "Error");
             }
         }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Empties textbox each time it got focus.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
             SearchField.Text = "";
         }
-
+        /// <summary>
+        /// Gets data with searchtext as clause.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Search_Clicked(object sender, RoutedEventArgs e)
         {
             try{
@@ -160,10 +196,14 @@ namespace HotellDesktop
                             => new Reservations { bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName });
                     GridReservasjoner.DataContext = viewData;
                 }
-            }catch(FormatException){
+            }catch(FormatException e1){
+                Debug.Print("Reservasjoner.Search_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("Error searching. Please enter room number!", "Error");
             }
         }
+        /// <summary>
+        /// This get's called from event in NyReservasjon if updating window because of new reservation is nessessary.
+        /// </summary>
         private void updateRequired()
         {
             init();
