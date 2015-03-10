@@ -59,7 +59,7 @@ namespace HotellDesktop
                     from rooms in roomTable
                     join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
                     from book in roomsAndReservation.DefaultIfEmpty()
-                    select new  { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
+                    select new listViewClass()  { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
                         checkedIn = (book.checkedIn == null ? false : book.checkedIn), notes =(rooms.Services.First().note != null ? "!" : "") };
                 roomListView.DataContext = roomsAndReservations;
             }
@@ -127,19 +127,23 @@ namespace HotellDesktop
            Table<HotellDLL.Room> roomTable = desktopController.getRoom();
            Table<HotellDLL.Booking> bookinTable = desktopController.getBooking();
 
-            if (roomTable != null)
-            {
-                var roomsAndReservations =
-                    from rooms in roomTable
-                    join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
-                    from book in roomsAndReservation.DefaultIfEmpty()
-                    where book.Guest.lastName == searchBox.Text.ToLower()
-                    select new listViewClass() { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
-                        checkedIn = (book.checkedIn == null ? false : book.checkedIn), notes =(rooms.Services.First().note != null ? "!" : " ") };
-                
-                roomListView.DataContext = roomsAndReservations;
-            }
-        
+                if (roomTable != null)
+                {
+                    var roomsAndReservations =
+                        from rooms in roomTable
+                        join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
+                        from book in roomsAndReservation.DefaultIfEmpty()
+                        where book.Guest.lastName == searchBox.Text.ToLower()
+                        select new listViewClass()
+                        {
+                            roomId = rooms.roomId,
+                            firstName = book.Guest.firstName,
+                            lastName = book.Guest.lastName,
+                            checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+                            notes = (rooms.Services.First().note != null ? "!" : "")
+                        };
+                    roomListView.DataContext = roomsAndReservations;
+                }
         }
     
         /// <summary>
@@ -149,22 +153,22 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var selectedItem = roomListView.SelectedItems[0];
-            Debug.Print(selectedItem.ToString());
+            
 
-            listViewClass l = (listViewClass)roomListView.SelectedItems[0];
+            var selectedItem = (listViewClass)roomListView.SelectedItems[0];
 
-            //if (selectedItem != null)
-            //{
-            //    int id = selectedItem.roomId;
-            //    RoomView roomView = new RoomView(id);
-            //}
-            //else
-            //{
+            if (selectedItem != null)
+            {
+                int id = selectedItem.roomId;
+                RoomView roomView = new RoomView(id);
+                roomView.Show();
+            }
+            else
+            {
 
-            //    RoomView roomView = new RoomView();
-            //    roomView.Show();
-            //}
+                RoomView roomView = new RoomView();
+                roomView.Show();
+            }
         }
     }
 

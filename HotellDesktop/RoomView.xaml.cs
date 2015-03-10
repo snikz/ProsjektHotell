@@ -29,11 +29,17 @@ namespace HotellDesktop
         private void updateView(int selectedRoomId)
         {
             Table<HotellDLL.Service> serviceTable = desktopController.getService();
-            
-            if(serviceTable != null){
-                var services = from serv in serviceTable
-                               where serv.roomId == selectedRoomId
-                               select new { serv.roomId, serv.status, serv.note };
+            Table<HotellDLL.Room> roomTable = desktopController.getRoom();
+
+            if (roomTable != null)
+            {
+                var roomsWithService = from room in roomTable
+                                       where room.roomId == selectedRoomId
+                                      
+                                       select new { room.roomId };
+
+                listView.DataContext = roomsWithService;
+
             }
             
         }
