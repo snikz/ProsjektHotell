@@ -71,7 +71,29 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void addNoteButton_Click(object sender, RoutedEventArgs e)
         {
-           
+
+            roomListViewClass selectedRoom = (roomListViewClass)listView.Items[0];
+
+            HotellDLL.Service service = new HotellDLL.Service();
+            service.note = NoteTextbox.Text;
+            service.status = false;
+            service.roomId = selectedRoom.roomId;
+
+            if ((bool)cleaning.IsChecked)
+            {
+                service.type = 0;
+            }
+            else if ((bool)maintenance.IsChecked)
+            {
+                service.type = 1;
+            }
+            else
+            {
+                service.type = 2;
+            }
+
+            desktopController.addService(service);
+            this.Close();
         }
     }
 
