@@ -8,7 +8,7 @@
         <TextBox x:Name="searchBox" HorizontalAlignment="Right" Height="23" Margin="0,65,10,0" TextWrapping="Wrap" Text="Search lastname" VerticalAlignment="Top" Width="130" GotFocus="searchBox_GotFocus"/>
         <Button x:Name="searchButton" Content="Search in reservations" HorizontalAlignment="Right" Margin="0,93,10,0" VerticalAlignment="Top" Width="130" Click="searchButton_Click"/>
         <Button x:Name="newReservationButton" Content="Add new reservation" HorizontalAlignment="Right" Margin="0,298,10,0" VerticalAlignment="Top" Width="120" Click="newReservation_Click"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Right" Margin="250,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="-0.052,0.448" FirstDayOfWeek="Monday" Text="date"/>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Right" Margin="250,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="-0.052,0.448" FirstDayOfWeek="Monday" Text="date" SelectedDateChanged="datePicker_SelectedDateChanged"/>
         <ListView x:Name="roomListView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="310" Margin="26,10,0,0" VerticalAlignment="Top" Width="511" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>

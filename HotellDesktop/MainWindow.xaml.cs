@@ -14,7 +14,8 @@ namespace HotellDesktop
         public string firstName { get; set; }
         public string lastName { get; set; }
         public bool checkedIn { get; set; }
-        public string notes { get; set; }    
+        public string notes { get; set; }
+
     }
 
 
@@ -23,9 +24,6 @@ namespace HotellDesktop
     /// </summary>
     public partial class MainWindow : Window
     {
-
-
-
 
         DesktopController desktopController;
 
@@ -43,49 +41,45 @@ namespace HotellDesktop
         {
 
             Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-            Table<HotellDLL.Booking> bookinTable = desktopController.getBooking();
+            Table<HotellDLL.Booking> bookingTable = desktopController.getBooking();
+
+            //if (roomTable != null)
+            //{
+            //    var roomsAndReservations =
+            //        from rooms in roomTable
+            //        join booking in bookingTable on rooms.roomId equals booking.roomId into roomsAndReservation
+            //        from book in roomsAndReservation.DefaultIfEmpty()
+
+            //        select new listViewClass()
+            //        {
+            //            roomId = rooms.roomId,
+            //            firstName = book.Guest.firstName,
+            //            lastName = book.Guest.lastName,
+            //            checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+            //            notes = (rooms.Services.First().note != null ? "!" : "")
+            //        };
+            //    roomListView.DataContext = roomsAndReservations;
+            //}
 
             if (roomTable != null)
             {
                 var roomsAndReservations =
                     from rooms in roomTable
-                    join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
+                    join booking in bookingTable on rooms.roomId equals booking.roomId into roomsAndReservation
+                    where roomsAndReservation.All(book => book.checkInDate <= datePicker.DisplayDate && book.checkOutDate >= datePicker.DisplayDate)
                     from book in roomsAndReservation.DefaultIfEmpty()
-                    select new listViewClass()  { roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
-                        checkedIn = (book.checkedIn == null ? false : book.checkedIn), notes =(rooms.Services.First().note != null ? "!" : "") };
+
+                    select new listViewClass()
+                    {
+                        roomId = rooms.roomId,
+                        firstName = book.Guest.firstName,
+                        lastName = book.Guest.lastName,
+                        checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+                        notes = (rooms.Services.First().note != null ? "!" : "")
+                    };
                 roomListView.DataContext = roomsAndReservations;
             }
-        }
 
-
-        private string checkNotes(String note)
-        {
-            if (note != null || note != "")
-            {
-                return "!";
-            }
-            else return "";
-        }
-
-        /// <summary>
-        /// Method for converting bit value to string. 0 return No, 1 returns Yes
-        /// </summary>
-        /// <param name="bit"> the bit to be converted</param>
-        /// <returns>No or Yes depending on the bit value</returns>
-        private string bitToString(bool bit)
-        {
-            string answer = "";
-
-            if (bit)
-            {
-                answer = "Yes";
-            }
-            else
-            {
-                answer = "No";
-            }
-
-            return answer;
         }
 
         /// <summary>
@@ -161,6 +155,11 @@ namespace HotellDesktop
                 RoomView roomView = new RoomView();
                 roomView.Show();
             }
+        }
+
+        private void datePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            updateListView();
         }
     }
 
