@@ -95,5 +95,15 @@ namespace HotellDesktop
             database.Bookings.InsertOnSubmit(newBooking);
             database.SubmitChanges();
         }
+
+        /// <summary>
+        /// Metode for å ligge til en ny service i databasen
+        /// </summary>
+        /// <param name="newService">ny service</param>
+        public void addService(HotellDLL.Service newService)
+        {
+            database.Services.InsertOnSubmit(newService);
+            database.SubmitChanges();
+        }
     }
 }

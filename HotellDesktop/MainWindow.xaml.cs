@@ -8,16 +8,6 @@ using System.Diagnostics;
 namespace HotellDesktop
 {
 
-    public class listViewClass
-    {
-        public int roomId { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public bool checkedIn { get; set; }
-        public string notes { get; set; }
-
-    }
-
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -42,24 +32,6 @@ namespace HotellDesktop
 
             Table<HotellDLL.Room> roomTable = desktopController.getRoom();
             Table<HotellDLL.Booking> bookingTable = desktopController.getBooking();
-
-            //if (roomTable != null)
-            //{
-            //    var roomsAndReservations =
-            //        from rooms in roomTable
-            //        join booking in bookingTable on rooms.roomId equals booking.roomId into roomsAndReservation
-            //        from book in roomsAndReservation.DefaultIfEmpty()
-
-            //        select new listViewClass()
-            //        {
-            //            roomId = rooms.roomId,
-            //            firstName = book.Guest.firstName,
-            //            lastName = book.Guest.lastName,
-            //            checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-            //            notes = (rooms.Services.First().note != null ? "!" : "")
-            //        };
-            //    roomListView.DataContext = roomsAndReservations;
-            //}
 
             if (roomTable != null)
             {
@@ -173,7 +145,15 @@ namespace HotellDesktop
         }
     }
 
+    public class listViewClass
+    {
+        public int roomId { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public bool checkedIn { get; set; }
+        public string notes { get; set; }
 
-    
+    }
+
 
 }

@@ -19,7 +19,7 @@ namespace HotellDesktop
             
         }
         /// <summary>
-        /// Construktor that takes a roomId as a parameter and construkts a roomView based on the roomId
+        /// Constructor that takes a roomId as a parameter and construkts a roomView based on the roomId
         /// </summary>
         /// <param name="roomId">The id of the room</param>
         public RoomView(int roomId)
@@ -42,8 +42,11 @@ namespace HotellDesktop
             {
                 var roomsWithService = from room in roomTable
                                        where room.roomId == selectedRoomId
+                                       join service in serviceTable on room.roomId equals service.roomId
+                                       into joined
+                                       from j in joined.DefaultIfEmpty()
                                       
-                                       select new { room.roomId };
+                                       select new roomListViewClass() { roomId = room.roomId, note = j == null ? string.Empty : j.note, status = j == null ? false : j.status };
 
                 listView.DataContext = roomsWithService;
 
@@ -68,7 +71,14 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void addNoteButton_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
     }
+
+    public class roomListViewClass{
+        public int roomId { get; set; }
+        public bool status { get; set; }
+        public string note { get; set; }
+ }
+
 }
