@@ -14,12 +14,7 @@ namespace HotellDesktop
         public string firstName { get; set; }
         public string lastName { get; set; }
         public bool checkedIn { get; set; }
-        public string notes { get; set; }
-
-        //public bool Equals(listViewClass l){
-        //    return true;
-        //}
-        
+        public string notes { get; set; }    
     }
 
 
@@ -130,7 +125,7 @@ namespace HotellDesktop
                         from rooms in roomTable
                         join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
                         from book in roomsAndReservation.DefaultIfEmpty()
-                        where book.Guest.lastName == searchBox.Text.ToLower()
+                        where book.Guest.lastName.Contains(searchBox.Text.ToLower())
                         select new listViewClass()
                         {
                             roomId = rooms.roomId,
