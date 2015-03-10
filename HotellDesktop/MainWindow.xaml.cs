@@ -66,7 +66,6 @@ namespace HotellDesktop
                 var roomsAndReservations =
                     from rooms in roomTable
                     join booking in bookingTable on rooms.roomId equals booking.roomId into roomsAndReservation
-                    where roomsAndReservation.All(book => book.checkInDate <= datePicker.DisplayDate && book.checkOutDate >= datePicker.DisplayDate)
                     from book in roomsAndReservation.DefaultIfEmpty()
 
                     select new listViewClass()
@@ -110,16 +109,25 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-           Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-           Table<HotellDLL.Booking> bookinTable = desktopController.getBooking();
+
+            if (searchBox.Text.Equals(""))
+            {
+                updateListView();
+            }
+            else
+            {
+
+                Table<HotellDLL.Room> roomTable = desktopController.getRoom();
+                Table<HotellDLL.Booking> bookingTable = desktopController.getBooking();
 
                 if (roomTable != null)
                 {
                     var roomsAndReservations =
                         from rooms in roomTable
-                        join booking in bookinTable on rooms.roomId equals booking.roomId into roomsAndReservation
+                        join booking in bookingTable on rooms.roomId equals booking.roomId into roomsAndReservation
                         from book in roomsAndReservation.DefaultIfEmpty()
                         where book.Guest.lastName.Contains(searchBox.Text.ToLower())
+
                         select new listViewClass()
                         {
                             roomId = rooms.roomId,
@@ -130,6 +138,8 @@ namespace HotellDesktop
                         };
                     roomListView.DataContext = roomsAndReservations;
                 }
+
+            }
         }
     
         /// <summary>
