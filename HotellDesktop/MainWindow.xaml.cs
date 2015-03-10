@@ -8,7 +8,7 @@ using System.Diagnostics;
 namespace HotellDesktop
 {
 
-    public class listViewClass : IEquatable<listViewClass>
+    public class listViewClass
     {
         public int roomId { get; set; }
         public string firstName { get; set; }
@@ -16,13 +16,10 @@ namespace HotellDesktop
         public bool checkedIn { get; set; }
         public string notes { get; set; }
 
-        public bool Equals(listViewClass l){
-            return true;
-        }
-        //roomId = rooms.roomId, firstName = book.Guest.firstName,lastName = book.Guest.lastName,
-        //checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-        //notes =(rooms.Services.First().note != null ? "!" : "")
-
+        //public bool Equals(listViewClass l){
+        //    return true;
+        //}
+        
     }
 
 
