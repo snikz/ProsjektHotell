@@ -7,6 +7,9 @@ using System;
 
 namespace HotellDesktop
 {
+    /// <summary>
+    /// Class to use in linq query
+    /// </summary>
     public class Reservations
     {
         public int bookingId { get; set; }
@@ -34,7 +37,7 @@ namespace HotellDesktop
 
         }
         /// <summary>
-        /// Create objects to show.
+        /// Initializes the window. Creating data to put into listview.
         /// </summary>
         public void init()
         {
@@ -64,15 +67,23 @@ namespace HotellDesktop
             cancelButton.Visibility = Visibility.Hidden;
             borderBottom.Visibility = Visibility.Hidden;
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Open new WPF window for new reservation, and creates an event to updateRequired function.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NewReservation_Clicked(object sender, RoutedEventArgs e)
         {
             NyReservasjon ny = new NyReservasjon();
             ny.evl += new DoWhenTick(updateRequired);
             ny.Show();
             init();
         }
-
+        /// <summary>
+        /// Delete order from database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void delete_Clicked(object sender, RoutedEventArgs e)
         {
             try
@@ -91,7 +102,11 @@ namespace HotellDesktop
                 Debug.Print("Reservasjoner.delete_Clicked " + e1);
             }
         }
-
+        /// <summary>
+        /// Creates view for changing room, and get's available rooms from database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chRoom_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -120,12 +135,20 @@ namespace HotellDesktop
                 Debug.Print("Reservasjoner.chRoom " + e1);
             }
         }
-
+        /// <summary>
+        /// Close changeroom view.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cancel_Clicked(object sender, RoutedEventArgs e)
         {
             init();
         }
-
+        /// <summary>
+        /// Changing room of order to selected room.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangeRoom_Clicked(object sender, RoutedEventArgs e)
         {
             try
@@ -140,12 +163,20 @@ namespace HotellDesktop
                 MessageBoxResult error = MessageBox.Show("No room selected.\nPress cancel or select a room!", "Error");
             }
         }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Empties textbox each time it got focus.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_GotFocus(object sender, RoutedEventArgs e)
         {
             SearchField.Text = "";
         }
-
+        /// <summary>
+        /// Gets data with searchtext as clause.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Search_Clicked(object sender, RoutedEventArgs e)
         {
             try{
@@ -170,6 +201,9 @@ namespace HotellDesktop
                 MessageBoxResult error = MessageBox.Show("Error searching. Please enter room number!", "Error");
             }
         }
+        /// <summary>
+        /// This get's called from event in NyReservasjon if updating window because of new reservation is nessessary.
+        /// </summary>
         private void updateRequired()
         {
             init();
