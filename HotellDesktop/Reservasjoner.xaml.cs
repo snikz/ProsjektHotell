@@ -43,18 +43,20 @@ namespace HotellDesktop
                 Table<HotellDLL.Booking> bookingList = controller.getBooking();
                 Table<HotellDLL.Guest> guestList = controller.getGuest();
                 var viewData = bookingList.Select(bookings
-                    => new { bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
+                    => new { bookings.checkedOut, bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
+                    .Where(bookings => bookings.checkedOut == false)
                     .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
                         => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName });
+
                 GridReservasjoner.DataContext = viewData;
             }
-            catch (System.NullReferenceException)
+            catch (NullReferenceException e1)
             {
-                Debug.Print("No data in tables. NullReferenceException.");
+                Debug.Print("Reservasjoner.init " + e1);
             }
-            catch (System.ArgumentNullException)
+            catch (ArgumentNullException e1)
             {
-                Debug.Print("No data in tables. ArgumentNullException.");
+                Debug.Print("Reservasjoner.init " + e1);
             }
             GridChangeRoom.Visibility = Visibility.Hidden;
             GridReservasjoner.Margin = new Thickness(10,10,140,10);
@@ -86,7 +88,7 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
-
+                Debug.Print("Reservasjoner.delete_Clicked " + e1);
             }
         }
 
@@ -102,7 +104,8 @@ namespace HotellDesktop
                 var viewObject = controller.getRoom().Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, Bookings = room.Bookings, price = room.price, quality = room.quality })
                     .Where(room => room.Bookings.First() == null  || room.Bookings.Any(booking => (checkIn > booking.checkInDate && checkOut > booking.checkInDate) || (checkIn < booking.checkOutDate && checkOut < booking.checkOutDate)))
                     .Where(room => room.quality == newBooking.Room.quality)
-                    .Where(room => room.bed == newBooking.Room.bed);
+                    .Where(room => room.bed == newBooking.Room.bed)
+                    .Where(room => room.roomId != newBooking.roomId);
                 GridChangeRoom.DataContext = viewObject;
 
                 GridReservasjoner.Margin = new Thickness(10, 10, 140, 140);
@@ -113,7 +116,8 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
-                MessageBoxResult error = MessageBox.Show("No rooms available", "Error");
+                MessageBoxResult error = MessageBox.Show("Please select a booking first!", "Error");
+                Debug.Print("Reservasjoner.chRoom " + e1);
             }
         }
 
@@ -132,6 +136,7 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
+                Debug.Print("Reservasjoner.ChangeRoom_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("No room selected.\nPress cancel or select a room!", "Error");
             }
         }
@@ -160,7 +165,8 @@ namespace HotellDesktop
                             => new Reservations { bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName });
                     GridReservasjoner.DataContext = viewData;
                 }
-            }catch(FormatException){
+            }catch(FormatException e1){
+                Debug.Print("Reservasjoner.Search_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("Error searching. Please enter room number!", "Error");
             }
         }

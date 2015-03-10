@@ -11,13 +11,14 @@ using System.Windows.Media;
 
 namespace HotellDesktop
 {
-    public class selectedRoom 
+    public class selectedRoom
     {
         public int roomId { get; set; }
         public int bed { get; set; }
         public int price { get; set; }
         public EntitySet<HotellDLL.Booking> Bookings { get; set; }
         public int quality { get; set; }
+
     }
     public class user
     {
@@ -52,12 +53,13 @@ namespace HotellDesktop
             Quality.SelectedIndex = 0;
             Bed.SelectedIndex = 0;
 
-            
+
         }
 
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            RoomView.Items.Clear();
             var picker = sender as DatePicker;
             DateTime? date = picker.SelectedDate;
             if (date != null)
@@ -68,6 +70,7 @@ namespace HotellDesktop
 
         private void DatePicker_SelectedDateChanged_1(object sender, SelectionChangedEventArgs e)
         {
+            RoomView.Items.Clear();
             var picker = sender as DatePicker;
             DateTime? date = picker.SelectedDate;
             if (date != null)
@@ -84,7 +87,7 @@ namespace HotellDesktop
                 int quality = (int)Quality.SelectedItem;
                 Table<HotellDLL.Room> roomTable = controller.getRoom();
                 var viewObject = roomTable.Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, Bookings = room.Bookings, price = room.price, quality = room.quality })
-                    .Where(room => room.Bookings.First() == null || room.Bookings.Any(booking => (checkIn > booking.checkInDate && checkOut > booking.checkInDate) || (checkIn < booking.checkOutDate && checkOut < booking.checkOutDate)))
+                    .Where(room => room.Bookings.First() == null || room.Bookings.Any(booking => (checkIn > booking.checkOutDate && checkOut > booking.checkOutDate) || (checkIn < booking.checkInDate && checkOut < booking.checkInDate)))
                     .Where(room => room.quality == quality)
                     .Where(room => room.bed == beds).FirstOrDefault();
                 RoomView.Items.Clear();
@@ -95,63 +98,55 @@ namespace HotellDesktop
                 MessageBoxResult message = MessageBox.Show("Please choose checkin/out", "Error"); ;
             }
         }
-        private bool isBusy(EntitySet<HotellDLL.Booking> bookings)
-        {
-            HotellDLL.Booking current;
-            int size = bookings.Count;
-            for (int i = 0; i < size; i++)
-            {
-                current = bookings.ElementAt(i);
-                if (current.checkOutDate > checkIn && current.checkInDate < checkIn)
-                    return false;
-                else if (current.checkOutDate > checkOut && current.checkInDate < checkOut)
-                    return false;
-            }
-            return true;
-        }
-
         private void NewReservation_Clicked(object sender, RoutedEventArgs e)
         {
-            if ((bool)New.IsChecked)
-            {
-                HotellDLL.Guest newGuest = new HotellDLL.Guest();
-                newGuest.firstName = firstName.Text;
-                newGuest.lastName = lastName.Text;
-                newGuest.email = ePost.Text;
-                newGuest.password = password.Text;
-                controller.addUser(newGuest);
-
-                selectedRoom item = (selectedRoom)RoomView.SelectedItems[0];
-
-                DateTime sendIn = (DateTime)checkIn;
-                DateTime sendOut = (DateTime)checkOut;
-                HotellDLL.Booking newBooking = new HotellDLL.Booking();
-                newBooking.checkedIn = false;
-                newBooking.checkedOut = false;
-                newBooking.checkInDate = sendIn;
-                newBooking.checkOutDate = sendOut;
-                newBooking.guestId = newGuest.guestId;
-                newBooking.roomId = item.roomId;
-                controller.addReservation(newBooking);
-            }
-            else
+            try
             {
                 selectedRoom item = (selectedRoom)RoomView.SelectedItems[0];
-                user tempUser = (user)userList.SelectedItems[0];
-                HotellDLL.Guest oldGuest = controller.getGuest().Where(guest => guest.guestId == tempUser.guestId).FirstOrDefault();
-                DateTime sendIn = (DateTime)checkIn;
-                DateTime sendOut = (DateTime)checkOut;
-                HotellDLL.Booking newBooking = new HotellDLL.Booking();
-                newBooking.checkedIn = false;
-                newBooking.checkedOut = false;
-                newBooking.checkInDate = sendIn;
-                newBooking.checkOutDate = sendOut;
-                newBooking.guestId = oldGuest.guestId;
-                newBooking.roomId = item.roomId;
-                controller.addReservation(newBooking);
+                if ((bool)New.IsChecked)
+                {
+                    HotellDLL.Guest newGuest = new HotellDLL.Guest();
+                    newGuest.firstName = firstName.Text;
+                    newGuest.lastName = lastName.Text;
+                    newGuest.email = ePost.Text;
+                    newGuest.password = password.Text;
+                    controller.addUser(newGuest);
+
+
+                    DateTime sendIn = (DateTime)checkIn;
+                    DateTime sendOut = (DateTime)checkOut;
+                    HotellDLL.Booking newBooking = new HotellDLL.Booking();
+                    newBooking.checkedIn = false;
+                    newBooking.checkedOut = false;
+                    newBooking.checkInDate = sendIn;
+                    newBooking.checkOutDate = sendOut;
+                    newBooking.guestId = newGuest.guestId;
+                    newBooking.roomId = item.roomId;
+                    controller.addReservation(newBooking);
+                }
+                else
+                {
+                    user tempUser = (user)userList.SelectedItems[0];
+                    HotellDLL.Guest oldGuest = controller.getGuest().Where(guest => guest.guestId == tempUser.guestId).FirstOrDefault();
+                    DateTime sendIn = (DateTime)checkIn;
+                    DateTime sendOut = (DateTime)checkOut;
+                    HotellDLL.Booking newBooking = new HotellDLL.Booking();
+                    newBooking.checkedIn = false;
+                    newBooking.checkedOut = false;
+                    newBooking.checkInDate = sendIn;
+                    newBooking.checkOutDate = sendOut;
+                    newBooking.guestId = oldGuest.guestId;
+                    newBooking.roomId = item.roomId;
+                    controller.addReservation(newBooking);
+                }
+                evl();
+                this.Close();
             }
-            evl();
-            this.Close();
+            catch (ArgumentOutOfRangeException e1)
+            {
+                Debug.Print("NyReservasjon.NewReservation_Clicked " + e1);
+                MessageBoxResult error = MessageBox.Show("Please choose a room", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
         }
 
         private void firstName_Focus(object sender, RoutedEventArgs e)
@@ -210,14 +205,15 @@ namespace HotellDesktop
             }
             catch (NullReferenceException e1)
             {
-                Debug.Print("SOMETHING WRONG HAPPEND");
+                Debug.Print("NyReservasjon.New_Checked " + e1);
             }
         }
 
         private void Old_Checked(object sender, RoutedEventArgs e)
         {
-            try { 
-                var userVar = controller.getGuest().Select(guest => new user{ guestId = guest.guestId, firstName = guest.firstName, lastName = guest.lastName, email = guest.email, password = guest.password });
+            try
+            {
+                var userVar = controller.getGuest().Select(guest => new user { guestId = guest.guestId, firstName = guest.firstName, lastName = guest.lastName, email = guest.email, password = guest.password });
                 userList.DataContext = userVar;
 
                 firstName.IsEnabled = false;
@@ -228,7 +224,7 @@ namespace HotellDesktop
             }
             catch (NullReferenceException e1)
             {
-                Debug.Print("SOMETHING WRONG HAPPEND");
+                Debug.Print("NyReservasjon.Old_Checked " + e1);
             }
 
         }
@@ -237,6 +233,6 @@ namespace HotellDesktop
         {
             this.Close();
         }
-        
+
     }
 }
