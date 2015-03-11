@@ -266,6 +266,33 @@ namespace HotellDesktop
                 MessageBox.Show("Velg et rom", "Error");
             }
         }
+
+        private void checkOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                var selectedRoom = (listViewClass)roomListView.SelectedItems[0];
+                if (selectedRoom.bookingId != 0)
+                {
+                    desktopController.checkOut(selectedRoom.bookingId);
+
+                    HotellDLL.Service service = new HotellDLL.Service();
+                    service.type = 0;
+                    service.roomId = selectedRoom.roomId;
+                    service.status = 0;
+                    service.note = "Auto generated cleaning note";
+
+                    desktopController.addService(service);
+
+                    updateListView();
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Velg et rom", "Error");
+            }
+        }
     }
 
     public class listViewClass

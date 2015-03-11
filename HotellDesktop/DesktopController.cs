@@ -137,5 +137,19 @@ namespace HotellDesktop
             }
 
         }
+
+        internal void checkOut(int bookingId)
+        {
+            try
+            {
+                HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
+                database.Bookings.DeleteOnSubmit(booking);
+                database.SubmitChanges();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
     }
 }
