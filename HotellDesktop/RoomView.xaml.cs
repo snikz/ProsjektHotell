@@ -50,17 +50,26 @@ namespace HotellDesktop
 
                                        select new roomListViewClass() 
                                        { 
+
                                            roomId = room.roomId, 
                                            note = j == null ? string.Empty : j.note,
-                                           status = j == null ? false : j.status, 
+                                           intStatus = j == null ? 0 : (j.status), 
                                            serviceId = j == null ? 0 : j.id
                                        };
+
+
+                foreach (roomListViewClass r in roomsWithService)
+                {
+                    r.statusIntToString();
+                }
 
                 listView.DataContext = roomsWithService;
 
             }
 
         }
+
+       
 
         /// <summary>
         /// Cleares the textbox on focus so users can type their text
@@ -84,7 +93,7 @@ namespace HotellDesktop
 
             HotellDLL.Service service = new HotellDLL.Service();
             service.note = NoteTextbox.Text;
-            service.status = false;
+            service.status = 0;
             service.roomId = selectedRoom.roomId;
 
             if ((bool)cleaning.IsChecked)
@@ -134,9 +143,33 @@ namespace HotellDesktop
     /// </summary>
     public class roomListViewClass{
         public int roomId { get; set; }
-        public bool status { get; set; }
+        public string stringStatus { get; set; }
+        public int intStatus { get; set; }
         public string note { get; set; }
         public int serviceId { get; set; }
+
+
+
+        public void statusIntToString()
+        {
+            switch (intStatus)
+            {
+
+                case 0:
+                    stringStatus = "New";
+                    break;
+                case 1:
+                    stringStatus = "In progress";
+                    break;
+                case 2:
+                    stringStatus = "Finish";
+                    break;
+                default:
+                    stringStatus= "";
+                    break;
+            }
+
+        }
     }
 
 }
