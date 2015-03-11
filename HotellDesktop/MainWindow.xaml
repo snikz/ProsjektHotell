@@ -22,7 +22,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-       
+        <StackPanel HorizontalAlignment="Right" Height="100" Margin="0,120,10,0" VerticalAlignment="Top" Width="130">
+            <RadioButton x:Name="radioLastname" Content="Search lastname" IsChecked="True" Click="radioLastname_Click"/>
+            <RadioButton x:Name="radioRoomNumber" Content="Search room number" Click="radioRoomNumber_Click"/>
+        </StackPanel>
+
 
 
     </Grid>

@@ -181,16 +181,38 @@ namespace HotellDesktop
         private void todayDateButton_Click(object sender, RoutedEventArgs e)
         {
             datePicker.SelectedDate = DateTime.Today;
-            searchBox.Text = "Search lastname";
+            searchBox_LostFocus(sender,e);
             updateListView();
         }
 
         private void searchBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (searchBox.Text == "")
-            {
-                searchBox.Text = "Search lastname";
-            }
+            searchBoxSetText();
+        }
+
+        private void searchBoxSetText()
+        {
+            
+                if ((bool)radioLastname.IsChecked)
+                {
+                    searchBox.Text = "Search lastname";
+                }
+                else
+                {
+                    searchBox.Text = "Search room number";
+                }
+
+            
+        }
+
+        private void radioRoomNumber_Click(object sender, RoutedEventArgs e)
+        {
+            searchBoxSetText();
+        }
+
+        private void radioLastname_Click(object sender, RoutedEventArgs e)
+        {
+            searchBoxSetText();
         }
     }
 
