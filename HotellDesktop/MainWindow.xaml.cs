@@ -102,34 +102,71 @@ namespace HotellDesktop
             else
             {
 
-                Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-                Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
-
-                if (datePicker.SelectedDate == null)
+                if ((bool)radioLastname.IsChecked)
                 {
-                    datePicker.SelectedDate = datePicker.DisplayDate;
+
+                    Table<HotellDLL.Room> roomTable = desktopController.getRoom();
+                    Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
+
+                    if (datePicker.SelectedDate == null)
+                    {
+                        datePicker.SelectedDate = datePicker.DisplayDate;
+                    }
+
+                    var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
+
+                    if (roomTable != null)
+                    {
+                        var roomsAndReservations =
+                            from rooms in roomTable
+                            join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
+                            from book in roomsAndRes.DefaultIfEmpty()
+                            where book.Guest.lastName.Contains(searchBox.Text.ToLower())
+                            select new listViewClass()
+                            {
+                                roomId = rooms.roomId,
+                                firstName = book.Guest.firstName,
+                                lastName = book.Guest.lastName,
+                                checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+                                notes = (rooms.Services.First().note != null ? "!" : "")
+                            };
+
+                        roomListView.DataContext = roomsAndReservations;
+
+                    }
                 }
 
-                var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
-
-                if (roomTable != null)
+                else
                 {
-                    var roomsAndReservations =
-                        from rooms in roomTable
-                        join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
-                        from book in roomsAndRes.DefaultIfEmpty()
-                        where book.Guest.lastName.Contains(searchBox.Text.ToLower())
-                        select new listViewClass()
-                        {
-                            roomId = rooms.roomId,
-                            firstName = book.Guest.firstName,
-                            lastName = book.Guest.lastName,
-                            checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-                            notes = (rooms.Services.First().note != null ? "!" : "")
-                        };
+                    Table<HotellDLL.Room> roomTable = desktopController.getRoom();
+                    Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
 
-                    roomListView.DataContext = roomsAndReservations;
+                    if (datePicker.SelectedDate == null)
+                    {
+                        datePicker.SelectedDate = datePicker.DisplayDate;
+                    }
 
+                    var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
+
+                    if (roomTable != null)
+                    {
+                        var roomsAndReservations =
+                            from rooms in roomTable
+                            join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
+                            from book in roomsAndRes.DefaultIfEmpty()
+                            where rooms.roomId.ToString().Equals(searchBox.Text)
+                            select new listViewClass()
+                            {
+                                roomId = rooms.roomId,
+                                firstName = book.Guest.firstName,
+                                lastName = book.Guest.lastName,
+                                checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+                                notes = (rooms.Services.First().note != null ? "!" : "")
+                            };
+
+                        roomListView.DataContext = roomsAndReservations;
+
+                    }
                 }
             }
         }
@@ -181,13 +218,8 @@ namespace HotellDesktop
         private void todayDateButton_Click(object sender, RoutedEventArgs e)
         {
             datePicker.SelectedDate = DateTime.Today;
-            searchBox_LostFocus(sender,e);
+            
             updateListView();
-        }
-
-        private void searchBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            searchBoxSetText();
         }
 
         private void searchBoxSetText()
