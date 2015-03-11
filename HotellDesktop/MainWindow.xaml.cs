@@ -152,9 +152,6 @@ namespace HotellDesktop
         {
             updateListView();
         }
-
-        
-
     }
 
     public class listViewClass

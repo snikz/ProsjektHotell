@@ -137,6 +137,6 @@ namespace HotellDesktop
         public bool status { get; set; }
         public string note { get; set; }
         public int serviceId { get; set; }
- }
+    }
 
 }
