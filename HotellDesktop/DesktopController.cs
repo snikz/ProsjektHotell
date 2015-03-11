@@ -105,5 +105,16 @@ namespace HotellDesktop
             database.Services.InsertOnSubmit(newService);
             database.SubmitChanges();
         }
+
+        /// <summary>
+        /// Metode for å slette en service
+        /// </summary>
+        /// <param name="serviceID">id til service som skal bli slettet</param>
+        public void deleteService(int serviceID)
+        {
+            HotellDLL.Service delete = getService().Where(service => service.id.Equals(serviceID)).FirstOrDefault();
+            database.Services.DeleteOnSubmit(delete);
+            database.SubmitChanges();
+        }
     }
 }

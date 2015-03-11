@@ -45,13 +45,19 @@ namespace HotellDesktop
                                        join service in serviceTable on room.roomId equals service.roomId
                                        into joined
                                        from j in joined.DefaultIfEmpty()
-                                      
-                                       select new roomListViewClass() { roomId = room.roomId, note = j == null ? string.Empty : j.note, status = j == null ? false : j.status };
+
+                                       select new roomListViewClass() 
+                                       { 
+                                           roomId = room.roomId, 
+                                           note = j == null ? string.Empty : j.note,
+                                           status = j == null ? false : j.status, 
+                                           serviceId = j == null ? 0 : j.id
+                                       };
 
                 listView.DataContext = roomsWithService;
 
             }
-            
+
         }
 
         /// <summary>
@@ -95,6 +101,16 @@ namespace HotellDesktop
             desktopController.addService(service);
             this.Close();
         }
+
+        private void deleteNoteButton_Click(object sender, RoutedEventArgs e)
+        {
+            roomListViewClass selectedRoom = (roomListViewClass)listView.SelectedItem;
+            if (selectedRoom != null && selectedRoom.serviceId != 0)
+            {
+                desktopController.deleteService(selectedRoom.serviceId);
+                this.Close();
+            }
+        }
     }
 
     /// <summary>
@@ -104,6 +120,7 @@ namespace HotellDesktop
         public int roomId { get; set; }
         public bool status { get; set; }
         public string note { get; set; }
+        public int serviceId { get; set; }
  }
 
 }
