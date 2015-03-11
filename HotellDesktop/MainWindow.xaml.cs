@@ -31,28 +31,6 @@ namespace HotellDesktop
         {
 
             Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-            Table<HotellDLL.Booking> bookingTable = desktopController.getBooking();
-                
-
-            //if (roomTable != null)
-            //{
-            //    var roomsAndReservations =
-            //        from rooms in roomTable
-            //        join booking in bookingTable on rooms.roomId equals booking.roomId into roomsAndReservation
-            //        from book in roomsAndReservation.DefaultIfEmpty()
-
-            //        select new listViewClass()
-            //        {
-            //            roomId = rooms.roomId,
-            //            firstName = book.Guest.firstName,
-            //            lastName = book.Guest.lastName,
-            //            checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-            //            notes = (rooms.Services.First().note != null ? "!" : "")
-            //        };
-            //    roomListView.DataContext = roomsAndReservations;
-            //}
-
-
             Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
 
             var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
@@ -120,16 +98,17 @@ namespace HotellDesktop
             {
 
                 Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-                Table<HotellDLL.Booking> bookingTable = desktopController.getBooking();
+                Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
+
+                var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
 
                 if (roomTable != null)
                 {
                     var roomsAndReservations =
                         from rooms in roomTable
-                        join booking in bookingTable on rooms.roomId equals booking.roomId into roomsAndReservation
-                        from book in roomsAndReservation.DefaultIfEmpty()
+                        join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
+                        from book in roomsAndRes.DefaultIfEmpty()
                         where book.Guest.lastName.Contains(searchBox.Text.ToLower())
-
                         select new listViewClass()
                         {
                             roomId = rooms.roomId,
@@ -138,9 +117,10 @@ namespace HotellDesktop
                             checkedIn = (book.checkedIn == null ? false : book.checkedIn),
                             notes = (rooms.Services.First().note != null ? "!" : "")
                         };
-                    roomListView.DataContext = roomsAndReservations;
-                }
 
+                    roomListView.DataContext = roomsAndReservations;
+
+                }
             }
         }
     
