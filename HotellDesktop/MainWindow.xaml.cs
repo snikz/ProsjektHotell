@@ -33,6 +33,11 @@ namespace HotellDesktop
             Table<HotellDLL.Room> roomTable = desktopController.getRoom();
             Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
 
+            if (datePicker.SelectedDate == null)
+            {
+                datePicker.SelectedDate = datePicker.DisplayDate;
+            }
+
             var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
 
             if (roomTable != null)
@@ -99,6 +104,11 @@ namespace HotellDesktop
 
                 Table<HotellDLL.Room> roomTable = desktopController.getRoom();
                 Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
+
+                if (datePicker.SelectedDate == null)
+                {
+                    datePicker.SelectedDate = datePicker.DisplayDate;
+                }
 
                 var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
 
