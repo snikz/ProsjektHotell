@@ -42,22 +42,22 @@ namespace HotellDesktop
 
             if (roomTable != null)
             {
-                var roomsWithService = from room in roomTable
-                                       where room.roomId == selectedRoomId
-                                       join service in serviceTable on room.roomId equals service.roomId
-                                       into joined
-                                       from j in joined.DefaultIfEmpty()
+                var roomsWithService = (from room in roomTable
+                                        where room.roomId == selectedRoomId
+                                        join service in serviceTable on room.roomId equals service.roomId
+                                        into joined
+                                        from j in joined.DefaultIfEmpty()
 
-                                       select new roomListViewClass() 
-                                       { 
+                                        select new roomListViewClass()
+                                        {
 
-                                           roomId = room.roomId, 
-                                           note = j == null ? string.Empty : j.note,
-                                           stringStatus = j.status.ToString(),
-                                           intStatus = j == null ? 0 : (j.status), 
-                                           serviceId = j == null ? 0 : j.id
-                                       };
-
+                                            roomId = room.roomId,
+                                            note = j == null ? string.Empty : j.note,
+                                            stringStatus = j.status.ToString(),
+                                            intStatus = j == null ? 0 : (j.status),
+                                            serviceId = j == null ? 0 : j.id
+                                        });
+                
                 listView.DataContext = roomsWithService;
 
             }
