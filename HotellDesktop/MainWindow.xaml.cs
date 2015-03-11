@@ -25,7 +25,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Updates the listview with the search criteria and date selection
+        /// Updates the listview with the date selection
         /// </summary>
         private void updateListView()
         {
@@ -51,6 +51,9 @@ namespace HotellDesktop
                 roomListView.DataContext = roomsAndReservations;
             }
 
+          
+
+
         }
 
         /// <summary>
@@ -61,8 +64,13 @@ namespace HotellDesktop
         private void newReservation_Click(object sender, RoutedEventArgs e)
         {
             Reservasjoner reservasjoner = new Reservasjoner();
-            
-            reservasjoner.Show();
+            reservasjoner.Closed += reservasjoner_Closed;
+            reservasjoner.ShowDialog();
+        }
+
+        void reservasjoner_Closed(object sender, EventArgs e)
+        {
+            updateListView();
         }
         /// <summary>
         /// Method that leaves the textbox blank when it gets focus
@@ -116,29 +124,35 @@ namespace HotellDesktop
         }
     
         /// <summary>
-        /// Dummy method for viewing the roomView, and must be modified laiter when the list in mainwindow is populated
+        /// Opens the roomView based on the selected room
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            
 
-            var selectedItem = (listViewClass)roomListView.SelectedItems[0];
-
-            if (selectedItem != null)
+            try
             {
-                int id = selectedItem.roomId;
-                RoomView roomView = new RoomView(id);
-                roomView.changes += new update(updateRequired);
-                roomView.Show();
+                var selectedItem = (listViewClass)roomListView.SelectedItems[0];
+
+                if (selectedItem != null)
+                {
+                    int id = selectedItem.roomId;
+                    RoomView roomView = new RoomView(id);
+                    roomView.changes += new update(updateRequired);
+                    roomView.ShowDialog();
+                }
+                else
+                {
+
+                    RoomView roomView = new RoomView();
+                    roomView.changes += new update(updateRequired);
+                    roomView.ShowDialog();
+                }
             }
-            else
-            {
 
-                RoomView roomView = new RoomView();
-                roomView.changes += new update(updateRequired);
-                roomView.Show();
+            catch(ArgumentOutOfRangeException){
+                MessageBox.Show("Doble click on a room", "error");
             }
         }
 
@@ -152,9 +166,6 @@ namespace HotellDesktop
         {
             updateListView();
         }
-
-        
-
     }
 
     public class listViewClass
