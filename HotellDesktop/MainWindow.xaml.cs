@@ -177,6 +177,21 @@ namespace HotellDesktop
         {
             updateListView();
         }
+
+        private void todayDateButton_Click(object sender, RoutedEventArgs e)
+        {
+            datePicker.SelectedDate = DateTime.Today;
+            searchBox.Text = "Search lastname";
+            updateListView();
+        }
+
+        private void searchBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (searchBox.Text == "")
+            {
+                searchBox.Text = "Search lastname";
+            }
+        }
     }
 
     public class listViewClass
