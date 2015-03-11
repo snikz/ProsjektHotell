@@ -207,17 +207,30 @@ namespace HotellDesktop
             }
         }
 
+        /// <summary>
+        /// Kaller updateListView()
+        /// </summary>
         private void updateRequired()
         {
             updateListView();
         }
 
     
+        /// <summary>
+        /// Blir kalt når en ny dato er valgt i datepicker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void datePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             updateListView();
         }
 
+        /// <summary>
+        /// Sitter datepicker til dagens dato
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void todayDateButton_Click(object sender, RoutedEventArgs e)
         {
             datePicker.SelectedDate = DateTime.Today;
@@ -225,6 +238,9 @@ namespace HotellDesktop
             updateListView();
         }
 
+        /// <summary>
+        /// Sitter teksten i searchBox basert på radiobuttons valg
+        /// </summary>
         private void searchBoxSetText()
         {
             
@@ -240,16 +256,30 @@ namespace HotellDesktop
             
         }
 
+        /// <summary>
+        /// Blir kalt når radioRoomNumberButton blir klikket på
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioRoomNumber_Click(object sender, RoutedEventArgs e)
         {
             searchBoxSetText();
         }
-
+        /// <summary>
+        /// Blir kalt når radioLastNameButton blir klikket på
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioLastname_Click(object sender, RoutedEventArgs e)
         {
             searchBoxSetText();
         }
 
+        /// <summary>
+        /// Sjekker inn en reservasjon basert på valget i roomListView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkInButton_Click(object sender, RoutedEventArgs e)
         {
             try {
@@ -267,6 +297,11 @@ namespace HotellDesktop
             }
         }
 
+        /// <summary>
+        /// Sjekker ut en reservasjon og sletter den, basert på valget i roomListView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkOutButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -295,6 +330,9 @@ namespace HotellDesktop
         }
     }
 
+    /// <summary>
+    /// Klasse for å håndtere rom og reservasjon i listview
+    /// </summary>
     public class listViewClass
     {
         public int roomId { get; set; }
