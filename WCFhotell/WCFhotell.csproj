@@ -60,23 +60,28 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="HotelServices.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HotelServices.designer.cs">
+    <Compile Include="HotelServiceModel.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>HotelServices.dbml</DependentUpon>
+      <DependentUpon>HotelServiceModel.dbml</DependentUpon>
     </Compile>
+    <Compile Include="HotelServices.svc.cs">
+      <DependentUpon>HotelServices.svc</DependentUpon>
+    </Compile>
+    <Compile Include="IHotelServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HotelServices.dbml">
+    <Content Include="HotelServiceModel.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>HotelServices.designer.cs</LastGenOutput>
+      <LastGenOutput>HotelServiceModel.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Web.Debug.config">
@@ -90,8 +95,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="HotelServices.dbml.layout">
-      <DependentUpon>HotelServices.dbml</DependentUpon>
+    <None Include="HotelServiceModel.dbml.layout">
+      <DependentUpon>HotelServiceModel.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>
