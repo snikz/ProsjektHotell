@@ -53,15 +53,10 @@ namespace HotellDesktop
 
                                            roomId = room.roomId, 
                                            note = j == null ? string.Empty : j.note,
+                                           stringStatus = j.status.ToString(),
                                            intStatus = j == null ? 0 : (j.status), 
                                            serviceId = j == null ? 0 : j.id
                                        };
-
-
-                foreach (roomListViewClass r in roomsWithService)
-                {
-                    r.statusIntToString();
-                }
 
                 listView.DataContext = roomsWithService;
 
@@ -150,26 +145,36 @@ namespace HotellDesktop
 
 
 
-        public void statusIntToString()
+        public string statusIntToString(int status)
         {
-            switch (intStatus)
+            switch (status)
             {
 
                 case 0:
-                    stringStatus = "New";
-                    break;
+                    return "New";
+                    
                 case 1:
-                    stringStatus = "In progress";
-                    break;
+                    return "In progress";
+                    
                 case 2:
-                    stringStatus = "Finish";
-                    break;
+                    return "Finish";
+                    
                 default:
-                    stringStatus= "";
-                    break;
+                    return "";
+                    
             }
 
         }
+
+        public override string ToString()
+        {
+
+            string status = statusIntToString(intStatus);
+
+            string s = roomId + status + note + serviceId;
+
+            return base.ToString();
+        } 
     }
 
 }

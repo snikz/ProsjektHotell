@@ -10,7 +10,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room number" Width="auto" DisplayMemberBinding="{Binding Path=roomId}" />
-                    <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Path=status}" />
+                    <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Path=stringStatus}" />
                     <GridViewColumn Header="Note" Width="auto" DisplayMemberBinding="{Binding Path=note}" />
                 </GridView>
             </ListView.View>
