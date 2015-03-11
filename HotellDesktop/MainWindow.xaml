@@ -12,11 +12,11 @@
         <ListView x:Name="roomListView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="310" Margin="26,10,0,0" VerticalAlignment="Top" Width="511" MouseDoubleClick="listView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Room number" Width="100" DisplayMemberBinding="{Binding Path=roomId}"/>
-                    <GridViewColumn Header="First name" Width="100" DisplayMemberBinding="{Binding Path=firstName}"/>
-                    <GridViewColumn Header="Last name" Width="100" DisplayMemberBinding="{Binding Path=lastName}"/>
-                    <GridViewColumn Header="Checked in" Width="100" DisplayMemberBinding="{Binding Path=checkedIn}"/>
-                    <GridViewColumn Header="Has notes" Width="100" DisplayMemberBinding="{Binding Path=notes}"/>
+                    <GridViewColumn Header="Room number" Width="auto" DisplayMemberBinding="{Binding Path=roomId}"/>
+                    <GridViewColumn Header="First name" Width="auto" DisplayMemberBinding="{Binding Path=firstName}"/>
+                    <GridViewColumn Header="Last name" Width="auto" DisplayMemberBinding="{Binding Path=lastName}"/>
+                    <GridViewColumn Header="Checked in" Width="auto" DisplayMemberBinding="{Binding Path=checkedIn}"/>
+                    <GridViewColumn Header="Has notes" Width="auto" DisplayMemberBinding="{Binding Path=notes}"/>
 
                 </GridView>
             </ListView.View>

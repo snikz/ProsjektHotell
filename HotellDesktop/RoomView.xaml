@@ -9,9 +9,9 @@
         <ListView x:Name="listView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="143" Margin="45,36,0,45" VerticalAlignment="Top" Width="303">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Room number" Width="100" DisplayMemberBinding="{Binding Path=roomId}" />
-                    <GridViewColumn Header="Status" Width="50" DisplayMemberBinding="{Binding Path=status}" />
-                    <GridViewColumn Header="Note" Width="50" DisplayMemberBinding="{Binding Path=note}" />
+                    <GridViewColumn Header="Room number" Width="auto" DisplayMemberBinding="{Binding Path=roomId}" />
+                    <GridViewColumn Header="Status" Width="auto" DisplayMemberBinding="{Binding Path=status}" />
+                    <GridViewColumn Header="Note" Width="auto" DisplayMemberBinding="{Binding Path=note}" />
                 </GridView>
             </ListView.View>
         </ListView>
