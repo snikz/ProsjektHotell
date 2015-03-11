@@ -1,0 +1,19 @@
+﻿@model HotellWebMvc.ViewModels.BookingIndex
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>The roombooker</h3>
+
+<p>Welcome back, @User.Identity.Name</p>
+<a class="btn btn-danger" href="@Url.RouteUrl("logout")">Logout</a>
+
+<ul>
+    @foreach (var booking in Model.Bookings)
+    {
+        <li>@booking.checkInDate</li>
+    }
+</ul>
+

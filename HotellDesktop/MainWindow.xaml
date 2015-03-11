@@ -18,7 +18,7 @@
                     <GridViewColumn Header="Room number" Width="auto" DisplayMemberBinding="{Binding Path=roomId}"/>
                     <GridViewColumn Header="First name" Width="auto" DisplayMemberBinding="{Binding Path=firstName}"/>
                     <GridViewColumn Header="Last name" Width="auto" DisplayMemberBinding="{Binding Path=lastName}"/>
-                    <GridViewColumn Header="Checked in" Width="auto" DisplayMemberBinding="{Binding Path=checkedIn}"/>
+                    <GridViewColumn Header="Checked in" Width="auto" DisplayMemberBinding="{Binding Path=checkedInString}"/>
                     <GridViewColumn Header="Has notes" Width="auto" DisplayMemberBinding="{Binding Path=notes}"/>
 
                 </GridView>
