@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotellDLL", "HotellDLL\Hote
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFhotell", "WCFhotell\WCFhotell.csproj", "{C033FCAB-A41A-4104-9B73-826A501C8099}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotellWeb", "HotellWebMvc\HotellWeb.csproj", "{5BE56E00-F611-4CF4-A047-50A17EFFD0D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotellWebMvc", "HotellWebMvc\HotellWebMvc.csproj", "{5BE56E00-F611-4CF4-A047-50A17EFFD0D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

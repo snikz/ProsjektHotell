@@ -13,8 +13,10 @@ namespace HotellWebMvc
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("Login", "login", new { controller = "Authentication", action = "Login" });
-            routes.MapRoute("Home", "", new { controller = "Booking", action = "Index" });
+            routes.MapRoute("Login", "", new { controller = "Authentication", action = "Login" });
+            routes.MapRoute("Logout", "logout", new { controller = "Authentication", action = "Logout" });
+            routes.MapRoute("Booking", "booking", new { controller = "Booking", action = "Index" });
+            
         }
     }
 }

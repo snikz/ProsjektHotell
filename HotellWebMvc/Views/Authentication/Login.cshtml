@@ -1,0 +1,30 @@
+﻿@model HotellWebMvc.ViewModels.AuthLogin
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Hotel Booking</h1>
+<p>
+    Please log in to use our amazing hotel booking services that
+    will not strip you from all your cash at all. We promise.
+</p>
+
+@using (Html.BeginForm())
+{
+    
+    @Html.ValidationSummary()
+         <div>
+            @Html.LabelFor(x => x.Email)
+            @Html.EditorFor(x => x.Email)
+        </div>
+
+        <div>
+            @Html.LabelFor(x => x.Password)
+            @Html.EditorFor(x => x.Password)
+        </div>
+
+        <div>
+            <input class="btn btn-primary" type="submit" value="Login" />
+        </div>
+}
