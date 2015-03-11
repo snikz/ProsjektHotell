@@ -61,6 +61,7 @@ namespace HotellDesktop
         private void newReservation_Click(object sender, RoutedEventArgs e)
         {
             Reservasjoner reservasjoner = new Reservasjoner();
+            
             reservasjoner.Show();
         }
         /// <summary>
@@ -129,20 +130,31 @@ namespace HotellDesktop
             {
                 int id = selectedItem.roomId;
                 RoomView roomView = new RoomView(id);
+                roomView.changes += new update(updateRequired);
                 roomView.Show();
             }
             else
             {
 
                 RoomView roomView = new RoomView();
+                roomView.changes += new update(updateRequired);
                 roomView.Show();
             }
         }
 
+        private void updateRequired()
+        {
+            updateListView();
+        }
+
+    
         private void datePicker_SelectedDateChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             updateListView();
         }
+
+        
+
     }
 
     public class listViewClass

@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace HotellDesktop
 {
-
+    public delegate void update();
     /// <summary>
     /// Interaction logic for RoomView.xaml
     /// </summary>
@@ -12,6 +12,8 @@ namespace HotellDesktop
     {
 
         DesktopController desktopController;
+
+        public event update changes;
 
         public RoomView()
         {
@@ -99,6 +101,7 @@ namespace HotellDesktop
             }
 
             desktopController.addService(service);
+            onChanged();
             this.Close();
         }
 
@@ -108,9 +111,22 @@ namespace HotellDesktop
             if (selectedRoom != null && selectedRoom.serviceId != 0)
             {
                 desktopController.deleteService(selectedRoom.serviceId);
+                onChanged();
                 this.Close();
             }
         }
+
+        /// <summary>
+        /// fyrer event når endringer blir gjort
+        /// </summary>
+        public void onChanged()
+        {
+            if (changes != null)
+            {
+                changes();
+            }
+        }
+
     }
 
     /// <summary>
