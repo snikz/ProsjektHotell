@@ -18,7 +18,7 @@ namespace HotellDesktop
         public RoomView()
         {
             InitializeComponent();
-            
+
         }
         /// <summary>
         /// Constructor that takes a roomId as a parameter and construkts a roomView based on the roomId
@@ -57,14 +57,14 @@ namespace HotellDesktop
                                             intStatus = j == null ? 0 : (j.status),
                                             serviceId = j == null ? 0 : j.id
                                         });
-                
+
                 listView.DataContext = roomsWithService;
 
             }
 
         }
 
-       
+
 
         /// <summary>
         /// Cleares the textbox on focus so users can type their text
@@ -136,45 +136,14 @@ namespace HotellDesktop
     /// <summary>
     /// klasse for listview i RoomView
     /// </summary>
-    public class roomListViewClass{
+    public class roomListViewClass
+    {
         public int roomId { get; set; }
         public string stringStatus { get; set; }
         public int intStatus { get; set; }
         public string note { get; set; }
         public int serviceId { get; set; }
 
-
-
-        public string statusIntToString(int status)
-        {
-            switch (status)
-            {
-
-                case 0:
-                    return "New";
-                    
-                case 1:
-                    return "In progress";
-                    
-                case 2:
-                    return "Finish";
-                    
-                default:
-                    return "";
-                    
-            }
-
-        }
-
-        public override string ToString()
-        {
-
-            string status = statusIntToString(intStatus);
-
-            string s = roomId + status + note + serviceId;
-
-            return base.ToString();
-        } 
     }
 
 }

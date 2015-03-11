@@ -282,13 +282,17 @@ namespace HotellDesktop
         /// <param name="e"></param>
         private void checkInButton_Click(object sender, RoutedEventArgs e)
         {
-            try {
+            try
+            {
 
                 var selectedRoom = (listViewClass)roomListView.SelectedItems[0];
                 if (selectedRoom.bookingId != 0)
                 {
-                desktopController.checkIn(selectedRoom.bookingId);
-                updateListView();
+                    if (selectedRoom.checkedIn == false)
+                    {
+                        desktopController.checkIn(selectedRoom.bookingId);
+                        updateListView();
+                    }
                 }
             }
             catch (ArgumentOutOfRangeException)
@@ -310,6 +314,9 @@ namespace HotellDesktop
                 var selectedRoom = (listViewClass)roomListView.SelectedItems[0];
                 if (selectedRoom.bookingId != 0)
                 {
+                    if (selectedRoom.checkedIn == true)
+                    {
+
                     desktopController.checkOut(selectedRoom.bookingId);
 
                     HotellDLL.Service service = new HotellDLL.Service();
@@ -321,6 +328,7 @@ namespace HotellDesktop
                     desktopController.addService(service);
 
                     updateListView();
+                    }
                 }
             }
             catch (ArgumentOutOfRangeException)

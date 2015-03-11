@@ -11,15 +11,15 @@ namespace HotellDesktop
     class DesktopController
     {
         HotellDLL.DatabaseDataContext database;
-       
+
         /// <summary>
         /// Konstruktør som oppretter databaseContext
         /// </summary>
         public DesktopController()
         {
-            
+
             database = new HotellDLL.DatabaseDataContext();
-            
+
         }
 
         /// <summary>
@@ -53,8 +53,8 @@ namespace HotellDesktop
                 return null;
             }
         }
-        
-        
+
+
         /// <summary>
         /// Returnerer alle rom i databasen
         /// </summary>
@@ -69,7 +69,7 @@ namespace HotellDesktop
             {
                 return null;
             }
-        }     
+        }
 
         /// <summary>
         /// Returnerer alle services i databasen
@@ -106,7 +106,7 @@ namespace HotellDesktop
             database.Bookings.InsertOnSubmit(newBooking);
             database.SubmitChanges();
         }
-        
+
         /// <summary>
         /// Sletter en reservasjon
         /// </summary>
@@ -137,7 +137,7 @@ namespace HotellDesktop
             newBooking.guestId = oldBooking.guestId;
             newBooking.Room = newRoom;
             newBooking.roomId = newRoom.roomId;
-            
+
             database.Bookings.DeleteOnSubmit(oldBooking);
             database.Bookings.InsertOnSubmit(newBooking);
             database.SubmitChanges();
@@ -173,9 +173,9 @@ namespace HotellDesktop
             try
             {
 
-            HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
-            booking.checkedIn = true;
-            database.SubmitChanges();
+                HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
+                booking.checkedIn = true;
+                database.SubmitChanges();
             }
             catch (Exception)
             {
