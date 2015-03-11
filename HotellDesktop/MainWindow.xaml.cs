@@ -52,6 +52,7 @@ namespace HotellDesktop
                         firstName = book.Guest.firstName,
                         lastName = book.Guest.lastName,
                         checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+                        checkedInString = book.checkedIn == null ? "" : book.checkedIn == false ? "No" : "Yes",
                         notes = (rooms.Services.First().note != null ? "!" : ""),
                         bookingId = (book.bookingId == null ?  0: book.bookingId),
                     };
@@ -129,6 +130,7 @@ namespace HotellDesktop
                                 firstName = book.Guest.firstName,
                                 lastName = book.Guest.lastName,
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+                                
                                 notes = (rooms.Services.First().note != null ? "!" : ""),
                                 bookingId = (book.bookingId == null ? 0 : book.bookingId),
                             };
@@ -347,6 +349,8 @@ namespace HotellDesktop
         public string firstName { get; set; }
         public string lastName { get; set; }
         public bool checkedIn { get; set; }
+
+        public string checkedInString { get; set; }
         public string notes { get; set; }
         public int bookingId { get; set; }
 
