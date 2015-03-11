@@ -117,5 +117,25 @@ namespace HotellDesktop
             database.Services.DeleteOnSubmit(delete);
             database.SubmitChanges();
         }
+
+        /// <summary>
+        /// Metode for check in
+        /// </summary>
+        /// <param name="bookingId">id til booking som skal sjekkes inn</param>
+        public void checkIn(int bookingId)
+        {
+            try
+            {
+
+            HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
+            booking.checkedIn = true;
+            database.SubmitChanges();
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
     }
 }

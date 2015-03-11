@@ -52,7 +52,8 @@ namespace HotellDesktop
                         firstName = book.Guest.firstName,
                         lastName = book.Guest.lastName,
                         checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-                        notes = (rooms.Services.First().note != null ? "!" : "")
+                        notes = (rooms.Services.First().note != null ? "!" : ""),
+                        bookingId = (book.bookingId == null ?  0: book.bookingId),
                     };
 
                 roomListView.DataContext = roomsAndReservations;
@@ -102,7 +103,7 @@ namespace HotellDesktop
             else
             {
 
-                if ((bool)radioLastname.IsChecked)
+                if ((bool)radioLastname.IsChecked) //search for lastname
                 {
 
                     Table<HotellDLL.Room> roomTable = desktopController.getRoom();
@@ -128,7 +129,8 @@ namespace HotellDesktop
                                 firstName = book.Guest.firstName,
                                 lastName = book.Guest.lastName,
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-                                notes = (rooms.Services.First().note != null ? "!" : "")
+                                notes = (rooms.Services.First().note != null ? "!" : ""),
+                                bookingId = (book.bookingId == null ? 0 : book.bookingId),
                             };
 
                         roomListView.DataContext = roomsAndReservations;
@@ -136,7 +138,7 @@ namespace HotellDesktop
                     }
                 }
 
-                else
+                else //search for room number
                 {
                     Table<HotellDLL.Room> roomTable = desktopController.getRoom();
                     Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
@@ -161,7 +163,8 @@ namespace HotellDesktop
                                 firstName = book.Guest.firstName,
                                 lastName = book.Guest.lastName,
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-                                notes = (rooms.Services.First().note != null ? "!" : "")
+                                notes = (rooms.Services.First().note != null ? "!" : ""),
+                                bookingId = (book.bookingId == null ? 0 : book.bookingId),
                             };
 
                         roomListView.DataContext = roomsAndReservations;
@@ -246,6 +249,23 @@ namespace HotellDesktop
         {
             searchBoxSetText();
         }
+
+        private void checkInButton_Click(object sender, RoutedEventArgs e)
+        {
+            try {
+
+                var selectedRoom = (listViewClass)roomListView.SelectedItems[0];
+                if (selectedRoom.bookingId != 0)
+                {
+                desktopController.checkIn(selectedRoom.bookingId);
+                updateListView();
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Velg et rom", "Error");
+            }
+        }
     }
 
     public class listViewClass
@@ -255,6 +275,7 @@ namespace HotellDesktop
         public string lastName { get; set; }
         public bool checkedIn { get; set; }
         public string notes { get; set; }
+        public int bookingId { get; set; }
 
     }
 
