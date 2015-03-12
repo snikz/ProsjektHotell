@@ -53,7 +53,7 @@ namespace HotellDesktop
 
                                             roomId = room.roomId,
                                             note = j == null ? string.Empty : j.note,
-                                            stringStatus = j.status== 0 ? "New" : j.status==1 ? "In progress" : "Finished",
+                                            stringStatus = j.status== 0 ? "New" : j.status==1 ? "In progress" : j.status == 2? "Finished" : "",
                                             intStatus = j == null ? 0 : (j.status),
                                             serviceId = j == null ? 0 : j.id
                                         });
