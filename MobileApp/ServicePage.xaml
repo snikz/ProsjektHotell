@@ -14,33 +14,46 @@
     shell:SystemTray.IsVisible="True" BackKeyPress="PhoneApplicationPage_BackKeyPress">
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="HotelServiceDataTemplate">
-            <Border Visibility="Visible" CornerRadius="10" BorderThickness="5,0,0,5" BorderBrush="White">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="30" Text="{Binding roomId}" />
-                    <TextBlock Margin="30" Text="{Binding Type}" />
-                    <TextBlock Margin="30" Text="{Binding Status}" />
-                </StackPanel>
-            </Border>
+            <Border Visibility="Visible" CornerRadius="10" BorderThickness="5,0,0,0" BorderBrush="White" Width="Auto">
+                <Grid Width="470">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding roomId}" />
+                    <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Type}" />
+                    <TextBlock Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Status}" />
+                </Grid>
+            </Border>   
         </DataTemplate>
-    </phone:PhoneApplicationPage.Resources>
-    <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    </phone:PhoneApplicationPage.Resources> 
+    <Grid Width="Auto">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="70" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="3" x:Name="TitlePanel" Grid.Row="0">
             <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
-            <TextBlock Text="Select a service" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="48" HorizontalAlignment="Center" FontFamily="Gabriola"/>
+                <TextBlock Text="Choose a Category" FontSize="48" HorizontalAlignment="Center"/>
         </StackPanel>
+        
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="RoomNr" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="ServiceType" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Status" HorizontalAlignment="Center" />
 
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="24,10,0,-10">
-            <ListBox ItemsSource="{Binding}" ItemTemplate="{StaticResource HotelServiceDataTemplate}" Height="Auto" HorizontalAlignment="Center" Margin="14,10,0,0" Name="listBox" VerticalAlignment="Top" Width="400" Loaded="UpdateListBox" SelectionChanged="listBox_SelectionChanged">
-            </ListBox>
-        </Grid>
+        <ListBox HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding}" ItemTemplate="{StaticResource HotelServiceDataTemplate}" Height="Auto" HorizontalAlignment="Center"  Name="listBox" VerticalAlignment="Top" Width="Auto" Loaded="UpdateListBox" SelectionChanged="listBox_SelectionChanged">
+        </ListBox>
+
     </Grid>
 
 </phone:PhoneApplicationPage>
