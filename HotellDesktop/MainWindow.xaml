@@ -4,15 +4,25 @@
         Title="MainWindow" Height="394.776" Width="815.993"
         MinWidth="830"
         MinHeight="400">
-    <Grid>
-        <TextBox x:Name="searchBox" HorizontalAlignment="Right" Height="23" Margin="0,65,10,0" TextWrapping="Wrap" Text="Search lastname" VerticalAlignment="Top" Width="130" GotFocus="searchBox_GotFocus"/>
-        <Button x:Name="searchButton" Content="Search in reservations" HorizontalAlignment="Right" Margin="0,93,10,0" VerticalAlignment="Top" Width="130" Click="searchButton_Click"/>
-        <Button x:Name="newReservationButton" Content="Add new reservation" HorizontalAlignment="Right" Margin="0,298,10,0" VerticalAlignment="Top" Width="120" Click="newReservation_Click"/>
-        <DatePicker x:Name="datePicker" HorizontalAlignment="Right" Margin="250,10,10,0" VerticalAlignment="Top" RenderTransformOrigin="-0.052,0.448" FirstDayOfWeek="Monday" Text="date" SelectedDateChanged="datePicker_SelectedDateChanged"/>
-        <Button x:Name="todayDateButton" Content="Date today" HorizontalAlignment="Right" Margin="0,10,150,0" VerticalAlignment="Top" Width="107" Click="todayDateButton_Click"/>
-        <Button x:Name="checkInButton" Content="Check in" HorizontalAlignment="Left" Margin="382,325,0,0" VerticalAlignment="Top" Width="75" Click="checkInButton_Click"/>
-        <Button x:Name="checkOutButton" Content="Check out" HorizontalAlignment="Left" Margin="462,325,0,0" VerticalAlignment="Top" Width="75" Click="checkOutButton_Click"/>
-        <ListView x:Name="roomListView" ItemsSource="{Binding}" HorizontalAlignment="Left" Height="310" Margin="26,10,0,0" VerticalAlignment="Top" Width="511" MouseDoubleClick="listView_MouseDoubleClick">
+    <Grid Width="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+
+
+        </Grid.RowDefinitions>
+        <TextBox x:Name="searchBox" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Search lastname" VerticalAlignment="Top" GotFocus="searchBox_GotFocus" Margin="68,108,0,0" Width="128"  />
+        <Button x:Name="searchButton" Grid.Column="1" Content="Search in reservations" HorizontalAlignment="Left" VerticalAlignment="Top"  Click="searchButton_Click" Margin="68,182,0,0" Width="128" />
+        <Button x:Name="newReservationButton" Grid.Column="1" Content="Add new reservation" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="newReservation_Click" Margin="68,246,0,0" Width="128" />
+        <DatePicker x:Name="datePicker" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top"  FirstDayOfWeek="Monday" Text="date" SelectedDateChanged="datePicker_SelectedDateChanged" Margin="10,10,0,0" Width="186"/>
+        <Button x:Name="todayDateButton" Grid.Column="1" Content="Date today" HorizontalAlignment="left"  VerticalAlignment="Top"  Click="todayDateButton_Click" Margin="10,39,0,0" Width="186" />
+        <Button x:Name="checkInButton" Content="Check in" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="checkInButton_Click" Margin="451,10,0,0" />
+        <Button x:Name="checkOutButton" Content="Check out" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="checkOutButton_Click" Margin="531,10,0,0" />
+        <ListView x:Name="roomListView"   Grid.Column="0" Grid.Row="0" ItemsSource="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top" MouseDoubleClick="listView_MouseDoubleClick" Height="268" Width="606" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room number" Width="auto" DisplayMemberBinding="{Binding Path=roomId}"/>
@@ -24,11 +34,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel HorizontalAlignment="Right" Height="100" Margin="0,120,10,0" VerticalAlignment="Top" Width="130">
-            <RadioButton x:Name="radioLastname" Content="Search lastname" IsChecked="True" Click="radioLastname_Click"/>
-            <RadioButton x:Name="radioRoomNumber" Content="Search room number" Click="radioRoomNumber_Click"/>
+        <StackPanel HorizontalAlignment="Left" Grid.Column="1" Height="42"  VerticalAlignment="Top" Width="128" Margin="68,135,0,0" >
+            <RadioButton  x:Name="radioLastname"  Content="Search lastname" IsChecked="True" Click="radioLastname_Click"/>
+            <RadioButton x:Name="radioRoomNumber"  Content="Search room number" Click="radioRoomNumber_Click"/>
         </StackPanel>
-        
+
 
 
 
