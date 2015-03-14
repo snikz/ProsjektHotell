@@ -13,30 +13,31 @@
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded" BackKeyPress="PhoneApplicationPage_BackKeyPress">
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
+    
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" MinHeight="192"/>
-            <RowDefinition/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" /> 
+        </Grid.ColumnDefinitions>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="12,17,0,28">
             <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
-            <TextBlock Text="Modify Service" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="48" HorizontalAlignment="Center" FontFamily="Gabriola"/>
+            <TextBlock Text="Modify Service" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="48" HorizontalAlignment="Center"/>
         </StackPanel>
-
-        <ListBox Grid.Row="1" x:Name="statusListBox" Height="96" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="24">
+        <ListBox Grid.Row="1" x:Name="statusListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="24">
             <ListBoxItem Content="New" Tag="0" />
             <ListBoxItem Content="In Progress" Tag="1" />
             <ListBoxItem Content="Finished" Tag="2" />
         </ListBox>
-        <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,100,12,0">
-            <TextBox x:Name="noteTextBox" HorizontalAlignment="Left" Height="205" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="357" InputScope="Text"/>
-            <Button x:Name="Change" Content="Change" HorizontalAlignment="Left" Margin="10,259,0,0" VerticalAlignment="Top" Height="73" Width="221" Click="Change_Click"/>
-        </Grid>
-
+        <TextBox Grid.Row="3" Grid.ColumnSpan="2" x:Name="noteTextBox" HorizontalAlignment="Right" Height="200" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" InputScope="Text"/>
+        <Button Grid.Row="4" Grid.Column="2" x:Name="Change" Content="Change" HorizontalAlignment="Right" VerticalAlignment="Top" Height="73" Width="221" Click="Change_Click"/>
     </Grid>
-
 </phone:PhoneApplicationPage>
