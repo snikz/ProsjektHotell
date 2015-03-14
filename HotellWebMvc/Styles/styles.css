@@ -1,3 +1,13 @@
 ﻿
 body {
 }
+
+
+td {
+    border: inset;
+    border-width: 1px;
+}
+
+a.logoutbtn {
+    margin-top: 20px;
+}

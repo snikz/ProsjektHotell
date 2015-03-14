@@ -5,15 +5,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>The roombooker</h3>
+<h2>Welcome to the inside</h2>
+<p>You are now logged in, @User.Identity.Name</p>
 
-<p>Welcome back, @User.Identity.Name</p>
-<a class="btn btn-danger" href="@Url.RouteUrl("logout")">Logout</a>
 
-<ul>
-    @foreach (var booking in Model.Bookings)
+<!-- Display bookable rooms with options -->
+
+<div class="col-md-12">
+
+    <h4>Make reservation</h4>
+
+    <form action="">
+
+        <label>From:</label>
+        <input type="date" name="checkin" required />
+
+        <label>To:</label>
+        <input type="date" name="checkout" required />
+
+        <label>Room quality</label>
+        <select>
+            <option value="quality1">1</option>
+            <option value="quality2">2</option>
+            <option value="quality3">3</option>
+            <option value="quality4">4</option>
+            <option value="quality5">5</option>
+        </select>
+
+        <label>Number of beds</label>
+        <select>
+            <option value="beds1">1</option>
+            <option value="beds2">2</option>
+            <option value="beds3">3</option>
+            <option value="beds4">4</option>
+            <option value="beds5">5</option>
+        </select>
+
+        <button class="btn btn-info" type="submit">Check availability</button>
+    </form>
+</div>
+
+
+<!-- List selected rooms -->
+
+<!-- legge til ny liste i viewmodel.booking, hente, og sette verdier via controller? -->
+
+
+
+
+<!-- List booked rooms if any exists -->
+
+<div class="col-md-12">
+    <h3>Reservations</h3>
+    @if (Model.Bookings.ToList().Count > 0)
     {
-        <li>@booking.checkInDate</li>
+        <table style="width:70%">
+            <tr>
+                <th>Check in date</th>
+                <th>Check out date</th>
+                <th>Quality</th>
+                <th># of beds</th>
+            </tr>
+            @foreach (var booking in Model.Bookings)
+            {
+                <tr>
+                    <td>@booking.checkInDate.ToShortDateString() </td>
+                    <td>@booking.checkOutDate.ToShortDateString() </td>
+                    <td>@booking.Room.quality</td>
+                    <td>@booking.Room.bed</td>
+                </tr>
+            }
+        </table>
     }
-</ul>
+    else
+    {
+        <p>You do not currently have any reservations.</p>
+    }
+</div>
+
+<a class="logoutbtn btn btn-danger" href="@Url.RouteUrl("Logout")">
+    <i class="glyphicon glyphicon-log-out">
+    </i> Logout
+</a>
 

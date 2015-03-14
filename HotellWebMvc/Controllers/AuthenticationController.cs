@@ -36,18 +36,17 @@ namespace HotellWebMvc.Controllers
             HotellDLL.DatabaseDataContext dc = new HotellDLL.DatabaseDataContext();
             Guest g = dc.Guests.Where(x => x.email.Equals(form.Email)).FirstOrDefault();
             
+            //suksessfull login, autentisert og authorize via RoleProvider (invokes automatisk og gir ut rollen "guest" til alle)
             if (g != null && g.password.Equals(form.Password)) 
             {
                 FormsAuthentication.SetAuthCookie(form.Email, true);
                 return RedirectToRoute("Booking");
             }
 
-            
-
             else
                 return RedirectToRoute("Login");
-            
-            
         }
+
+
     }
 }

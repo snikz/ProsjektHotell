@@ -14,10 +14,16 @@ namespace HotellWebMvc.Controllers
         // GET: Booking
         public ActionResult Index()
         {
-            HotellDLL.DatabaseDataContext dc = new HotellDLL.DatabaseDataContext();
+            DatabaseDataContext dc = new HotellDLL.DatabaseDataContext();
+            //IEnumerable<Booking> l = dc.Bookings.ToList();
+
+            //lager aktuelle lister som skal brukes i view
             return View(new BookingIndex
             {
-                Bookings = dc.Bookings.ToList()
+                Bookings = dc.Bookings
+                .Where(x => x.Guest.email == User.Identity.Name)
+                .ToList()
+
             });
         }
 
@@ -27,13 +33,14 @@ namespace HotellWebMvc.Controllers
             return View();
         }
 
-        // POST: Booking/Create
+        // POST: Index
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Index(FormCollection collection)
         {
             try
             {
                 // TODO: Add insert logic here
+                
 
                 return RedirectToAction("Index");
             }

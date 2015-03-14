@@ -1,0 +1,40 @@
+﻿@model HotellWebMvc.ViewModels.NewGuest
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+    <div class="form-group">
+
+        <div>
+            @Html.LabelFor(x => x.FirstName)
+            @Html.EditorFor(x => x.FirstName)
+        </div>
+
+        <div>
+            @Html.LabelFor(x => x.LastName)
+            @Html.EditorFor(x => x.LastName)
+        </div>
+
+
+        <div>
+            @Html.LabelFor(x => x.Email)
+            @Html.EditorFor(x => x.Email)
+        </div>
+
+        <div>
+            @Html.LabelFor(x => x.Password)
+            @Html.EditorFor(x => x.Password)
+        </div>
+
+        <div>
+            <input class="btn btn-primary" type="submit" value="Register" />
+        </div>
+    </div>
+}
+

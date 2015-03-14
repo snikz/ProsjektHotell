@@ -3,7 +3,6 @@ using System.Data.Linq;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
-using System.Diagnostics;
 
 namespace HotellDesktop
 {
@@ -30,22 +29,25 @@ namespace HotellDesktop
         private void updateListView()
         {
 
-            Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-            Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
+            Table<HotellDLL.Room> roomTable = desktopController.getRoom(); // all rooms
+            Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking(); // all bookings
 
+            //if a date has not been selected, set to todays date
             if (datePicker.SelectedDate == null)
             {
                 datePicker.SelectedDate = datePicker.DisplayDate;
             }
 
+            //all bookings that are ongoing on todays date
             var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
 
+            //all rooms and match with todays bookings
             if (roomTable != null)
             {
                 var roomsAndReservations =
                     from rooms in roomTable
                     join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
-                    from book in roomsAndRes.DefaultIfEmpty()
+                    from book in roomsAndRes.DefaultIfEmpty() // return default if empty
                     select new listViewClass()
                     {
                         roomId = rooms.roomId,
@@ -70,10 +72,15 @@ namespace HotellDesktop
         private void newReservation_Click(object sender, RoutedEventArgs e)
         {
             Reservasjoner reservasjoner = new Reservasjoner();
-            reservasjoner.Closed += reservasjoner_Closed;
-            reservasjoner.ShowDialog();
+            reservasjoner.Closed += reservasjoner_Closed;//event that occurs when Reservasjoner is closed
+            reservasjoner.ShowDialog(); //will only return when the window is closed
         }
 
+        /// <summary>
+        /// Occurs when Reservasjon window is closed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void reservasjoner_Closed(object sender, EventArgs e)
         {
             updateListView();
@@ -177,13 +184,21 @@ namespace HotellDesktop
         }
     
         /// <summary>
-        /// Opens the roomView based on the selected room
+        /// Calls selectRoom
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
 
+            selectRoom();
+        }
+
+        /// <summary>
+        /// Opens the roomView based on the selected room
+        /// </summary>
+        private void selectRoom()
+        {
             try
             {
                 var selectedItem = (listViewClass)roomListView.SelectedItems[0];
@@ -204,13 +219,14 @@ namespace HotellDesktop
                 }
             }
 
-            catch(ArgumentOutOfRangeException){
-                MessageBox.Show("Doble click on a room", "error");
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Select a room from the list", "Error");
             }
         }
 
         /// <summary>
-        /// Kaller updateListView()
+        /// Calls updateListView()
         /// </summary>
         private void updateRequired()
         {
@@ -219,7 +235,7 @@ namespace HotellDesktop
 
     
         /// <summary>
-        /// Blir kalt når en ny dato er valgt i datepicker
+        /// Occurs when selections in datepicker has changed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -229,7 +245,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Sitter datepicker til dagens dato
+        /// Sets datepicker to todays day
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -241,7 +257,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Sitter teksten i searchBox basert på radiobuttons valg
+        /// Refresh the textbox based on radiobuttons choice
         /// </summary>
         private void searchBoxSetText()
         {
@@ -259,7 +275,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Blir kalt når radioRoomNumberButton blir klikket på
+        /// Occurs when radiobutton is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -268,7 +284,7 @@ namespace HotellDesktop
             searchBoxSetText();
         }
         /// <summary>
-        /// Blir kalt når radioLastNameButton blir klikket på
+        /// occurs when radiobutton is clicked
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -278,7 +294,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Sjekker inn en reservasjon basert på valget i roomListView
+        /// Check in a reservation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -304,7 +320,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Sjekker ut en reservasjon og sletter den, basert på valget i roomListView
+        /// Reservation check out, and delete
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -338,10 +354,15 @@ namespace HotellDesktop
                 MessageBox.Show("Velg et rom", "Error");
             }
         }
+
+        private void selectRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            selectRoom();
+        }
     }
 
     /// <summary>
-    /// Klasse for å håndtere rom og reservasjon i listview
+    /// Class for view in listView
     /// </summary>
     public class listViewClass
     {

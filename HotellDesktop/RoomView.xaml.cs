@@ -121,7 +121,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// fyrer event når endringer blir gjort
+        /// Event on changes
         /// </summary>
         public void onChanged()
         {
@@ -134,7 +134,7 @@ namespace HotellDesktop
     }
 
     /// <summary>
-    /// klasse for listview i RoomView
+    /// Class for listview in RoomView
     /// </summary>
     public class roomListViewClass
     {
