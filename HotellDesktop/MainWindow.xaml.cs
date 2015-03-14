@@ -184,13 +184,21 @@ namespace HotellDesktop
         }
     
         /// <summary>
-        /// Opens the roomView based on the selected room
+        /// Calls selectRoom
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void listView_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
 
+            selectRoom();
+        }
+
+        /// <summary>
+        /// Opens the roomView based on the selected room
+        /// </summary>
+        private void selectRoom()
+        {
             try
             {
                 var selectedItem = (listViewClass)roomListView.SelectedItems[0];
@@ -211,8 +219,9 @@ namespace HotellDesktop
                 }
             }
 
-            catch(ArgumentOutOfRangeException){
-                MessageBox.Show("Doble click on a room", "Error");
+            catch (ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Select a room from the list", "Error");
             }
         }
 
@@ -344,6 +353,11 @@ namespace HotellDesktop
             {
                 MessageBox.Show("Velg et rom", "Error");
             }
+        }
+
+        private void selectRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            selectRoom();
         }
     }
 

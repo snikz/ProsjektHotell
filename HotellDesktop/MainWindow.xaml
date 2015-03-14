@@ -38,6 +38,7 @@
             <RadioButton  x:Name="radioLastname"  Content="Search lastname" IsChecked="True" Click="radioLastname_Click"/>
             <RadioButton x:Name="radioRoomNumber"  Content="Search room number" Click="radioRoomNumber_Click"/>
         </StackPanel>
+        <Button x:Name="selectRoomButton" Content="Select room" Grid.Column="1" HorizontalAlignment="Left" Margin="68,209,0,0" VerticalAlignment="Top" Width="128" Click="selectRoomButton_Click"/>
 
 
 
