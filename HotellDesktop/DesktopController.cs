@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Data.Linq;
-using System.Text;
-using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace HotellDesktop
 {
@@ -13,7 +8,7 @@ namespace HotellDesktop
         HotellDLL.DatabaseDataContext database;
 
         /// <summary>
-        /// Konstruktør som oppretter databaseContext
+        /// Constructor that initiates databaseContext
         /// </summary>
         public DesktopController()
         {
@@ -23,7 +18,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Returnerer alle bookinger i databasen
+        /// Returns all bookings in database
         /// </summary>
         /// <returns>Booking</returns>
         public Table<HotellDLL.Booking> getBooking()
@@ -39,7 +34,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Returnerer alle gjester i databasen
+        /// Returns all guest in database
         /// </summary>
         /// <returns>Guest</returns>
         public Table<HotellDLL.Guest> getGuest()
@@ -56,7 +51,7 @@ namespace HotellDesktop
 
 
         /// <summary>
-        /// Returnerer alle rom i databasen
+        /// Returns all rooms in database
         /// </summary>
         /// <returns>Room</returns>
         public Table<HotellDLL.Room> getRoom()
@@ -72,7 +67,7 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Returnerer alle services i databasen
+        /// Returns all service in database
         /// </summary>
         /// <returns>Service</returns>
         public Table<HotellDLL.Service> getService()
@@ -88,9 +83,9 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Ligger til an ny bruker i databasen
+        /// Adds a new user in database
         /// </summary>
-        /// <param name="newGuest">Guest gjesten som skal ligges inn</param>
+        /// <param name="newGuest">Guest to be added</param>
         public void addUser(HotellDLL.Guest newGuest)
         {
             database.Guests.InsertOnSubmit(newGuest);
@@ -98,9 +93,9 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Ligger til en ny reservasjon i databasen
+        /// Adds a new reservation in databse
         /// </summary>
-        /// <param name="newBooking">Booking bookingen som skal ligges inn</param>
+        /// <param name="newBooking">Booking to be added</param>
         public void addReservation(HotellDLL.Booking newBooking)
         {
             database.Bookings.InsertOnSubmit(newBooking);
@@ -108,9 +103,9 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Sletter en reservasjon
+        /// Deletes a reservation
         /// </summary>
-        /// <param name="id">int id'en til reservasjonen som skal slettes</param>
+        /// <param name="id">int id to the reservation</param>
         public void deleteReservation(int id)
         {
             HotellDLL.Booking delete = getBooking().Where(bookings => bookings.bookingId == id).FirstOrDefault();
@@ -119,9 +114,9 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Bytter fra ett rom til ett annet
+        /// Changes from one room to another
         /// </summary>
-        /// <param name="id">id til rommet man skal bytte til</param>
+        /// <param name="id">int id to new room</param>
         /// <param name="bookingId">booking id</param>
         public void changeRoom(int id, int bookingId)
         {
@@ -144,9 +139,9 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Metode for å ligge til en ny service i databasen
+        /// Adds a new service in database
         /// </summary>
-        /// <param name="newService">ny service</param>
+        /// <param name="newService">new service</param>
         public void addService(HotellDLL.Service newService)
         {
             database.Services.InsertOnSubmit(newService);
@@ -154,9 +149,9 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Metode for å slette en service
+        /// Deletes a service
         /// </summary>
-        /// <param name="serviceID">id til service som skal bli slettet</param>
+        /// <param name="serviceID">int id to service</param>
         public void deleteService(int serviceID)
         {
             HotellDLL.Service delete = getService().Where(service => service.id.Equals(serviceID)).FirstOrDefault();
@@ -165,41 +160,30 @@ namespace HotellDesktop
         }
 
         /// <summary>
-        /// Metode for check in
+        /// Method for check in
         /// </summary>
-        /// <param name="bookingId">id til booking som skal sjekkes inn</param>
+        /// <param name="bookingId">int booking id</param>
         public void checkIn(int bookingId)
         {
-            try
-            {
 
-                HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
-                booking.checkedIn = true;
-                database.SubmitChanges();
-            }
-            catch (Exception)
-            {
+            HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
+            booking.checkedIn = true;
+            database.SubmitChanges();
 
-            }
 
         }
 
         /// <summary>
-        /// Metode for check out
+        /// Method for check out
         /// </summary>
-        /// <param name="bookingId"></param>
-        internal void checkOut(int bookingId)
+        /// <param name="bookingId">int booking id</param>
+        public void checkOut(int bookingId)
         {
-            try
-            {
-                HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
-                database.Bookings.DeleteOnSubmit(booking);
-                database.SubmitChanges();
-            }
-            catch (Exception)
-            {
 
-            }
+            HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
+            database.Bookings.DeleteOnSubmit(booking);
+            database.SubmitChanges();
+
         }
     }
 }
