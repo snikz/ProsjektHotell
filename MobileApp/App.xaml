@@ -8,6 +8,7 @@
     <!--Application Resources-->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:MobileApp" x:Key="LocalizedStrings"/>
+        <FontFamily x:Key="FontGabriola">Gabriola</FontFamily>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

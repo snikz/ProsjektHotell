@@ -15,7 +15,7 @@
     <phone:PhoneApplicationPage.Resources>
         <DataTemplate x:Key="HotelServiceDataTemplate">
             <Border Visibility="Visible" CornerRadius="10" BorderThickness="5,0,0,0" BorderBrush="White" Width="Auto">
-                <Grid Width="470">
+                <Grid Width="480">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
@@ -42,15 +42,14 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.ColumnSpan="3" x:Name="TitlePanel" Grid.Row="0">
-            <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
-                <TextBlock Text="Choose a Category" FontSize="48" HorizontalAlignment="Center"/>
+        <StackPanel Grid.ColumnSpan="3" x:Name="TitlePanel  " Grid.Row="0">
+            <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
+            <TextBlock Text="Choose a Category" FontSize="48" HorizontalAlignment="Center"/>
         </StackPanel>
         
         <TextBlock Grid.Row="1" Grid.Column="0" Text="RoomNr" HorizontalAlignment="Center" />
         <TextBlock Grid.Row="1" Grid.Column="1" Text="ServiceType" HorizontalAlignment="Center" />
         <TextBlock Grid.Row="1" Grid.Column="2" Text="Status" HorizontalAlignment="Center" />
-
         <ListBox HorizontalContentAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3" ItemsSource="{Binding}" ItemTemplate="{StaticResource HotelServiceDataTemplate}" Height="Auto" HorizontalAlignment="Center"  Name="listBox" VerticalAlignment="Top" Width="Auto" Loaded="UpdateListBox" SelectionChanged="listBox_SelectionChanged">
         </ListBox>
 

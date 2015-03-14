@@ -28,16 +28,16 @@
             <ColumnDefinition Width="*" /> 
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="12,17,0,28">
-            <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
-            <TextBlock Text="Modify Service" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="48" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
+            <TextBlock Text="Modify Service" Style="{StaticResource PhoneTextTitle1Style}" FontSize="48" HorizontalAlignment="Center"/>
         </StackPanel>
-        <ListBox Grid.Row="1" x:Name="statusListBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,0,0,0" FontSize="24">
+        <ListBox Grid.Row="1" x:Name="statusListBox" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="24">
             <ListBoxItem Content="New" Tag="0" />
             <ListBoxItem Content="In Progress" Tag="1" />
             <ListBoxItem Content="Finished" Tag="2" />
         </ListBox>
-        <TextBox Grid.Row="3" Grid.ColumnSpan="2" x:Name="noteTextBox" HorizontalAlignment="Right" Height="200" Margin="0,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="350" InputScope="Text"/>
-        <Button Grid.Row="4" Grid.Column="2" x:Name="Change" Content="Change" HorizontalAlignment="Right" VerticalAlignment="Top" Height="73" Width="221" Click="Change_Click"/>
+        <TextBox Grid.Row="3" Grid.Column="2" x:Name="noteTextBox" HorizontalAlignment="Right" MinHeight="200"  MinWidth="350" TextWrapping="Wrap" VerticalAlignment="Top" InputScope="Text"/>
+        <Button Grid.Row="4" Grid.Column="2" x:Name="Change" Content="Change" HorizontalAlignment="Right" VerticalAlignment="Top" MinHeight="70" MinWidth="220" Click="Change_Click"/>
     </Grid>
 </phone:PhoneApplicationPage>

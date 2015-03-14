@@ -19,12 +19,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
-            <TextBlock Text="Choose a Category" Margin="9,-7,0,0"  FontSize="48" HorizontalAlignment="Center"/>
-        </StackPanel>      
-        <Button Grid.Row="1" x:Name="cleanerBtn" Content="Cleaner" HorizontalAlignment="Center" VerticalAlignment="Center" Height="100" Width="280" Click="Btn_Click" Tag="0"/>
-        <Button Grid.Row="2" x:Name="maintainerBtn" Content="Maintainer" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="100" Click="Btn_Click" Tag="1"/>
-        <Button Grid.Row="3" x:Name="fixerBtn" Content="Fixer" HorizontalAlignment="Center" VerticalAlignment="Top" Width="280" Height="100" Click="Btn_Click" Tag="2"/>     
+        <StackPanel x:Name="TitlePanel" Grid.Row="0">
+            <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
+            <TextBlock Text="Choose a Category" FontSize="48" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <Button Grid.Row="1" x:Name="cleanerBtn" Content="Cleaner" HorizontalAlignment="Center" VerticalAlignment="Center"  MinWidth="280" MinHeight="100" Click="Btn_Click" Tag="0"/>
+        <Button Grid.Row="2" x:Name="maintainerBtn" Content="Maintainer" HorizontalAlignment="Center" VerticalAlignment="Top" MinWidth="280" MinHeight="100" Click="Btn_Click" Tag="1"/>
+        <Button Grid.Row="3" x:Name="fixerBtn" Content="Fixer" HorizontalAlignment="Center" VerticalAlignment="Top" MinWidth="280" MinHeight="100" Click="Btn_Click" Tag="2"/>     
     </Grid>
 </phone:PhoneApplicationPage>
