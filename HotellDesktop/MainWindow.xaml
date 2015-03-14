@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <TextBox x:Name="searchBox" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Search lastname" VerticalAlignment="Top" GotFocus="searchBox_GotFocus" Margin="68,108,0,0" Width="128"  />
         <Button x:Name="searchButton" Grid.Column="1" Content="Search in reservations" HorizontalAlignment="Left" VerticalAlignment="Top"  Click="searchButton_Click" Margin="68,182,0,0" Width="128" />
-        <Button x:Name="newReservationButton" Grid.Column="1" Content="Add new reservation" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="newReservation_Click" Margin="68,246,0,0" Width="128" />
+        <Button x:Name="newReservationButton" Grid.Column="1" Content="Manage reservations" HorizontalAlignment="Left"  VerticalAlignment="Top"  Click="newReservation_Click" Margin="68,246,0,0" Width="128" />
         <DatePicker x:Name="datePicker" Grid.Column="1" HorizontalAlignment="Left"  VerticalAlignment="Top"  FirstDayOfWeek="Monday" Text="date" SelectedDateChanged="datePicker_SelectedDateChanged" Margin="10,10,0,0" Width="186"/>
         <Button x:Name="todayDateButton" Grid.Column="1" Content="Date today" HorizontalAlignment="left"  VerticalAlignment="Top"  Click="todayDateButton_Click" Margin="10,39,0,0" Width="186" />
         <Button x:Name="checkInButton" Content="Check in" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="checkInButton_Click" Margin="451,10,0,0" />
