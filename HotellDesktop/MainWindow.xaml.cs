@@ -56,7 +56,7 @@ namespace HotellDesktop
                         checkedIn = (book.checkedIn == null ? false : book.checkedIn),
                         checkedInString = book.checkedIn == null ? "" : book.checkedIn == false ? "No" : "Yes",
                         notes = (rooms.Services.First().note != null ? "!" : ""),
-                        bookingId = (book.bookingId == null ?  0: book.bookingId),
+                        bookingId = (book.bookingId == null ?  -1: book.bookingId), //-1 will never occur in database, and therefor sat as default
                     };
 
                 roomListView.DataContext = roomsAndReservations;
