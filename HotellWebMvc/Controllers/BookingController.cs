@@ -12,19 +12,34 @@ namespace HotellWebMvc.Controllers
     public class BookingController : Controller
     {
         // GET: Booking
-        public ActionResult Index()
+        public ActionResult Index(Book form)
         {
             DatabaseDataContext dc = new HotellDLL.DatabaseDataContext();
-            //IEnumerable<Booking> l = dc.Bookings.ToList();
-
-            //lager aktuelle lister som skal brukes i view
-            return View(new BookingIndex
-            {
-                Bookings = dc.Bookings
+            
+            //henter alle eksisterende bookings for aktiv bruker
+            IEnumerable<Booking> bookingsForUser = dc.Bookings
                 .Where(x => x.Guest.email == User.Identity.Name)
-                .ToList()
-
-            });
+                .ToList();
+            
+            // hvis ikke brukeren har valgt formdata / første gang brukeren ser forsiden
+            if (form.checkIn == null || form.checkOut == null)
+            {
+                return View(new BookingIndex
+                    {
+                        Bookings = bookingsForUser,
+                        Rooms = null
+                    });
+                // returner view uten å hente availableRoom-data fra DB
+            }
+            else
+            {
+                //lag liste basert på data fra form og klargjør det til view under
+                return View(new BookingIndex
+                {
+                    Bookings = bookingsForUser,
+                    Rooms = dc.Rooms.ToList()
+                });
+            }
         }
 
         // GET: Booking/Details/5
