@@ -5,9 +5,6 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using HotellDesktop;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
 
 namespace HotellDesktop
 {

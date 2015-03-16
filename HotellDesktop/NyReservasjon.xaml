@@ -8,9 +8,9 @@
         <ListView x:Name="userList" ItemsSource="{Binding}"  Margin="180,20,10, 200"  IsEnabled="False">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="60" Header="Lastname" DisplayMemberBinding="{Binding Path=lastName}"/>
-                    <GridViewColumn Width="60" Header="Firstname" DisplayMemberBinding="{Binding Path=firstName}"/>
-                    <GridViewColumn Width="140" Header="Email" DisplayMemberBinding="{Binding Path=email}"/>
+                    <GridViewColumn Width="Auto" Header="Lastname" DisplayMemberBinding="{Binding Path=lastName}"/>
+                    <GridViewColumn Width="Auto" Header="Firstname" DisplayMemberBinding="{Binding Path=firstName}"/>
+                    <GridViewColumn Width="Auto" Header="Email" DisplayMemberBinding="{Binding Path=email}"/>
                 </GridView>
             </ListView.View>
         </ListView>

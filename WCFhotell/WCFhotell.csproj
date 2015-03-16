@@ -95,12 +95,6 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HotellDLL\HotellDLL.csproj">
-      <Project>{a81a5bb1-960d-4cea-b44d-84eab5cedb37}</Project>
-      <Name>HotellDLL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="HotelServiceDataModel.dbml.layout">
       <DependentUpon>HotelServiceDataModel.dbml</DependentUpon>
     </None>
