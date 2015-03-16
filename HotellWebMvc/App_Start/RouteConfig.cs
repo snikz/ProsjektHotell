@@ -18,6 +18,7 @@ namespace HotellWebMvc
             routes.MapRoute("Logout", "logout", new { controller = "Authentication", action = "Logout" });
             routes.MapRoute("Booking", "booking", new { controller = "Booking", action = "Index" });
             routes.MapRoute("Registration", "register", new { controller = "Registration", action = "Register" });
+            routes.MapRoute("Book", "book", new { controller = "Booking", action = "Booking" });
             
         }
     }

@@ -1,0 +1,24 @@
+﻿@model HotellWebMvc.ViewModels.BookingIndex
+
+<div>
+
+    @{
+        if (Model.matchesSearch)
+        {
+            <p>We just found the perfect room for your journey!</p>
+            <p>
+                It's @Model.SelectedRoom.size square meter large and it costs @Model.SelectedRoom.price kr each night.
+            </p>
+            
+            <form method="post" action="Book">
+                <input class="btn btn-success" type="submit" value="Book it" />
+            </form>
+            
+        }
+        else
+        {
+            <p>We havent found a matching room for you yet.</p>
+        }
+    }
+
+</div>
