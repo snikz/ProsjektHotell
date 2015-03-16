@@ -4,7 +4,7 @@
         Title="Window1" Height="359.701" Width="455" MinHeight="360" MinWidth="460">
     <Grid>
         <RadioButton x:Name="New" GroupName="NewUsed" Content="New User" Margin="10,5,0,0" Checked="New_Checked" IsChecked="True" />
-        <RadioButton x:Name="Old" GroupName="NewUsed" Content="Current user" Margin="180,5,0,0" Checked="Old_Checked" IsChecked="False" />
+        <RadioButton x:Name="Old" GroupName="NewUsed" Content="Current user" Margin="180,5,0,0" Checked="Old_Checked" />
         <ListView x:Name="userList" ItemsSource="{Binding}"  Margin="180,20,10, 200"  IsEnabled="False">
             <ListView.View>
                 <GridView>
