@@ -7,20 +7,12 @@ using System.Text;
 using HotellDLL;
 
 namespace WCFhotell
+
 {
-    public class viewService
-    {
-        public int id { get; set; }
-        public String note { get; set; }
-        public int roomId { get; set; }
-        public int status { get; set; }
-        public int type { get; set; }
-    }
     public class HotelServices : IHotelServices
     {
         DatabaseDataContext Data;
-
-        
+ 
         public HotelServices()
         {
             Data = new DatabaseDataContext();
