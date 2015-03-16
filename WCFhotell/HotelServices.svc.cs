@@ -8,7 +8,7 @@ using HotellDLL;
 
 namespace WCFhotell
 {
-    public class Service2
+    public class viewService
     {
         public int id { get; set; }
         public String note { get; set; }
@@ -26,11 +26,11 @@ namespace WCFhotell
             Data = new DatabaseDataContext();
         }
 
-        public List<Service2> GetServices(string serviceType)
+        public List<viewService> GetServices(string serviceType)
         {
             var services = from service in Data.Services
                            where service.type == Convert.ToInt32(serviceType)
-                           select new Service2
+                           select new viewService
                            {
                                id = service.id,
                                note = service.note,
