@@ -7,30 +7,22 @@ using System.Text;
 using HotellDLL;
 
 namespace WCFhotell
+
 {
-    public class viewService
-    {
-        public int id { get; set; }
-        public String note { get; set; }
-        public int roomId { get; set; }
-        public int status { get; set; }
-        public int type { get; set; }
-    }
     public class HotelServices : IHotelServices
     {
         DatabaseDataContext Data;
-
-        
+ 
         public HotelServices()
         {
             Data = new DatabaseDataContext();
         }
 
-        public List<viewService> GetServices(string serviceType)
+        public List<Service> GetServices(string serviceType)
         {
             var services = from service in Data.Services
                            where service.type == Convert.ToInt32(serviceType)
-                           select new viewService
+                           select new Service
                            {
                                id = service.id,
                                note = service.note,
@@ -49,7 +41,7 @@ namespace WCFhotell
             {
                 note = "";
             }
-            Service choosenService = (from service in Data.Services
+            HotellDLL.Service choosenService = (from service in Data.Services
                                       where service.id == Convert.ToInt32(serviceID)
                                       select service).First();
             choosenService.status = Convert.ToInt32(status);
