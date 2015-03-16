@@ -4,19 +4,16 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using HotellDLL;
 
 namespace WCFhotell
 {
     public class HotelServices : IHotelServices
     {
-        DatabaseDataContext Data;
-        //HotelServiceModelDataContext Data;
+        HotelServiceDataModelDataContext Data;
 
         public HotelServices()
         {
-            //Data = new HotelServiceModelDataContext();
-            Data = new DatabaseDataContext();
+            Data = new HotelServiceDataModelDataContext();
         }
 
         public List<Service> GetServices(string serviceType)
