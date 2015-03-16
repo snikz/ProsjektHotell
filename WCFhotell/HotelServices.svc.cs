@@ -18,11 +18,11 @@ namespace WCFhotell
             Data = new DatabaseDataContext();
         }
 
-        public List<viewService> GetServices(string serviceType)
+        public List<Service> GetServices(string serviceType)
         {
             var services = from service in Data.Services
                            where service.type == Convert.ToInt32(serviceType)
-                           select new viewService
+                           select new Service
                            {
                                id = service.id,
                                note = service.note,
@@ -41,7 +41,7 @@ namespace WCFhotell
             {
                 note = "";
             }
-            Service choosenService = (from service in Data.Services
+            HotellDLL.Service choosenService = (from service in Data.Services
                                       where service.id == Convert.ToInt32(serviceID)
                                       select service).First();
             choosenService.status = Convert.ToInt32(status);

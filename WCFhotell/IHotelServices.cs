@@ -13,7 +13,7 @@ namespace WCFhotell
     {
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/{serviceType}")]
-        List<viewService> GetServices(string serviceType);
+        List<Service> GetServices(string serviceType);
 
         [OperationContract]
         [WebGet(ResponseFormat = WebMessageFormat.Json, UriTemplate = "/{serviceID}/{status}/{note}")]
@@ -21,7 +21,7 @@ namespace WCFhotell
     }
 
     [DataContract]
-    public class viewService
+    public class Service
     {
         [DataMember]
         public int id { get; set; }
