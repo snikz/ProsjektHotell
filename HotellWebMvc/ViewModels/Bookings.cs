@@ -9,8 +9,8 @@ using System.Web.Mvc;
 namespace HotellWebMvc.ViewModels
 {
     /// <summary>
-    /// This class will prepare the different lists for the booking-view,
-    /// the controller will then populate these lists and return it to the view
+    /// We prepare a booking-list for the view, and prepare some data that the user will 
+    /// fill in. Then we can have the controller populate the list and handle the data later.
     /// </summary>
 
     public class BookingIndex
@@ -18,10 +18,8 @@ namespace HotellWebMvc.ViewModels
         public IEnumerable<Booking> Bookings { get; set; }
         public Room SelectedRoom { get; set; }
 
-        [Required]
+        
         public DateTime checkIn { get; set; }
-
-        [Required]
         public DateTime checkOut { get; set; }
 
         public int quality { get; set; }

@@ -5,15 +5,14 @@
     @{
         if (Model.matchesSearch)
         {
-            <p>We just found the perfect room for your journey!</p>
+            <p>We just found the perfect room for you!</p>
             <p>
-                It's @Model.SelectedRoom.size square meter large and it costs @Model.SelectedRoom.price kr each night.
+                It's @Model.SelectedRoom.size square meter and it costs @Model.SelectedRoom.price kr each night.
             </p>
-            
+
             <form method="post" action="Book">
                 <input class="btn btn-success" type="submit" value="Book it" />
             </form>
-            
         }
         else
         {
