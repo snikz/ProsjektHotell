@@ -44,7 +44,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.ColumnSpan="3" x:Name="TitlePanel" Grid.Row="0">
             <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
-            <TextBlock Text="Choose a Category" FontSize="48" HorizontalAlignment="Center"/>
+            <TextBlock Text="Choose a Service" FontSize="48" HorizontalAlignment="Center"/>
         </StackPanel>
         
         <TextBlock Grid.Row="1" Grid.Column="0" Text="RoomNr" HorizontalAlignment="Center" />
