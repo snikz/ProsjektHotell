@@ -1,7 +1,6 @@
 ﻿@model HotellWebMvc.ViewModels.BookingIndex
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,13 +16,11 @@
 
     <form method="get" action="Booking">
 
-
-
         <label>From:</label>
-        <input type="date" name="checkin" required />
+        <input type="date" name="checkIn" required />
 
         <label>To:</label>
-        <input type="date" name="checkout" required />
+        <input type="date" name="checkOut" required />
 
         <p></p>
 
@@ -50,13 +47,14 @@
 
 
 <!-- List selected rooms -->
-<!-- legge til ny liste i viewmodel.booking, hente, og sette verdier via controller? -->
 
 <div class="col-md-12 bookingResultList">
     @Html.Partial("Booking")
 </div>
 
-<!-- List booked rooms if any exists -->
+
+
+<!-- List previously booked rooms if any exists -->
 
 <div class="col-md-12 listExistingReservations">
     <h3>Reservations</h3>

@@ -11,6 +11,7 @@ namespace HotellWebMvc.Helpers
 
         public override string[] GetRolesForUser(string username)
         {
+            // alle som passerer autentifikasjon får denne rollen (blir dermed autorisert automatisk)
             return new[] { "guest" };
             //return new string[] { };
         }
