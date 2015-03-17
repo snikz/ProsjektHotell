@@ -55,7 +55,8 @@ namespace HotellDesktop
                                             note = j == null ? string.Empty : j.note,
                                             stringStatus = j.status== 0 ? "New" : j.status==1 ? "In progress" : j.status == 2? "Finished" : "",
                                             intStatus = j == null ? 0 : (j.status),
-                                            serviceId = j == null ? -1 : j.id
+                                            serviceId = j == null ? -1 : j.id,
+                                            stringType = j.type == 0 ? "Cleaning" : j.type == 1 ? "Maintenance" : j.type == 2 ? "Service" : "", 
                                         });
 
                 listView.DataContext = roomsWithService;
@@ -112,7 +113,7 @@ namespace HotellDesktop
         private void deleteNoteButton_Click(object sender, RoutedEventArgs e)
         {
             roomListViewClass selectedRoom = (roomListViewClass)listView.SelectedItem;
-            if (selectedRoom != null && selectedRoom.serviceId != 0)
+            if (selectedRoom != null && selectedRoom.serviceId != -1)
             {
                 desktopController.deleteService(selectedRoom.serviceId);
                 onChanged();
@@ -143,6 +144,8 @@ namespace HotellDesktop
         public int intStatus { get; set; }
         public string note { get; set; }
         public int serviceId { get; set; }
+
+        public string stringType { get; set; }
 
     }
 
