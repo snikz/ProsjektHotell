@@ -4,33 +4,27 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace HotellWebMvc.ViewModels
 {
     /// <summary>
-    /// This class will prepare the different lists for the booking-view,
-    /// the controller will then populate these lists and return it to the view
+    /// We prepare a booking-list for the view, and prepare some data that the user will 
+    /// fill in. Then we can have the controller populate the list and handle the data later.
     /// </summary>
 
     public class BookingIndex
     {
         public IEnumerable<Booking> Bookings { get; set; }
-        public IEnumerable<Room> Rooms { get; set; }
-    }
+        public Room SelectedRoom { get; set; }
 
-
-    // IKKE LINKET OPP MED CONTROLLER OG VIEW SKIKKELIG ENDA
-    public class Book
-    {
-        // allerede satt requried i html'en
-        [Required]
+        
         public DateTime checkIn { get; set; }
-
-        [Required]
         public DateTime checkOut { get; set; }
 
-        public int roomQuality { get; set; }
-        public int numberBeds { get; set; }
-    }
+        public int quality { get; set; }
+        public int beds { get; set; }
 
+        public bool matchesSearch { get; set; }
+    }
 }

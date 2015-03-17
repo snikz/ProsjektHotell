@@ -2,7 +2,6 @@
 using System.Data.Linq;
 using System.Linq;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace HotellDesktop
 {
@@ -30,7 +29,7 @@ namespace HotellDesktop
         {
 
             Table<HotellDLL.Room> roomTable = desktopController.getRoom(); // all rooms
-            Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking(); // all bookings
+            Table<HotellDLL.Booking> allBookings = desktopController.getBooking(); // all bookings
 
             //if a date has not been selected, set to todays date
             if (datePicker.SelectedDate == null)
@@ -39,27 +38,29 @@ namespace HotellDesktop
             }
 
             //all bookings that are ongoing on todays date
-            var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
+            var bookingsToday = allBookings.Where(book => book.checkInDate <= datePicker.SelectedDate 
+                && book.checkOutDate >= datePicker.SelectedDate);
 
-            //all rooms and match with todays bookings
+            
             if (roomTable != null)
             {
-                var roomsAndReservations =
+                //all rooms and match with todays bookings
+                var roomsAndTodaysReservations =
                     from rooms in roomTable
-                    join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
-                    from book in roomsAndRes.DefaultIfEmpty() // return default if empty
+                    join bookings in bookingsToday on rooms.roomId equals bookings.roomId into roomsAndRes
+                    from roomBook in roomsAndRes.DefaultIfEmpty() // return default if empty
                     select new listViewClass()
                     {
                         roomId = rooms.roomId,
-                        firstName = book.Guest.firstName,
-                        lastName = book.Guest.lastName,
-                        checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-                        checkedInString = book.checkedIn == null ? "" : book.checkedIn == false ? "No" : "Yes",
+                        firstName = roomBook.Guest.firstName,
+                        lastName = roomBook.Guest.lastName,
+                        checkedIn = (roomBook.checkedIn == null ? false : roomBook.checkedIn),
+                        checkedInString = roomBook.checkedIn == null ? "" : roomBook.checkedIn == false ? "No" : "Yes",
                         notes = (rooms.Services.First().note != null ? "!" : ""),
-                        bookingId = (book.bookingId == null ?  -1: book.bookingId), //-1 will never occur in database, and therefor sat as default
+                        bookingId = (roomBook.bookingId == null ?  -1: roomBook.bookingId), //-1 will never occur in database, and therefor sat as default
                     };
 
-                roomListView.DataContext = roomsAndReservations;
+                roomListView.DataContext = roomsAndTodaysReservations;
             }
 
         }
@@ -115,7 +116,7 @@ namespace HotellDesktop
                 {
 
                     Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-                    Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
+                    Table<HotellDLL.Booking> bookings = desktopController.getBooking();
 
                     if (datePicker.SelectedDate == null)
                     {
@@ -139,7 +140,7 @@ namespace HotellDesktop
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
                                 
                                 notes = (rooms.Services.First().note != null ? "!" : ""),
-                                bookingId = (book.bookingId == null ? 0 : book.bookingId),
+                                bookingId = (book.bookingId == null ? -1 : book.bookingId),
                             };
 
                         roomListView.DataContext = roomsAndReservations;
@@ -150,7 +151,7 @@ namespace HotellDesktop
                 else //search for room number
                 {
                     Table<HotellDLL.Room> roomTable = desktopController.getRoom();
-                    Table<HotellDLL.Booking> bookings = (Table<HotellDLL.Booking>)desktopController.getBooking();
+                    Table<HotellDLL.Booking> bookings = desktopController.getBooking();
 
                     if (datePicker.SelectedDate == null)
                     {
@@ -173,7 +174,7 @@ namespace HotellDesktop
                                 lastName = book.Guest.lastName,
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
                                 notes = (rooms.Services.First().note != null ? "!" : ""),
-                                bookingId = (book.bookingId == null ? 0 : book.bookingId),
+                                bookingId = (book.bookingId == null ? -1 : book.bookingId),
                             };
 
                         roomListView.DataContext = roomsAndReservations;

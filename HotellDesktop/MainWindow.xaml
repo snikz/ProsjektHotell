@@ -12,8 +12,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"  />
             <RowDefinition Height="*" />
-
-
         </Grid.RowDefinitions>
         <TextBox x:Name="searchBox" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Search lastname" VerticalAlignment="Top" GotFocus="searchBox_GotFocus" Margin="68,108,0,0" Width="128"  />
         <Button x:Name="searchButton" Grid.Column="1" Content="Search in reservations" HorizontalAlignment="Left" VerticalAlignment="Top"  Click="searchButton_Click" Margin="68,182,0,0" Width="128" />

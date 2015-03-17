@@ -1,7 +1,6 @@
 ﻿@model HotellWebMvc.ViewModels.BookingIndex
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,32 +14,33 @@
 
     <h4>Make reservation</h4>
 
-    <form action="">
+    <form method="get" action="Booking">
 
         <label>From:</label>
-        <input type="date" name="checkin" required />
+        <input type="date" name="checkIn" required />
 
         <label>To:</label>
-        <input type="date" name="checkout" required />
+        <input type="date" name="checkOut" required />
+
+        <p></p>
 
         <label>Room quality</label>
         <select name="quality">
-            <option value="quality1">1</option>
-            <option value="quality2">2</option>
-            <option value="quality3">3</option>
-            <option value="quality4">4</option>
-            <option value="quality5">5</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
         </select>
 
         <label>Number of beds</label>
         <select name="beds">
-            <option value="beds1">1</option>
-            <option value="beds2">2</option>
-            <option value="beds3">3</option>
-            <option value="beds4">4</option>
-            <option value="beds5">5</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
         </select>
-
         <button class="btn btn-info" type="submit">Check availability</button>
     </form>
 </div>
@@ -48,14 +48,15 @@
 
 <!-- List selected rooms -->
 
-<!-- legge til ny liste i viewmodel.booking, hente, og sette verdier via controller? -->
+<div class="col-md-12 bookingResultList">
+    @Html.Partial("Booking")
+</div>
 
 
 
+<!-- List previously booked rooms if any exists -->
 
-<!-- List booked rooms if any exists -->
-
-<div class="col-md-12">
+<div class="col-md-12 listExistingReservations">
     <h3>Reservations</h3>
     @if (Model.Bookings.ToList().Count > 0)
     {
