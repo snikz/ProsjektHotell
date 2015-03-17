@@ -42,7 +42,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.ColumnSpan="3" x:Name="TitlePanel  " Grid.Row="0">
+        <StackPanel Grid.ColumnSpan="3" x:Name="TitlePanel" Grid.Row="0">
             <TextBlock Text="Hotel Service" Style="{StaticResource PhoneTextNormalStyle}" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Segoe UI Semilight"/>
             <TextBlock Text="Choose a Category" FontSize="48" HorizontalAlignment="Center"/>
         </StackPanel>

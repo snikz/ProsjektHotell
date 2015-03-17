@@ -6,11 +6,11 @@
         <ListView x:Name="GridReservasjoner" ItemsSource="{Binding}"  Margin="10,10,140,140">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=roomId}" Header="Room"/>
-                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=lastName}" Header="Lastname" />
-                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=firstName}" Header="Firstname" />
-                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=checkInDate}" Header="Check in"/>
-                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding Path=checkOutDate}" Header="Check out"/>
+                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Path=roomId}" Header="Room"/>
+                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Path=lastName}" Header="Lastname" />
+                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Path=firstName}" Header="Firstname" />
+                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Path=checkInDate}" Header="Check in"/>
+                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Path=checkOutDate}" Header="Check out"/>
                 </GridView>
             </ListView.View>
         </ListView>

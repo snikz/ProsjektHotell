@@ -10,7 +10,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*"  />
             <RowDefinition Height="*" />
 
 
@@ -22,7 +22,7 @@
         <Button x:Name="todayDateButton" Grid.Column="1" Content="Date today" HorizontalAlignment="left"  VerticalAlignment="Top"  Click="todayDateButton_Click" Margin="10,39,0,0" Width="186" />
         <Button x:Name="checkInButton" Content="Check in" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="checkInButton_Click" Margin="451,10,0,0" />
         <Button x:Name="checkOutButton" Content="Check out" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="checkOutButton_Click" Margin="531,10,0,0" />
-        <ListView x:Name="roomListView"   Grid.Column="0" Grid.Row="0" ItemsSource="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top" MouseDoubleClick="listView_MouseDoubleClick" Height="268" Width="606" >
+        <ListView x:Name="roomListView"   Grid.Column="0" Grid.Row="0" ItemsSource="{Binding}" HorizontalAlignment="Stretch" VerticalAlignment="Top"  MouseDoubleClick="listView_MouseDoubleClick" Height="auto" Width="auto"  >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room number" Width="auto" DisplayMemberBinding="{Binding Path=roomId}"/>

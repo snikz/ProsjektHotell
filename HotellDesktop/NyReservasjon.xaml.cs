@@ -5,9 +5,6 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using HotellDesktop;
-using System.Windows.Controls.Primitives;
-using System.Windows.Media;
 
 namespace HotellDesktop
 {
@@ -47,8 +44,6 @@ namespace HotellDesktop
         /// </summary>
         public NyReservasjon()
         {
-            checkIn = null;
-            checkOut = null;
             InitializeComponent();
             controller = new DesktopController();
             for (int i = 1; i <= 5; i++)
@@ -58,13 +53,19 @@ namespace HotellDesktop
             }
             Quality.SelectedIndex = 0;
             Bed.SelectedIndex = 0;
+
+            checkOutDate.SelectedDate = checkOutDate.DisplayDate;
+            checkInDate.SelectedDate = checkInDate.DisplayDate;
+            checkIn = checkInDate.SelectedDate;
+            checkOut = checkOutDate.SelectedDate;
+            
         }
         /// <summary>
         /// If date is changed, clear roomlist(maybe autoupdate?), and set's selected date.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void checkIn_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             RoomView.Items.Clear();
             var picker = sender as DatePicker;
@@ -79,7 +80,7 @@ namespace HotellDesktop
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void DatePicker_SelectedDateChanged_1(object sender, SelectionChangedEventArgs e)
+        private void checkOut_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             RoomView.Items.Clear();
             var picker = sender as DatePicker;
