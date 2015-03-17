@@ -20,55 +20,58 @@ namespace HotellWebMvc.Controllers
                 .Where(x => x.Guest.email == User.Identity.Name)
                 .ToList();
 
-            //// hvis ikke brukeren har valgt formdata / første gang brukeren ser forsiden
-            //if (form.checkIn == null || form.checkOut == null)
-            //{
-            //    return View(new BookingIndex
-            //        {
-            //            Bookings = bookingsForUser,
-            //            SelectedRoom = null
-            //        });
-            //}
-            //else
-            //{
-            Room tempRoom = dc.Rooms
-                .Where(room => room.bed == form.beds
-                    && room.quality == form.quality)
-                    .FirstOrDefault();
-            // insert full logikk for å vise treff matchene søk på dato
-
-
-            // Hvis det eksisterer et rom som treffer søk
-            if (tempRoom != null)
+            // hvis ikke brukeren har valgt formdata / første gang brukeren ser forsiden
+            if (form.checkIn == DateTime.MinValue || form.checkOut == DateTime.MinValue)
             {
-                Booking b = new Booking();
-                b.checkInDate = form.checkIn;
-                b.checkOutDate = form.checkOut;
-                b.Guest = dc.Guests.Where(x => x.email.Equals(User.Identity.Name)).FirstOrDefault();
-
-                if (b.Guest == null)
-                    return HttpNotFound();
-
-                b.Room = tempRoom;
-
-                Session["datacontext"] = dc;
-                Session["booking"] = b;
-
-
                 return View(new BookingIndex
-                {
-                    Bookings = bookingsForUser,
-                    SelectedRoom = b.Room,
-                    matchesSearch = true
-                });
+                    {
+                        Bookings = bookingsForUser,
+                        SelectedRoom = null
+                    });
             }
             else
-                return View(new BookingIndex
+            {
+
+                // logikk for å vise treff matchene søk på dato
+                var viewObject = dc.Rooms.Select(room => new { bed = room.bed, roomId = room.roomId, Bookings = room.Bookings, price = room.price, quality = room.quality })
+                    .Where(room => room.Bookings.First() == null || room.Bookings.Any(booking => (form.checkIn > booking.checkOutDate) || (form.checkOut < booking.checkInDate)))
+                    .Where(room => room.quality == form.quality)
+                    .Where(room => room.bed == form.beds).FirstOrDefault();
+
+                // Hvis vi finner et matchene rom til søk
+                if (viewObject != null)
                 {
-                    Bookings = bookingsForUser,
-                    SelectedRoom = null,
-                    matchesSearch = false
-                });
+                    Room tempRoom = dc.Rooms.Where(x => x.roomId == viewObject.roomId).First();
+
+                    Booking b = new Booking();
+                    b.checkInDate = form.checkIn;
+                    b.checkOutDate = form.checkOut;
+                    b.Guest = dc.Guests.Where(x => x.email.Equals(User.Identity.Name)).FirstOrDefault();
+
+                    if (b.Guest == null)
+                        return HttpNotFound();
+
+                    b.Room = tempRoom;
+
+                    Session["datacontext"] = dc;
+                    Session["booking"] = b;
+
+
+                    return View(new BookingIndex
+                    {
+                        Bookings = bookingsForUser,
+                        SelectedRoom = b.Room,
+                        matchesSearch = true
+                    });
+                }
+                else
+                    return View(new BookingIndex
+                    {
+                        Bookings = bookingsForUser,
+                        SelectedRoom = null,
+                        matchesSearch = false
+                    });
+            }
         }
 
         // POST: Booking
