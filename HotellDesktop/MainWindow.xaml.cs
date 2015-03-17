@@ -166,7 +166,7 @@ namespace HotellDesktop
                             from rooms in roomTable
                             join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
                             from book in roomsAndRes.DefaultIfEmpty()
-                            where rooms.roomId.ToString().Equals(searchBox.Text)
+                            where rooms.roomId.ToString().Equals(searchBox.Text.ToString())
                             select new listViewClass()
                             {
                                 roomId = rooms.roomId,
