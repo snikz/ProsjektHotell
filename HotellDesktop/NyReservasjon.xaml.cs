@@ -143,7 +143,8 @@ namespace HotellDesktop
             }
         }
         /// <summary>
-        /// Creates new reservation in database from given data.
+        /// Creates new reservation in database from given data, and sends an event to 
+        /// Reservasjon so it can get new data from controller.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -323,8 +324,5 @@ namespace HotellDesktop
         {
             this.Close();
         }
-
-
-
     }
 }
