@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Window1" Height="359.701" Width="455" MinHeight="360" MinWidth="460">
-    <Grid>
+    <Grid Width="Auto" Height="Auto">
+        
         <RadioButton x:Name="New" GroupName="NewUsed" Content="New User" Margin="10,5,0,0" Checked="New_Checked" IsChecked="True" />
         <RadioButton x:Name="Old" GroupName="NewUsed" Content="Current user" Margin="180,5,0,0" Checked="Old_Checked" />
         <ListView x:Name="userList" ItemsSource="{Binding}"  Margin="180,20,10, 200"  IsEnabled="False">
@@ -17,7 +18,6 @@
         <TextBox x:Name="firstName" HorizontalAlignment="Left" Height="23" Margin="10,20,0,0" TextWrapping="Wrap" Text="Firstname" VerticalAlignment="Top" Width="120" GotFocus="firstName_Focus" LostFocus="firstName_LostFocus"/>
         <TextBox x:Name="lastName"  HorizontalAlignment="Left" Height="23" Margin="10,48,0,0" TextWrapping="Wrap" Text="Lastname" VerticalAlignment="Top" Width="120" GotFocus="lastName_Focus" LostFocus="lastName_LostFocus"/>
         <TextBox x:Name="ePost" HorizontalAlignment="Left" Height="23" Margin="10,76,0,0" TextWrapping="Wrap" Text="Epost" VerticalAlignment="Top" Width="120" GotFocus="ePost_Focus" LostFocus="ePost_LostFocus"/>
-        <TextBox x:Name="password" HorizontalAlignment="Left" Height="23" Margin="10,104,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="120" GotFocus="Password_Focus" LostFocus="password_LostFocus"/>
         <ListView x:Name="RoomView" VerticalAlignment="Bottom" ItemsSource="{Binding}" Height="120"  Margin="10, 0, 10, 35">
             <ListView.View>
                 <GridView>

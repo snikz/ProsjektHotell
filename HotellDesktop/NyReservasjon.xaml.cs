@@ -163,7 +163,7 @@ namespace HotellDesktop
                         newGuest.firstName = firstName.Text;
                         newGuest.lastName = lastName.Text;
                         newGuest.email = ePost.Text;
-                        newGuest.password = password.Text;
+                        newGuest.password = ePost.Text;
                         controller.addUser(newGuest);
 
                         DateTime sendIn = (DateTime)checkIn;
@@ -250,15 +250,6 @@ namespace HotellDesktop
             ePost.Text = "";
         }
         /// <summary>
-        /// Clears textbox when got focus.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Password_Focus(object sender, RoutedEventArgs e)
-        {
-            password.Text = "";
-        }
-        /// <summary>
         /// If textbox is empty when lost focus. Default back to original text.
         /// </summary>
         /// <param name="sender"></param>
@@ -289,16 +280,6 @@ namespace HotellDesktop
                 ePost.Text = "Epost";
         }
         /// <summary>
-        /// If textbox is empty when lost focus. Default back to original text.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void password_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (password.Text == "")
-                password.Text = "Password";
-        }
-        /// <summary>
         /// Enables/disable fields for creating new user.
         /// </summary>
         /// <param name="sender"></param>
@@ -310,7 +291,6 @@ namespace HotellDesktop
                 firstName.IsEnabled = true;
                 lastName.IsEnabled = true;
                 ePost.IsEnabled = true;
-                password.IsEnabled = true;
                 userList.IsEnabled = false;
             }
             catch (NullReferenceException e1)
@@ -333,7 +313,6 @@ namespace HotellDesktop
                 firstName.IsEnabled = false;
                 lastName.IsEnabled = false;
                 ePost.IsEnabled = false;
-                password.IsEnabled = false;
                 userList.IsEnabled = true;
             }
             catch (NullReferenceException e1)

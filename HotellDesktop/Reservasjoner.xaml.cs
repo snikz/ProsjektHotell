@@ -46,10 +46,12 @@ namespace HotellDesktop
                 Table<HotellDLL.Booking> bookingList = controller.getBooking();
                 Table<HotellDLL.Guest> guestList = controller.getGuest();
                 var viewData = bookingList.Select(bookings
-                    => new { bookings.checkedOut, bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
+                    => new { bookings.checkedOut, bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, 
+                        bookings.checkOutDate })
                     .Where(bookings => bookings.checkedOut == false)
                     .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
-                        => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName })
+                        => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, 
+                            checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName })
                         .OrderBy(booking => booking.roomId);
 
                 GridReservasjoner.DataContext = viewData;
@@ -77,7 +79,7 @@ namespace HotellDesktop
         {
             NyReservasjon ny = new NyReservasjon();
             ny.evl += new DoWhenTick(updateRequired);
-            ny.Show();
+            ny.ShowDialog();
         }
         /// <summary>
         /// Delete order from database.
@@ -116,8 +118,10 @@ namespace HotellDesktop
                 newBooking = controller.getBooking().Where(order => order.bookingId == change.bookingId).FirstOrDefault();
                 DateTime checkIn = newBooking.checkInDate;
                 DateTime checkOut = newBooking.checkOutDate;
-                var viewObject = controller.getRoom().Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, Bookings = room.Bookings, price = room.price, quality = room.quality })
-                    .Where(room => room.Bookings.First() == null  || room.Bookings.Any(booking => (checkIn > booking.checkOutDate) || (checkOut < booking.checkInDate)))
+                var viewObject = controller.getRoom().Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, 
+                    Bookings = room.Bookings, price = room.price, quality = room.quality })
+                    .Where(room => room.Bookings.First() == null  || room.Bookings.Any(booking => (checkIn > booking.checkOutDate) || 
+                        (checkOut < booking.checkInDate)))
                     .Where(room => room.quality == newBooking.Room.quality)
                     .Where(room => room.bed == newBooking.Room.bed)
                     .Where(room => room.roomId != newBooking.roomId).OrderBy(room => room.roomId);
