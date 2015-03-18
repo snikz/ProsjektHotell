@@ -135,7 +135,6 @@ namespace HotellDesktop
                 }
                 catch (InvalidOperationException e1)
                 {
-                    Debug.Print("NyReservasjon.FindRoom_Clicked " + e1);
                     MessageBoxResult noRooms = MessageBox.Show("No rooms found!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
@@ -182,7 +181,6 @@ namespace HotellDesktop
                     }
                     catch (ArgumentOutOfRangeException e1)
                     {
-                        Debug.Print("NyReservasjon.NewReservation_Clicked " + e1);
                         MessageBoxResult error = MessageBox.Show("Please choose user or create a new one.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                 }
@@ -209,14 +207,12 @@ namespace HotellDesktop
                     }
                     catch (ArgumentOutOfRangeException e1)
                     {
-                        Debug.Print("NyReservasjon.NewReservation_Clicked " + e1);
                         MessageBoxResult error = MessageBox.Show("Please choose user or create a new one.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                 }
             }
             catch (ArgumentOutOfRangeException e1)
             {
-                Debug.Print("NyReservasjon.NewReservation_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("Please choose a room!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
 
@@ -295,7 +291,6 @@ namespace HotellDesktop
             }
             catch (NullReferenceException e1)
             {
-                Debug.Print("NyReservasjon.New_Checked " + e1);
             }
         }
         /// <summary>
@@ -317,7 +312,6 @@ namespace HotellDesktop
             }
             catch (NullReferenceException e1)
             {
-                Debug.Print("NyReservasjon.Old_Checked " + e1);
             }
 
         }

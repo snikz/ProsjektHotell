@@ -58,11 +58,9 @@ namespace HotellDesktop
             }
             catch (NullReferenceException e1)
             {
-                Debug.Print("Reservasjoner.init " + e1);
             }
             catch (ArgumentNullException e1)
             {
-                Debug.Print("Reservasjoner.init " + e1);
             }
             GridChangeRoom.Visibility = Visibility.Hidden;
             okButton.Visibility = Visibility.Hidden;
@@ -99,7 +97,6 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
-                Debug.Print("Reservasjoner.delete_Clicked " + e1);
             }
         }
         /// <summary>
@@ -132,7 +129,6 @@ namespace HotellDesktop
             catch (ArgumentOutOfRangeException e1)
             {
                 MessageBoxResult error = MessageBox.Show("Please select a booking first!", "Error");
-                Debug.Print("Reservasjoner.chRoom " + e1);
             }
         }
         /// <summary>
@@ -159,7 +155,6 @@ namespace HotellDesktop
             }
             catch (ArgumentOutOfRangeException e1)
             {
-                Debug.Print("Reservasjoner.ChangeRoom_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("No room selected.\nPress cancel or select a room!", "Error");
             }
         }
@@ -197,7 +192,6 @@ namespace HotellDesktop
                     GridReservasjoner.DataContext = viewData;
                 }
             }catch(Exception e1){
-                Debug.Print("Reservasjoner.Search_Clicked " + e1);
                 MessageBoxResult error = MessageBox.Show("Error searching. Please enter room number!", "Error");
             }
         }
