@@ -65,10 +65,8 @@ namespace HotellDesktop
                 Debug.Print("Reservasjoner.init " + e1);
             }
             GridChangeRoom.Visibility = Visibility.Hidden;
-            GridReservasjoner.Margin = new Thickness(10,10,140,10);
             okButton.Visibility = Visibility.Hidden;
             cancelButton.Visibility = Visibility.Hidden;
-            borderBottom.Visibility = Visibility.Hidden;
         }
         /// <summary>
         /// Open new WPF window for new reservation, and creates an event to updateRequired function.
@@ -121,17 +119,15 @@ namespace HotellDesktop
                 var viewObject = controller.getRoom().Select(room => new selectedRoom() { bed = room.bed, roomId = room.roomId, 
                     Bookings = room.Bookings, price = room.price, quality = room.quality })
                     .Where(room => room.Bookings.First() == null  || room.Bookings.Any(booking => (checkIn > booking.checkOutDate) || 
-                        (checkOut < booking.checkInDate)))
+                        (checkOut < booking.checkInDate) ))
                     .Where(room => room.quality == newBooking.Room.quality)
                     .Where(room => room.bed == newBooking.Room.bed)
                     .Where(room => room.roomId != newBooking.roomId).OrderBy(room => room.roomId);
                 GridChangeRoom.DataContext = viewObject;
 
-                GridReservasjoner.Margin = new Thickness(10, 10, 140, 140);
                 okButton.Visibility = Visibility.Visible;
                 cancelButton.Visibility = Visibility.Visible;
                 GridChangeRoom.Visibility = Visibility.Visible;
-                borderBottom.Visibility = Visibility.Visible;
             }
             catch (ArgumentOutOfRangeException e1)
             {
