@@ -2,7 +2,6 @@
 using System.Data.Linq;
 using System.Linq;
 using System.Windows;
-using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Documents;
 

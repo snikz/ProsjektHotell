@@ -2,7 +2,6 @@
 using System.Data.Linq;
 using System.Windows;
 using System.Windows.Documents;
-using System.Diagnostics;
 using System;
 
 namespace HotellDesktop
