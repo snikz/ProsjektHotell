@@ -181,7 +181,7 @@ namespace HotellDesktop
         {
 
             HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
-            database.Bookings.DeleteOnSubmit(booking);
+            booking.checkedOut = true;
             database.SubmitChanges();
 
         }

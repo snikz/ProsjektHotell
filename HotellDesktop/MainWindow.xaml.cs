@@ -39,7 +39,7 @@ namespace HotellDesktop
 
             //all bookings that are ongoing on todays date
             var bookingsToday = allBookings.Where(book => book.checkInDate <= datePicker.SelectedDate 
-                && book.checkOutDate >= datePicker.SelectedDate);
+                && book.checkOutDate >= datePicker.SelectedDate && book.checkedOut != true);
 
             
             if (roomTable != null)
