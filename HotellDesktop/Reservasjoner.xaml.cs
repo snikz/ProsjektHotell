@@ -15,8 +15,8 @@ namespace HotellDesktop
         public int roomId { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public DateTime checkInDate { get; set; }
-        public DateTime checkOutDate { get; set; }
+        public String checkInDate { get; set; }
+        public String checkOutDate { get; set; }
     }
     /// <summary>
     /// Interaction logic for Reservasjoner.xaml
@@ -49,8 +49,8 @@ namespace HotellDesktop
                         bookings.checkOutDate })
                     .Where(bookings => bookings.checkedOut == false)
                     .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
-                        => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, 
-                            checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName })
+                        => new Reservations{ bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate.ToShortDateString(), 
+                            checkOutDate = bookings.checkOutDate.ToShortDateString(), firstName = guests.firstName, lastName = guests.lastName })
                         .OrderBy(booking => booking.roomId);
 
                 GridReservasjoner.DataContext = viewData;
@@ -86,7 +86,7 @@ namespace HotellDesktop
             try
             {
                 Reservations delete = (Reservations)GridReservasjoner.SelectedItems[0];
-                string deleteString = "Do you want to delete this?\n" + delete.checkInDate.ToShortDateString() + "->" + delete.checkOutDate.ToShortDateString() + "\nName: " + delete.firstName + " " + delete.lastName + "\nRoom: " + delete.roomId;
+                string deleteString = "Do you want to delete this?\n" + delete.checkInDate + "->" + delete.checkOutDate + "\nName: " + delete.firstName + " " + delete.lastName + "\nRoom: " + delete.roomId;
                 MessageBoxResult confirm = MessageBox.Show(deleteString, "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 if (confirm == MessageBoxResult.Yes)
                 {
@@ -186,7 +186,7 @@ namespace HotellDesktop
                         => new { bookings.Guest, bookings.bookingId, bookings.guestId, bookings.roomId, bookings.checkInDate, bookings.checkOutDate })
                         .Where(bookings => bookings.Guest.lastName.Contains(SearchField.Text))
                         .Join(guestList, bookings => bookings.guestId, guests => guests.guestId, (bookings, guests)
-                            => new Reservations { bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate, checkOutDate = bookings.checkOutDate, firstName = guests.firstName, lastName = guests.lastName })
+                            => new Reservations { bookingId = bookings.bookingId, roomId = bookings.roomId, checkInDate = bookings.checkInDate.ToShortDateString(), checkOutDate = bookings.checkOutDate.ToShortDateString(), firstName = guests.firstName, lastName = guests.lastName })
                             .OrderBy(booking => booking.roomId);
                     GridReservasjoner.DataContext = viewData;
                 }
