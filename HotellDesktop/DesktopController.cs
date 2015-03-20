@@ -101,7 +101,15 @@ namespace HotellDesktop
             database.Bookings.InsertOnSubmit(newBooking);
             database.SubmitChanges();
         }
-
+        /// <summary>
+        /// Adds a new service in database
+        /// </summary>
+        /// <param name="newService">new service</param>
+        public void addService(HotellDLL.Service newService)
+        {
+            database.Services.InsertOnSubmit(newService);
+            database.SubmitChanges();
+        }
         /// <summary>
         /// Deletes a reservation
         /// </summary>
@@ -112,7 +120,6 @@ namespace HotellDesktop
             database.Bookings.DeleteOnSubmit(delete);
             database.SubmitChanges();
         }
-
         /// <summary>
         /// Changes from one room to another
         /// </summary>
@@ -135,16 +142,6 @@ namespace HotellDesktop
 
             database.Bookings.DeleteOnSubmit(oldBooking);
             database.Bookings.InsertOnSubmit(newBooking);
-            database.SubmitChanges();
-        }
-
-        /// <summary>
-        /// Adds a new service in database
-        /// </summary>
-        /// <param name="newService">new service</param>
-        public void addService(HotellDLL.Service newService)
-        {
-            database.Services.InsertOnSubmit(newService);
             database.SubmitChanges();
         }
 
@@ -172,16 +169,22 @@ namespace HotellDesktop
 
 
         }
-
         /// <summary>
-        /// Method for check out
+        /// Method for check out and adding cleaning service on room.
         /// </summary>
         /// <param name="bookingId">int booking id</param>
         public void checkOut(int bookingId)
         {
-
             HotellDLL.Booking booking = getBooking().Where(book => book.bookingId == bookingId).FirstOrDefault();
             booking.checkedOut = true;
+
+            HotellDLL.Service service = new HotellDLL.Service();
+            service.type = 0;
+            service.roomId = booking.roomId;
+            service.status = 0;
+            service.note = "Auto generated cleaning note";
+            database.Services.InsertOnSubmit(service);
+            
             database.SubmitChanges();
 
         }

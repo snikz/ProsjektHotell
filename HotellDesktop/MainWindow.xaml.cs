@@ -38,10 +38,10 @@ namespace HotellDesktop
             }
 
             //all bookings that are ongoing on todays date
-            var bookingsToday = allBookings.Where(book => book.checkInDate <= datePicker.SelectedDate 
+            var bookingsToday = allBookings.Where(book => book.checkInDate <= datePicker.SelectedDate
                 && book.checkOutDate >= datePicker.SelectedDate && book.checkedOut != true);
 
-            
+
             if (roomTable != null)
             {
                 //all rooms and match with todays bookings
@@ -57,7 +57,7 @@ namespace HotellDesktop
                         checkedIn = (roomBook.checkedIn == null ? false : roomBook.checkedIn),
                         checkedInString = roomBook.checkedIn == null ? "" : roomBook.checkedIn == false ? "No" : "Yes",
                         notes = (rooms.Services.First().note != null ? "!" : ""),
-                        bookingId = (roomBook.bookingId == null ?  -1: roomBook.bookingId), //-1 will never occur in database, and therefor sat as default
+                        bookingId = (roomBook.bookingId == null ? -1 : roomBook.bookingId), //-1 will never occur in database, and therefor sat as default
                     };
 
                 roomListView.DataContext = roomsAndTodaysReservations;
@@ -94,7 +94,7 @@ namespace HotellDesktop
         private void searchBox_GotFocus(object sender, RoutedEventArgs e)
         {
             searchBox.Text = "";
- 
+
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace HotellDesktop
                                 firstName = book.Guest.firstName,
                                 lastName = book.Guest.lastName,
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-                                
+
                                 notes = (rooms.Services.First().note != null ? "!" : ""),
                                 bookingId = (book.bookingId == null ? -1 : book.bookingId),
                             };
@@ -183,7 +183,7 @@ namespace HotellDesktop
                 }
             }
         }
-    
+
         /// <summary>
         /// Calls selectRoom
         /// </summary>
@@ -234,7 +234,7 @@ namespace HotellDesktop
             updateListView();
         }
 
-    
+
         /// <summary>
         /// Occurs when selections in datepicker has changed
         /// </summary>
@@ -253,7 +253,7 @@ namespace HotellDesktop
         private void todayDateButton_Click(object sender, RoutedEventArgs e)
         {
             datePicker.SelectedDate = DateTime.Today;
-            
+
             updateListView();
         }
 
@@ -262,17 +262,17 @@ namespace HotellDesktop
         /// </summary>
         private void searchBoxSetText()
         {
-            
-                if ((bool)radioLastname.IsChecked)
-                {
-                    searchBox.Text = "Search lastname";
-                }
-                else
-                {
-                    searchBox.Text = "Search room number";
-                }
 
-            
+            if ((bool)radioLastname.IsChecked)
+            {
+                searchBox.Text = "Search lastname";
+            }
+            else
+            {
+                searchBox.Text = "Search room number";
+            }
+
+
         }
 
         /// <summary>
@@ -335,18 +335,9 @@ namespace HotellDesktop
                 {
                     if (selectedRoom.checkedIn == true)
                     {
+                        desktopController.checkOut(selectedRoom.bookingId);
 
-                    desktopController.checkOut(selectedRoom.bookingId);
-
-                    HotellDLL.Service service = new HotellDLL.Service();
-                    service.type = 0;
-                    service.roomId = selectedRoom.roomId;
-                    service.status = 0;
-                    service.note = "Auto generated cleaning note";
-
-                    desktopController.addService(service);
-
-                    updateListView();
+                        updateListView();
                     }
                 }
             }

@@ -55,10 +55,10 @@ namespace HotellDesktop
 
                 GridReservasjoner.DataContext = viewData;
             }
-            catch (NullReferenceException e1)
+            catch (NullReferenceException)
             {
             }
-            catch (ArgumentNullException e1)
+            catch (ArgumentNullException)
             {
             }
             GridChangeRoom.Visibility = Visibility.Hidden;
@@ -94,7 +94,7 @@ namespace HotellDesktop
                     init();
                 }
             }
-            catch (ArgumentOutOfRangeException e1)
+            catch (ArgumentOutOfRangeException)
             {
             }
         }
@@ -125,7 +125,7 @@ namespace HotellDesktop
                 cancelButton.Visibility = Visibility.Visible;
                 GridChangeRoom.Visibility = Visibility.Visible;
             }
-            catch (ArgumentOutOfRangeException e1)
+            catch (ArgumentOutOfRangeException )
             {
                 MessageBoxResult error = MessageBox.Show("Please select a booking first!", "Error");
             }
@@ -152,7 +152,7 @@ namespace HotellDesktop
                 controller.changeRoom(change.roomId, newBooking.bookingId);
                 init();
             }
-            catch (ArgumentOutOfRangeException e1)
+            catch (ArgumentOutOfRangeException )
             {
                 MessageBoxResult error = MessageBox.Show("No room selected.\nPress cancel or select a room!", "Error");
             }
@@ -190,7 +190,7 @@ namespace HotellDesktop
                             .OrderBy(booking => booking.roomId);
                     GridReservasjoner.DataContext = viewData;
                 }
-            }catch(Exception e1){
+            }catch(Exception ){
                 MessageBoxResult error = MessageBox.Show("Error searching. Please enter room number!", "Error");
             }
         }

@@ -132,7 +132,7 @@ namespace HotellDesktop
                     RoomView.Items.Clear();
                     RoomView.Items.Add(viewObject);
                 }
-                catch (InvalidOperationException e1)
+                catch (InvalidOperationException)
                 {
                     MessageBoxResult noRooms = MessageBox.Show("No rooms found!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -179,7 +179,7 @@ namespace HotellDesktop
                         evl();
                         this.Close();
                     }
-                    catch (ArgumentOutOfRangeException e1)
+                    catch (ArgumentOutOfRangeException )
                     {
                         MessageBoxResult error = MessageBox.Show("Please choose user or create a new one.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
@@ -205,13 +205,13 @@ namespace HotellDesktop
                         evl();
                         this.Close();
                     }
-                    catch (ArgumentOutOfRangeException e1)
+                    catch (ArgumentOutOfRangeException )
                     {
                         MessageBoxResult error = MessageBox.Show("Please choose user or create a new one.", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                     }
                 }
             }
-            catch (ArgumentOutOfRangeException e1)
+            catch (ArgumentOutOfRangeException )
             {
                 MessageBoxResult error = MessageBox.Show("Please choose a room!", "Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
@@ -289,7 +289,7 @@ namespace HotellDesktop
                 ePost.IsEnabled = true;
                 userList.IsEnabled = false;
             }
-            catch (NullReferenceException e1)
+            catch (NullReferenceException)
             {
             }
         }
@@ -310,7 +310,7 @@ namespace HotellDesktop
                 ePost.IsEnabled = false;
                 userList.IsEnabled = true;
             }
-            catch (NullReferenceException e1)
+            catch (NullReferenceException)
             {
             }
 

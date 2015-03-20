@@ -1,20 +1,23 @@
 ﻿<Window x:Class="HotellDesktop.RoomView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Room View" Height="343" Width="596"
-        MinHeight="330"
-        MinWidth="465"
-        >
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+Title="Room View" Height="343" Width="596"
+MinHeight="330"
+MinWidth="465"
+>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ListView x:Name="listView" ItemsSource="{Binding}" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Height="auto" Width="auto"  Margin="10,10,10,0" VerticalAlignment="Top" >
+        <ListView Margin="5,5,5,5" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="listView" ItemsSource="{Binding}" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room number" Width="auto" DisplayMemberBinding="{Binding Path=roomId}" />
@@ -24,14 +27,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <TextBox x:Name="NoteTextbox" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" Height="auto" Margin="10,10,10,10" TextWrapping="Wrap" Text="Click to add new notes" VerticalAlignment="Top" Width="auto" GotFocus="NoteTextbox_GotFocus"/>
-        <StackPanel HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1" Height="auto" VerticalAlignment="Top" Width="auto" Margin="10,10,0,0">
+        <TextBox Margin="5,5,5,5" ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="NoteTextbox" Grid.Column="0" Grid.Row="2" Grid.RowSpan="5" TextWrapping="Wrap" Text="Click to add new notes" GotFocus="NoteTextbox_GotFocus"/>
+        <StackPanel Margin="5,5,5,5" Grid.Column="1" Grid.Row="3" >
             <RadioButton x:Name="cleaning" Content="Cleaning" IsChecked="True"/>
             <RadioButton x:Name="maintenance" Content="Maintenance"/>
             <RadioButton x:Name="service" Content="Service"/>
         </StackPanel>
-        <Button x:Name="addNoteButton" Grid.Column="1" Grid.Row="1" Content="Add note" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="75" Click="addNoteButton_Click" Margin="10,68,0,0"/>
-        <Button x:Name="deleteNoteButton" Grid.Column="1" Grid.Row="0" Content="Delete note" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Click="deleteNoteButton_Click" Margin="10,10,0,0"/>
+        <Button Margin="5,5,5,5" x:Name="addNoteButton" Grid.Column="1" Grid.Row="4" Content="Add note" Click="addNoteButton_Click" />
+        <Button Margin="5,5,5,5" x:Name="deleteNoteButton" Grid.Column="1" Grid.Row="0" Content="Delete note" Click="deleteNoteButton_Click" />
 
     </Grid>
 </Window>
