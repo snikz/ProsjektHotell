@@ -148,6 +148,7 @@ namespace HotellDesktop
             database.SubmitChanges();
         }
 
+
         /// <summary>
         /// Deletes a service
         /// </summary>
