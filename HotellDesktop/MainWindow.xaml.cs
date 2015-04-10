@@ -125,12 +125,14 @@ namespace HotellDesktop
 
                     var bookingsToday = bookings.Where(book => book.checkInDate <= datePicker.SelectedDate && book.checkOutDate >= datePicker.SelectedDate);
 
+
+                    //inner join
                     if (roomTable != null)
                     {
                         var roomsAndReservations =
                             from rooms in roomTable
                             join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
-                            from book in roomsAndRes.DefaultIfEmpty()
+                            from book in roomsAndRes
                             where book.Guest.lastName.Contains(searchBox.Text.ToLower())
                             select new listViewClass()
                             {
@@ -138,7 +140,7 @@ namespace HotellDesktop
                                 firstName = book.Guest.firstName,
                                 lastName = book.Guest.lastName,
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
-
+                                checkedInString = book.checkedIn == null ? "" : book.checkedIn == false ? "No" : "Yes",
                                 notes = (rooms.Services.First().note != null ? "!" : ""),
                                 bookingId = (book.bookingId == null ? -1 : book.bookingId),
                             };
@@ -162,6 +164,7 @@ namespace HotellDesktop
 
                     if (roomTable != null)
                     {
+                        //outer join, rom skal vise selv om den ikke har booking tilknyttet seg
                         var roomsAndReservations =
                             from rooms in roomTable
                             join booking in bookingsToday on rooms.roomId equals booking.roomId into roomsAndRes
@@ -173,6 +176,7 @@ namespace HotellDesktop
                                 firstName = book.Guest.firstName,
                                 lastName = book.Guest.lastName,
                                 checkedIn = (book.checkedIn == null ? false : book.checkedIn),
+                                checkedInString = book.checkedIn == null ? "" : book.checkedIn == false ? "No" : "Yes",
                                 notes = (rooms.Services.First().note != null ? "!" : ""),
                                 bookingId = (book.bookingId == null ? -1 : book.bookingId),
                             };
@@ -208,14 +212,14 @@ namespace HotellDesktop
                 {
                     int id = selectedItem.roomId;
                     RoomView roomView = new RoomView(id);
-                    roomView.changes += new update(updateRequired);
+                    roomView.changes += updateRequired;
                     roomView.ShowDialog();
                 }
                 else
                 {
 
                     RoomView roomView = new RoomView();
-                    roomView.changes += new update(updateRequired);
+                    roomView.changes += updateRequired;
                     roomView.ShowDialog();
                 }
             }
